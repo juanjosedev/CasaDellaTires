@@ -10,34 +10,31 @@ public class Liquidacion {
 	private ArrayList<Detalle> lista_detalles;
 	private String hora_inicio;
 	private String hora_final;
-	private String fecha;
 	private int subtotal;
 	private int descuento;
 	private int total;
 	
 	public Liquidacion(long consecutivo, Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles,
-			String hora_inicio, String hora_final, String fecha, int subtotal, int descuento, int total) {
+			String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
 		this.consecutivo = consecutivo;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.lista_detalles = lista_detalles;
 		this.hora_inicio = hora_inicio;
 		this.hora_final = hora_final;
-		this.fecha = fecha;
 		this.subtotal = subtotal;
 		this.descuento = descuento;
 		this.total = total;
 	}
 	
 	public Liquidacion(Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles,
-			String hora_inicio, String hora_final, String fecha, int subtotal, int descuento, int total) {
+			String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
 		this.consecutivo = 0;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.lista_detalles = lista_detalles;
 		this.hora_inicio = hora_inicio;
 		this.hora_final = hora_final;
-		this.fecha = fecha;
 		this.subtotal = subtotal;
 		this.descuento = descuento;
 		this.total = total;
@@ -91,14 +88,6 @@ public class Liquidacion {
 		this.hora_final = hora_final;
 	}
 
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
 	public int getSubtotal() {
 		return subtotal;
 	}
@@ -127,7 +116,7 @@ public class Liquidacion {
 	public String toString() {
 		return "Liquidacion [consecutivo=" + consecutivo + ", cliente=" + cliente + ", vehiculo=" + vehiculo
 				+ ", lista_detalles=" + lista_detalles + ", hora_inicio=" + hora_inicio + ", hora_final=" + hora_final
-				+ ", fecha=" + fecha + ", subtotal=" + subtotal + ", descuento=" + descuento + ", total=" + total + "]";
+				+ ", subtotal=" + subtotal + ", descuento=" + descuento + ", total=" + total + "]";
 	}
 
 	

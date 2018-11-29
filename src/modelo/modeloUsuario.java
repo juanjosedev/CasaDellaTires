@@ -3,6 +3,7 @@ package modelo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
 
 import include.Usuario;
 
@@ -51,6 +52,105 @@ public class modeloUsuario extends Conexion{
 		}
 		
 		return u;
+	}
+	
+	//Método sobrecargado getAllOperadores() y getAllOperadores(int page)
+	
+	public ArrayList<Usuario> getAllOperadores(){
+		
+		ArrayList<Usuario> lista_operadores = new ArrayList<>();
+		
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		
+		try {
+			
+			String sql = "SELECT * FROM usuarios WHERE tipo NOT LIKE 'Admin'";
+			objSta = getConnection().prepareStatement(sql);
+			tabla = objSta.executeQuery();
+			
+			while(tabla.next()) {
+				
+				String usuario = tabla.getString("usuario");
+				String nombre = tabla.getString("nombre");
+				String primer_apellido = tabla.getString("primer_apellido");
+				String segundo_apellido = tabla.getString("segundo_apellido");
+				String telefono = tabla.getString("telefono");
+				String direccion = tabla.getString("direccion");
+				String tipo = tabla.getString("tipo");
+				String color = tabla.getString("color");
+				
+				Usuario u = new Usuario(usuario, nombre, primer_apellido, segundo_apellido, telefono, direccion, tipo, color);
+				
+				lista_operadores.add(u);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(objSta != null) {
+					objSta.close();
+				}
+				if(tabla != null) {
+					tabla.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return lista_operadores;
+		
+	}
+	
+	public ArrayList<Usuario> getAllOperadores(int page){
+		
+		ArrayList<Usuario> lista_operadores = new ArrayList<>();
+		
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		
+		try {
+			
+			String sql = "SELECT * FROM usuarios WHERE tipo NOT LIKE 'Admin' LIMIT ?, 10";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setInt(1, (page*10) - 10);
+			tabla = objSta.executeQuery();
+			
+			while(tabla.next()) {
+				String usuario = tabla.getString("usuario");
+				String nombre = tabla.getString("nombre");
+				String primer_apellido = tabla.getString("primer_apellido");
+				String segundo_apellido = tabla.getString("segundo_apellido");
+				String telefono = tabla.getString("telefono");
+				String direccion = tabla.getString("direccion");
+				String tipo = tabla.getString("tipo");
+				String color = tabla.getString("color");
+				
+				Usuario u = new Usuario(usuario, "", nombre, primer_apellido, segundo_apellido, telefono, direccion, tipo, color);
+				
+				lista_operadores.add(u);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(objSta != null) {
+					objSta.close();
+				}
+				if(tabla != null) {
+					tabla.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return lista_operadores;
+		
 	}
 	
 	public boolean registrarOperador(Usuario user) {
@@ -137,10 +237,17 @@ public class modeloUsuario extends Conexion{
     }
 	
 	public static void main(String[] args) {
+
+		//Usuario u = new Usuario("operador", "operador", "María", "Dominguez", "López", "651651", "Sabaneta", "Operador");
+		//System.out.println(mu.registrarOperador(u) ? "Registrado" : "Fallo");
 		
 		modeloUsuario mu = new modeloUsuario();
-		Usuario u = new Usuario("operador", "operador", "María", "Dominguez", "López", "651651", "Sabaneta", "Operador");
-		System.out.println(mu.registrarOperador(u) ? "Registrado" : "Fallo");
+		
+		ArrayList<Usuario> lista_operadores = mu.getAllOperadores(1);
+		
+		for(Usuario u : lista_operadores) {
+			System.out.println(u+"\n");
+		}
 		
 	}
 	

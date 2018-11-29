@@ -22,7 +22,7 @@
 			<li role="presentation"><a href="Servicios.jsp">Servicios <span class="icon-settings pull-right"></span></a></li>
 			<li role="presentation"><a href="Tipo_Vehiculos.jsp">Tipos Vehículos <span class="icon-local_shipping pull-right"></span></a></li>
 			<% if(u.getTipo().equals("Admin")){ %>
-			<li role="presentation"><a href="#">Operadores <span class="icon-group pull-right"></span></a></li>
+			<li role="presentation"><a href="Operadores.jsp">Operadores <span class="icon-group pull-right"></span></a></li>
 			<% } %>
 			<li role="presentation"><a href="#">Cuenta <span class="icon-face pull-right"></span></a></li>
 			<li role="presentation"><a href="../../index.jsp" id="close_log">Cerrar sesión <span class="icon-clear pull-right"></span></a></li>

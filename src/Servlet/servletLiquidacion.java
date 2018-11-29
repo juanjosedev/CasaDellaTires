@@ -67,16 +67,14 @@ public class servletLiquidacion extends HttpServlet {
 			long cedula = Long.parseLong(request.getParameter("cc"));
 			String placa = request.getParameter("placa");
 			String[] servicios = request.getParameterValues("servicio[]");
-			String hora = request.getParameter("hora");
-			boolean sw = cl.agregarNuevaLiquidacion(cedula, placa, servicios, hora);
+			boolean sw = cl.agregarNuevaLiquidacion(cedula, placa, servicios);
 			
 			response.getWriter().print(sw);
 			
 		} else if (request.getParameter("terminar_lqd") != null) {
 			
 			long consecutivo = Long.parseLong(request.getParameter("terminar_lqd"));
-			String hora = request.getParameter("hora");
-			boolean sw = cl.terminarLiquidacion(consecutivo, hora);
+			boolean sw = cl.terminarLiquidacion(consecutivo);
 			
 			response.getWriter().print(sw);
 			

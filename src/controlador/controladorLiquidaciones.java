@@ -27,7 +27,7 @@ public class controladorLiquidaciones{
 		return ml.getLiquidacionesCompletas(page);
 	}
 
-	public boolean agregarNuevaLiquidacion(long cedula, String placa, String[] servicios, String hi) {
+	public boolean agregarNuevaLiquidacion(long cedula, String placa, String[] servicios) {
 		
 		boolean sw = false;
 		
@@ -41,20 +41,19 @@ public class controladorLiquidaciones{
 		Cliente cliente = mc.getCliente(cedula);
 		Vehiculo vehiculo = mv.getVehiculo(placa);
 		ArrayList<Detalle> lista_detalles = ms.getDetalles(id_servicios, consecutivo);
-		String hora_inicio = hi;
 		int subtotal = ml.getSubTotal(lista_detalles);
 		int descuento = ml.getDescuento(lista_detalles);
 		int total = ml.getTotal(lista_detalles);
 
-		Liquidacion nuevaLqd = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, null, null, subtotal, descuento, total);
+		Liquidacion nuevaLqd = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, null, null, subtotal, descuento, total);
 		
 		sw =  ml.agregarNuevaLiquidacion(nuevaLqd);
 		
 		return sw;
 	}
 	
-	public boolean terminarLiquidacion(long consecutivo, String hora) {
-		boolean sw = ml.terminarLiquidacion(consecutivo, hora);
+	public boolean terminarLiquidacion(long consecutivo) {
+		boolean sw = ml.terminarLiquidacion(consecutivo);
 		return sw;
 	}
 	
@@ -68,7 +67,7 @@ public class controladorLiquidaciones{
 		this.mv.cerrarConexion();
 		this.ms.cerrarConexion();
 	}
-	
+	/**
 	public static void main(String[] args) {
 		
 		controladorLiquidaciones cl = new controladorLiquidaciones();
@@ -77,5 +76,6 @@ public class controladorLiquidaciones{
 		System.out.println(sw ? "ÉXITO" : "PAILAS MK");
 		
 	}
+	*/
 	
 }

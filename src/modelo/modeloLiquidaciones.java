@@ -14,17 +14,16 @@ public class modeloLiquidaciones extends Conexion {
 		
 		try {
 			
-			String sql_liquidaciones = "INSERT INTO liquidaciones (consecutivo, cc, placa, hora_inicio, fecha, subtotal, descuento, total) VALUES (?, ?, ?, ?, DATE_FORMAT(NOW(), '%Y-%m-%d'), ?, ?, ?)";
+			String sql_liquidaciones = "INSERT INTO liquidaciones (consecutivo, cc, placa, hora_inicio, subtotal, descuento, total) VALUES (?, ?, ?, NOW(), ?, ?, ?)";
 			//String sql_detalle = "INSERT INTO detalle (consecutivo_liquidaciones, id_servicios, id_tipo_vehiculo_servicios, precio) VALUES (?, ?, ?, ?)";
 			
 			objSta = getConnection().prepareStatement(sql_liquidaciones);
 			objSta.setLong(1, lqd.getConsecutivo());
 			objSta.setLong(2, lqd.getCliente().getCedula());
 			objSta.setString(3, lqd.getVehiculo().getPlaca());
-			objSta.setString(4, lqd.getHora_inicio());
-			objSta.setInt(5, lqd.getSubtotal());
-			objSta.setInt(6, lqd.getDescuento());
-			objSta.setInt(7, lqd.getTotal());
+			objSta.setInt(4, lqd.getSubtotal());
+			objSta.setInt(5, lqd.getDescuento());
+			objSta.setInt(6, lqd.getTotal());
 			
 			sw = objSta.executeUpdate() == 1 ? true : false;
 			
@@ -183,10 +182,10 @@ public class modeloLiquidaciones extends Conexion {
 		
 		try {
 			if(page == -1) {
-				String sql = "SELECT * FROM liquidaciones ORDER BY fecha, hora_inicio ASC";
+				String sql = "SELECT * FROM liquidaciones ORDER BY hora_inicio ASC";
 				objSta = getConnection().prepareStatement(sql);
 			}else {
-				String sql = "SELECT * FROM liquidaciones ORDER BY fecha, hora_inicio ASC LIMIT ?, ?";
+				String sql = "SELECT * FROM liquidaciones ORDER BY hora_inicio ASC LIMIT ?, ?";
 				objSta = getConnection().prepareStatement(sql);
 				objSta.setInt(1, (page*10) - 10);
 				objSta.setInt(2, 10);
@@ -201,13 +200,12 @@ public class modeloLiquidaciones extends Conexion {
 				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
 				String hora_inicio = tabla.getString("hora_inicio");
-				String hora_final = tabla.getString("hora_final");;
-				String fecha = tabla.getString("fecha");;
+				String hora_final = tabla.getString("hora_final");
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
 				
-				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, fecha, subtotal, descuento, total);
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, subtotal, descuento, total);
 				
 				lista.add(l);
 			}
@@ -240,7 +238,7 @@ public class modeloLiquidaciones extends Conexion {
 		
 		try {
 			
-			String sql = "SELECT * FROM liquidaciones WHERE hora_final IS NULL ORDER BY fecha DESC, hora_inicio";
+			String sql = "SELECT * FROM liquidaciones WHERE hora_final IS NULL ORDER BY hora_inicio";
 			objSta = getConnection().prepareStatement(sql);
 			
 			tabla = objSta.executeQuery();
@@ -253,12 +251,11 @@ public class modeloLiquidaciones extends Conexion {
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
 				String hora_inicio = tabla.getString("hora_inicio");
 				String hora_final = tabla.getString("hora_final");;
-				String fecha = tabla.getString("fecha");;
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
 				
-				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, fecha, subtotal, descuento, total);
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, subtotal, descuento, total);
 				
 				lista.add(l);
 			}
@@ -292,7 +289,7 @@ public class modeloLiquidaciones extends Conexion {
 		
 		try {
 			
-			String sql = " SELECT * FROM liquidaciones WHERE hora_final IS NOT NULL ORDER BY fecha DESC, hora_inicio DESC LIMIT ?, ?";
+			String sql = "SELECT * FROM liquidaciones WHERE hora_final IS NOT NULL ORDER BY hora_inicio DESC LIMIT ?, ?";
 			objSta = getConnection().prepareStatement(sql);
 			objSta.setInt(1, (page*10) - 10);
 			objSta.setInt(2, 10);
@@ -306,13 +303,12 @@ public class modeloLiquidaciones extends Conexion {
 				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
 				String hora_inicio = tabla.getString("hora_inicio");
-				String hora_final = tabla.getString("hora_final");;
-				String fecha = tabla.getString("fecha");;
+				String hora_final = tabla.getString("hora_final");
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
 				
-				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, fecha, subtotal, descuento, total);
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, subtotal, descuento, total);
 				
 				lista.add(l);
 			}
@@ -428,7 +424,7 @@ public class modeloLiquidaciones extends Conexion {
 	
 	// SELECT tipos_vehiculos.id, tipos_vehiculos.nombre, servicios.nombre, servicios.precio FROM servicios INNER JOIN tipos_vehiculos ON servicios.id_tipo_vehiculo = tipos_vehiculos.id WHERE tipos_vehiculos.id = ?;
 	
-	public boolean terminarLiquidacion(long consecutivo, String hora) {
+	public boolean terminarLiquidacion(long consecutivo) {
 		
 		boolean sw = false;
 		
@@ -436,10 +432,9 @@ public class modeloLiquidaciones extends Conexion {
 		
 		try {
 			
-			String sql= "UPDATE liquidaciones SET hora_final = ? WHERE consecutivo = ?";
+			String sql= "UPDATE liquidaciones SET hora_final = NOW() WHERE consecutivo = ?";
 			objSta = getConnection().prepareStatement(sql);
-			objSta.setString(1, hora);
-			objSta.setLong(2, consecutivo);
+			objSta.setLong(1, consecutivo);
 			sw = objSta.executeUpdate() == 1;
 			
 		} catch (Exception e) {
@@ -461,7 +456,7 @@ public class modeloLiquidaciones extends Conexion {
 	public static void main(String[] args) {
 		
 		modeloLiquidaciones ml = new modeloLiquidaciones();
-		ArrayList<Liquidacion> lista_lqds = ml.getLiquidacionesPendientes();
+		ArrayList<Liquidacion> lista_lqds = ml.getLiquidacionesCompletas(1);
 		for(Liquidacion l : lista_lqds) {
 			System.out.println(l);
 		}

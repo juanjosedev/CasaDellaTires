@@ -114,6 +114,11 @@ public class Usuario {
 		this.color = color;
 	}
 
+	public String getNombreCompleto() {
+		String nombre_completo = nombre+" "+primer_apellido+" "+segundo_apellido;
+		return nombre_completo;
+	}
+	
 	@Override
 	public String toString() {
 		return "Usuario [usuario=" + usuario + ", clave=" + clave + ", nombre=" + nombre + ", primer_apellido="
