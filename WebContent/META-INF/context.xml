@@ -1,0 +1,8 @@
+<Context>
+	<Resource name="jdbc/Pool" auth="Container" type="javax.sql.DataSource"
+			  maxActive="100" maxIdle="100" maxWait="5000"
+			  username ="root" password=""
+			  driverClassName="com.mysql.jdbc.Driver"
+			  url = "jdbc:mysql://localhost:3306/casadellatires">
+	</Resource>
+</Context>

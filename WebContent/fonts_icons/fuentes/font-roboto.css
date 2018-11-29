@@ -1,0 +1,78 @@
+@font-face {
+
+	font-family: 'RobotoRegular';
+
+    src: url('fonts/RobotoRegular/roboto-regular.eot');
+
+    src: url('fonts/RobotoRegular/roboto-regular.woff') format('woff'),
+
+        url('fonts/RobotoRegular/original-roboto-regular.ttf') format('truetype'),
+
+        url('fonts/RobotoRegular/roboto-regular.svg') format('svg');
+
+    font-weight: normal;
+
+  	font-style: normal;
+
+}
+@font-face{
+	font-family: 'RobotoLight';
+
+    src: url('fonts/RobotoLight/roboto-light.eot');
+
+    src: url('fonts/RobotoLight/roboto-light.woff') format('woff'),
+
+        url('fonts/RobotoLight/original-roboto-light.ttf') format('truetype'),
+
+        url('fonts/RobotoLight/roboto-light.svg') format('svg');
+
+    font-weight: normal;
+
+  	font-style: normal;
+}
+@font-face{
+    font-family: 'RobotoMedium';
+
+    src: url('fonts/RobotoMedium/roboto-medium.eot');
+
+    src: url('fonts/RobotoMedium/roboto-medium.woff') format('woff'),
+
+        url('fonts/RobotoMedium/original-roboto-medium.ttf') format('truetype'),
+
+        url('fonts/RobotoMedium/roboto-medium.svg') format('svg');
+
+    font-weight: normal;
+
+    font-style: normal;
+}
+@font-face{
+    font-family: 'RobotoBold';
+
+    src: url('fonts/RobotoBold/roboto-bold.eot');
+
+    src: url('fonts/RobotoBold/roboto-bold.woff') format('woff'),
+
+        url('fonts/RobotoBold/original-roboto-bold.ttf') format('truetype'),
+
+        url('fonts/RobotoBold/roboto-bold.svg') format('svg');
+
+    font-weight: normal;
+
+    font-style: normal;
+}
+.font-roboto-rg{
+	font-family: RobotoRegular;
+    letter-spacing: 0.3px;
+}
+.font-roboto-lg{
+	font-family: RobotoLight;
+    letter-spacing: 0.3px;
+}
+.font-roboto-md{
+    font-family: RobotoMedium;
+    letter-spacing: 0.3px;
+}
+.font-roboto-bl{
+    font-family: RobotoBold;
+    letter-spacing: 0.3px;
+}
