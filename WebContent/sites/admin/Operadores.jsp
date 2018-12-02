@@ -58,59 +58,58 @@
 										<h3>Datos del operador</h3>
 										<i>Los campos con asterisco (*) son obligatorios</i>
 										<div class="form-group">
-											<input name="cc_agregar" type="text" id="input_cc" class="form-control"
-												placeholder="Cédula de la persona*">
-											<div class="alert alert-danger" id="alert_agregar_cc"
-												role="alert">Rellena este campo</div>
-											<div class="alert alert-danger" id="alert_validacion_cc"
-												role="alert">Unicamente números</div>
+											<input name="usuario" type="text" id="inp_usuario" class="form-control"
+												placeholder="Nombre de usuario*">
+											<div class="alert alert-danger" id="alert_usuario_error"
+												role="alert"><var id="mensaje_usuario_error"></var></div>
 										</div>
 										<div class="form-group">
-											<input name="nombre" type="text" id="input_nombre"
-												class="form-control" placeholder="Nombre*">
-											<div class="alert alert-danger" id="alert_agregar_nombre"
-												role="alert">Rellena este campo</div>
-											<div class="alert alert-danger"
-												id="alert_validacion_nombre" role="alert">Unicamente
-												letras</div>
+											<input name="clave" type="password" id="inp_clave" class="form-control"
+												placeholder="Contraseña*">
+											<div class="alert alert-danger" id="alert_clave_error"
+												role="alert"><var id="mensaje_clave_error"></var></div>
 										</div>
 										<div class="form-group">
-											<input name="primer_apellido" type="text"
-												id="input_primer_apellido" class="form-control"
+											<input name="nombre" type="text" id="inp_nombre" class="form-control"
+												placeholder="Nombre del operador*">
+											<div class="alert alert-danger" id="alert_nombre_error"
+												role="alert"><var id="mensaje_nombre_error"></var></div>
+										</div>
+										<div class="form-group">
+											<input name="primer_apellido" type="text" id="inp_primer_apellido" class="form-control"
 												placeholder="Primer apellido*">
-											<div class="alert alert-danger" id="alert_agregar_apellido"
-												role="alert">Rellena este campo</div>
-											<div class="alert alert-danger"
-												id="alert_validar_apellido" role="alert">Unicamente
-												letras</div>
+											<div class="alert alert-danger" id="alert_primer_apellido_error"
+												role="alert"><var id="mensaje_primer_apellido_error"></var></div>
 										</div>
 										<div class="form-group">
-											<input name="segundo_apellido" type="text"
-												id="input_segundo_apellido" class="form-control"
+											<input name="segundo_apellido" type="text" id="inp_segundo_apellido" class="form-control"
 												placeholder="Segundo apellido">
-											<div class="alert alert-danger"
-												id="alert_validar_segundo_apellido" role="alert">Unicamente
-												letras</div>	
+											<div class="alert alert-danger" id="alert_segundo_apellido_error"
+												role="alert"><var id="mensaje_segundo_apellido_error"></var></div>
 										</div>
 										<div class="form-group">
-											<input name="telefono" type="text" id="input_telefono"
-												class="form-control" placeholder="Teléfono">
+											<input name="telefono" type="text" id="inp_telefono" class="form-control"
+												placeholder="Teléfono">
+											<div class="alert alert-danger" id="alert_telefono_error"
+												role="alert"><var id="mensaje_telefono_error"></var></div>
 										</div>
 										<div class="form-group">
-											<input name="direccion" type="text" id="input_direccion"
-												class="form-control" placeholder="Dirección">
+											<input name="direccion" type="text" id="inp_direccion" class="form-control"
+												placeholder="Dirección*">
+											<div class="alert alert-danger" id="alert_direccion_error"
+												role="alert"><var id="mensaje_direccion_error"></var></div>
 										</div>
 										<div class="alert alert-success" id="alert_agregar_exitoso"
-												role="alert">El cliente se registró correctamente</div>
+												role="alert">El operador se registró correctamente</div>
 										<div class="alert alert-danger" id="alert_agregar_error"
-												role="alert">Cédula ya registrada</div>
+												role="alert">El usuario ya existe</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button"
 											class="boton boton-chico pull-left"
 											data-dismiss="modal">Cerrar</button>
 										<input type="submit" class="boton boton-chico <%= u.getColor() %>"
-											id="submit_nuevo_cliente" name="submit_nuevo_cliente"
+											id="sbt_agregar_operador" name="sbt_agregar_operador"
 											value="Agregar">
 									</div>
 								</form>

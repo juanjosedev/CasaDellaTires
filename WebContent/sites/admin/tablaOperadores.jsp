@@ -73,17 +73,16 @@
 							<div class="modal-header">
 								<h2 class="modal-header-title">MODIFICAR OPERADOR</h2>
 							</div>
-							<form action="" method="post"
-								id="form_registro_cliente" name="form_registro_cliente">
+							<form action="" method="post" name="form_registro_cliente">
 								<div class="modal-body text-left">
 									<h3>Datos del cliente</h3>
 									<div class="form-group">
-										<input name="cc_modificar" type="text" id="cc" class="form-control"
+										<input name="cc_modificar" type="text" class="form-control"
 											placeholder="Cédula de la persona"
 											value="<%=valor.getNombre()%>" readonly="readonly">
 									</div>
 									<div class="form-group">
-										<input name="nombre" type="text" id="input_nombre_modificar"
+										<input name="nombre" type="text"
 											class="form-control" placeholder="Nombre"
 											value="<%=valor.getNombre()%>">
 										<div class="alert alert-danger" id="alert_modificar_nombre"
@@ -93,7 +92,7 @@
 											letras</div>
 									</div>
 									<div class="form-group">
-										<input name="primer_apellido" type="text" id="input_primer_apellido_modificar"
+										<input name="primer_apellido" type="text"
 											class="form-control" placeholder="Primer apellido"
 											value="<%=valor.getPrimer_apellido()%>">
 										<div class="alert alert-danger" id="alert_modificar_apellido"
@@ -104,7 +103,7 @@
 									</div>
 									<div class="form-group">
 										<input name="segundo_apellido" type="text"
-											id="input_segundo_apellido_modificar" class="form-control"
+											 class="form-control"
 											placeholder="Segundo apellido"
 											value="<%=valor.getSegundo_apellido()%>">
 										<div class="alert alert-danger"
@@ -112,12 +111,12 @@
 											letras</div>	
 									</div>
 									<div class="form-group">
-										<input name="telefono" type="text" id="input_telefono_modificar"
+										<input name="telefono" type="text"
 											class="form-control" placeholder="Teléfono"
 											value="<%=valor.getTelefono()%>">
 									</div>
 									<div class="form-group">
-										<input name="direccion" type="text" id="input_direccion_modificar"
+										<input name="direccion" type="text"
 											class="form-control" placeholder="Dirección"
 											value="<%=valor.getDireccion()%>">
 									</div>
@@ -131,8 +130,7 @@
 										class="boton boton-chico pull-left"
 										data-dismiss="modal">Cerrar</button>
 									<input type="submit" class="boton boton-chico <%= u.getColor() %>"
-										id="modificar_cliente" name="modificar_cliente"
-										value="Guardar cambios">
+										name="modificar_cliente" value="Guardar cambios">
 								</div>
 							</form>
 						</div>
