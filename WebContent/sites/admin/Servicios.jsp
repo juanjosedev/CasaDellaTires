@@ -1,17 +1,16 @@
+<%@ page import="java.util.ArrayList, include.*, controlador.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*, modelo.*, include.*, controlador.*"%>
 <%
 	HttpSession sesion = request.getSession(true);
 	Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
-	Usuario u = (Usuario) username;
-	if(u == null){
-		response.sendRedirect("../../index.jsp");
+	if(username == null){
+		response.sendRedirect("http://localhost:8080/CasaDellaTires/");
 	}else{
+		Usuario u = (Usuario) username;
 		if(!u.getTipo().equals("Admin")){
 			response.sendRedirect("../../index.jsp");
-		}
-	}
+		}	
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -131,3 +130,4 @@
 	</div>
 </body>
 </html>
+<% } %>

@@ -18,6 +18,17 @@ public class Usuario {
 	}
 	
 	public Usuario(String usuario, String clave, String nombre, String primer_apellido, String segundo_apellido,
+			String telefono, String direccion) {
+		this.usuario = usuario;
+		this.clave = clave;
+		this.nombre = nombre;
+		this.primer_apellido = primer_apellido;
+		this.segundo_apellido = segundo_apellido;
+		this.telefono = telefono;
+		this.direccion = direccion;
+	}
+	
+	public Usuario(String usuario, String clave, String nombre, String primer_apellido, String segundo_apellido,
 			String telefono, String direccion, String tipo) {
 		this.usuario = usuario;
 		this.clave = clave;

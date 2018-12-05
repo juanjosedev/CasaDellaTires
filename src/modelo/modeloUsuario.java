@@ -54,6 +54,40 @@ public class modeloUsuario extends Conexion{
 		return u;
 	}
 	
+	public boolean usuarioYaExiste(String nombreUsuario) {
+		boolean flag = false;
+		
+		Usuario u = null;
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		
+		try {
+			
+			String sql = "SELECT * FROM usuarios WHERE usuario LIKE ?";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, nombreUsuario);
+			tabla = objSta.executeQuery();
+			
+			if(tabla.absolute(1)) {
+				flag = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (objSta != null)
+					objSta.close();
+				if (tabla != null)
+					tabla.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
+	}
+	
 	//Método sobrecargado getAllOperadores() y getAllOperadores(int page)
 	
 	public ArrayList<Usuario> getAllOperadores(){
@@ -243,11 +277,11 @@ public class modeloUsuario extends Conexion{
 		
 		modeloUsuario mu = new modeloUsuario();
 		
-		ArrayList<Usuario> lista_operadores = mu.getAllOperadores(1);
+		//ArrayList<Usuario> lista_operadores = mu.getAllOperadores(1);
 		
-		for(Usuario u : lista_operadores) {
-			System.out.println(u+"\n");
-		}
+		//for(Usuario u : lista_operadores) {
+			System.out.println(mu.usuarioYaExiste("maria"));
+		//}
 		
 	}
 	
