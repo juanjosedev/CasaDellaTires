@@ -1,7 +1,9 @@
 package modelo;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import include.*;
 
@@ -148,13 +150,13 @@ public class modeloLiquidaciones extends Conexion {
 				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
 				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
-				String hora_inicio = tabla.getString("hora_inicio");
-				String hora_final = tabla.getString("hora_final");
+				Calendar entrada = toCalendar(tabla.getDate("hora_inicio"));
+				Calendar salida = toCalendar(tabla.getDate("hora_final"));
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
 				
-				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, subtotal, descuento, total);
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, salida, subtotal, descuento, total);
 				
 				lista.add(l);
 			}
@@ -198,13 +200,13 @@ public class modeloLiquidaciones extends Conexion {
 				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
 				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
-				String hora_inicio = tabla.getString("hora_inicio");
-				String hora_final = tabla.getString("hora_final");;
+				Calendar entrada = toCalendar(tabla.getDate("hora_inicio"));
+				Calendar salida = toCalendar(tabla.getDate("hora_final"));
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
 				
-				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, subtotal, descuento, total);
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, salida, subtotal, descuento, total);
 				
 				lista.add(l);
 			}
@@ -251,13 +253,18 @@ public class modeloLiquidaciones extends Conexion {
 				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
 				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
-				String hora_inicio = tabla.getString("hora_inicio");
-				String hora_final = tabla.getString("hora_final");
+				
+				
+				String entrada_str = tabla.getString("hora_inicio");
+				String salida_str = tabla.getString("hora_final");
+				
+				Calendar entrada = dateTimeSQLToCalendar(entrada_str);
+				Calendar salida = dateTimeSQLToCalendar(salida_str);
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
 				
-				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, hora_inicio, hora_final, subtotal, descuento, total);
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, salida, subtotal, descuento, total);
 				
 				lista.add(l);
 			}
@@ -402,12 +409,34 @@ public class modeloLiquidaciones extends Conexion {
 		
 	}
 	
+	public Calendar dateTimeSQLToCalendar(String datetime) {
+		// str format: "YYYY-MM-DD HH:MM:SS"
+		//              0123456789012345678
+		Calendar cal = Calendar.getInstance();
+		
+		int year = Integer.parseInt(datetime.substring(0, 4));
+		int mes = Integer.parseInt(datetime.substring(5, 7)) - 1;
+		int dia = Integer.parseInt(datetime.substring(8, 10));
+		int hora = Integer.parseInt(datetime.substring(11, 13));
+		int minutos = Integer.parseInt(datetime.substring(14, 16));
+		
+		cal.set(year, mes, dia, hora, minutos, 0);
+		
+		return cal;
+	}
+	
+	public static Calendar toCalendar(Date date){ 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal;
+	}
+	
 	public static void main(String[] args) {
 		
 		modeloLiquidaciones ml = new modeloLiquidaciones();
 		ArrayList<Liquidacion> lista_lqds = ml.getLiquidacionesCompletas(1);
 		for(Liquidacion l : lista_lqds) {
-			System.out.println(l);
+			System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.getEntrada().getTime()+" - Salida: "+l.getSalida().getTime()+" tardó "+l.diferenciaMinutos()+" minutos\n");
 		}
 		
 	}

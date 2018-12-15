@@ -10,44 +10,32 @@ public class Liquidacion {
 	private Vehiculo vehiculo;
 	private ArrayList<Detalle> lista_detalles;
 	private Calendar entrada;
-	private Calendar salida;
-	
-	private String hora_inicio;
-	private String hora_final;
-	
+	private Calendar salida;	
 	private int subtotal;
 	private int descuento;
 	private int total;
 	
-	public Liquidacion(long consecutivo, Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles, Calendar entrada,
-			Calendar salida, String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
+	public Liquidacion(long consecutivo, Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles, Calendar entrada, Calendar salida,
+			int subtotal, int descuento, int total) {
 		this.consecutivo = consecutivo;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.lista_detalles = lista_detalles;
 		this.entrada = entrada;
 		this.salida = salida;
-		
-		this.hora_inicio = hora_inicio;
-		this.hora_final = hora_final;
-		
 		this.subtotal = subtotal;
 		this.descuento = descuento;
 		this.total = total;
 	}
 	
 	public Liquidacion(Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles, Calendar entrada,
-			Calendar salida, String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
+			Calendar salida, int subtotal, int descuento, int total) {
 		this.consecutivo = 0;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.lista_detalles = lista_detalles;
 		this.entrada = entrada;
 		this.salida = salida;
-		
-		this.hora_inicio = hora_inicio;
-		this.hora_final = hora_final;
-		
 		this.subtotal = subtotal;
 		this.descuento = descuento;
 		this.total = total;
@@ -101,22 +89,6 @@ public class Liquidacion {
 		this.salida = salida;
 	}
 
-	public String getHora_inicio() {
-		return hora_inicio;
-	}
-
-	public void setHora_inicio(String hora_inicio) {
-		this.hora_inicio = hora_inicio;
-	}
-
-	public String getHora_final() {
-		return hora_final;
-	}
-
-	public void setHora_final(String hora_final) {
-		this.hora_final = hora_final;
-	}
-
 	public int getSubtotal() {
 		return subtotal;
 	}
@@ -140,12 +112,73 @@ public class Liquidacion {
 	public void setTotal(int total) {
 		this.total = total;
 	}
+	
+	//////////////////////////////////////////////////////////////////////////
+	
+    public boolean esCompleta() {
+        return salida != null;
+    }
+    
+    public long diferenciaMinutos(){
+        long difMinutos = -1;
+        long milSegundos_e;
+        long milSegundos_s;
+        long difMilisegundos;
+        
+        if (esCompleta()) {
+            milSegundos_e = entrada.getTimeInMillis();
+            milSegundos_s = salida.getTimeInMillis();
+            difMilisegundos = milSegundos_s - milSegundos_e;
+            //System.out.println(difMilisegundos);
+            difMinutos = (Math.abs(difMilisegundos / (60*1000)));   
+        }
+        
+        return difMinutos;
+    }
+    
+    public long diferenciaHoras(){
+        long difHoras = -1;
+        long milSegundos_e;
+        long milSegundos_s;
+        long difMilisegundos;
+        
+        if (esCompleta()) {
+            milSegundos_e = entrada.getTimeInMillis();
+            milSegundos_s = salida.getTimeInMillis();
+            difMilisegundos = milSegundos_s - milSegundos_e;
+            //System.out.println(difMilisegundos);
+            difHoras = (Math.abs(difMilisegundos / (60*60*1000)));   
+        }
+        
+        return difHoras;
+    }
+    
+    public long diferenciaDias(){
+        long difDias = -1;
+        long milSegundos_e;
+        long milSegundos_s;
+        long difMilisegundos;
+        
+        if (esCompleta()) {
+            milSegundos_e = entrada.getTimeInMillis();
+            milSegundos_s = salida.getTimeInMillis();
+            difMilisegundos = milSegundos_s - milSegundos_e;
+            //System.out.println(difMilisegundos);
+            difDias = (Math.abs(difMilisegundos / (24*60*60*1000)));   
+        }
+        
+        return difDias;
+    }
+    
+    public String infoTiempo(){
+        return "Fecha de entrada: "+this.entrada.getTime()+"\nFecha de salida: "+this.salida.getTime()+"\n";
+    }
 
 	@Override
 	public String toString() {
 		return "Liquidacion [consecutivo=" + consecutivo + ", cliente=" + cliente + ", vehiculo=" + vehiculo
 				+ ", lista_detalles=" + lista_detalles + ", entrada=" + entrada + ", salida=" + salida
-				+ ", hora_inicio=" + hora_inicio + ", hora_final=" + hora_final + ", subtotal=" + subtotal
+				+ ", subtotal=" + subtotal
 				+ ", descuento=" + descuento + ", total=" + total + "]";
 	}
 
