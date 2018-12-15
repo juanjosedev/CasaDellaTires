@@ -1,6 +1,7 @@
 package include;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Liquidacion {
 
@@ -8,33 +9,45 @@ public class Liquidacion {
 	private Cliente cliente;
 	private Vehiculo vehiculo;
 	private ArrayList<Detalle> lista_detalles;
+	private Calendar entrada;
+	private Calendar salida;
+	
 	private String hora_inicio;
 	private String hora_final;
+	
 	private int subtotal;
 	private int descuento;
 	private int total;
 	
-	public Liquidacion(long consecutivo, Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles,
-			String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
+	public Liquidacion(long consecutivo, Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles, Calendar entrada,
+			Calendar salida, String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
 		this.consecutivo = consecutivo;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.lista_detalles = lista_detalles;
+		this.entrada = entrada;
+		this.salida = salida;
+		
 		this.hora_inicio = hora_inicio;
 		this.hora_final = hora_final;
+		
 		this.subtotal = subtotal;
 		this.descuento = descuento;
 		this.total = total;
 	}
 	
-	public Liquidacion(Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles,
-			String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
+	public Liquidacion(Cliente cliente, Vehiculo vehiculo, ArrayList<Detalle> lista_detalles, Calendar entrada,
+			Calendar salida, String hora_inicio, String hora_final, int subtotal, int descuento, int total) {
 		this.consecutivo = 0;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.lista_detalles = lista_detalles;
+		this.entrada = entrada;
+		this.salida = salida;
+		
 		this.hora_inicio = hora_inicio;
 		this.hora_final = hora_final;
+		
 		this.subtotal = subtotal;
 		this.descuento = descuento;
 		this.total = total;
@@ -70,6 +83,22 @@ public class Liquidacion {
 
 	public void setLista_detalles(ArrayList<Detalle> lista_detalles) {
 		this.lista_detalles = lista_detalles;
+	}
+
+	public Calendar getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Calendar entrada) {
+		this.entrada = entrada;
+	}
+
+	public Calendar getSalida() {
+		return salida;
+	}
+
+	public void setSalida(Calendar salida) {
+		this.salida = salida;
 	}
 
 	public String getHora_inicio() {
@@ -115,12 +144,9 @@ public class Liquidacion {
 	@Override
 	public String toString() {
 		return "Liquidacion [consecutivo=" + consecutivo + ", cliente=" + cliente + ", vehiculo=" + vehiculo
-				+ ", lista_detalles=" + lista_detalles + ", hora_inicio=" + hora_inicio + ", hora_final=" + hora_final
-				+ ", subtotal=" + subtotal + ", descuento=" + descuento + ", total=" + total + "]";
+				+ ", lista_detalles=" + lista_detalles + ", entrada=" + entrada + ", salida=" + salida
+				+ ", hora_inicio=" + hora_inicio + ", hora_final=" + hora_final + ", subtotal=" + subtotal
+				+ ", descuento=" + descuento + ", total=" + total + "]";
 	}
-
-	
-	
-	
 
 }

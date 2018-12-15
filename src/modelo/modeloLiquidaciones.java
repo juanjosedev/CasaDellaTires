@@ -83,58 +83,7 @@ public class modeloLiquidaciones extends Conexion {
 		
 		return ultimo + 1;
 	}
-	/**
-	public Liquidacion getLiquidacion(long consecutivo) {
-		
-		Liquidacion lqd = null;
-		PreparedStatement objSta = null;
-		ResultSet tabla = null;
-		
-		modeloClientes mc = new modeloClientes();
-		modeloVehiculos mv = new modeloVehiculos();
-		
-		try {
-			
-			String sql = "SELECT * FROM liquidaciones WHERE consecutivo = ?";
-			objSta = getConnection().prepareStatement(sql);
-			objSta.setLong(1, consecutivo);
-			tabla = objSta.executeQuery();
-			
-			while(tabla.next()) {
-				
-				long cstv = tabla.getLong("consecutivo");
-				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
-				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
-				//ArrayList<Detalle> lista_detalles = ;
-				String hora_inicio;
-				String hora_final;
-				String fecha;
-				int subtotal;
-				int descuento;
-				int total;
-				
-				//lqd = new Liquidacion(cstv);
-				
-			}
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (objSta != null) {
-					objSta.close();
-					tabla.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return lqd;
-		
-	}
-	*/
+	
 	public ArrayList<Detalle> getDetalles(long consecutivo) {
 		
 		ArrayList<Detalle> lista_detalles = new ArrayList<>();
