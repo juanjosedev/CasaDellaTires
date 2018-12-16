@@ -45,7 +45,7 @@ public class servletLiquidacion extends HttpServlet {
 			modeloServicios ms = new modeloServicios();
 			String tablaServicios = ms.getTablaServicios(placa_tabla);
 			ms.cerrarConexion();
-			System.out.println(tablaServicios);
+			//System.out.println(tablaServicios);
 			response.getWriter().print(tablaServicios);
 			
 		} else if(request.getParameter("get_info_cliente") != null) {

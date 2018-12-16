@@ -1,7 +1,9 @@
 package include;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class Liquidacion {
 
@@ -113,13 +115,23 @@ public class Liquidacion {
 		this.total = total;
 	}
 	
-	//////////////////////////////////////////////////////////////////////////
-	
-    public boolean esCompleta() {
-        return salida != null;
+	//////////////////////////////////////////////////
+
+	public String infoTiempo(Calendar hora, String formato){
+    	SimpleDateFormat formato_fecha = new SimpleDateFormat(formato, new Locale("es", "ES"));
+    	String fecha = formato_fecha.format(hora.getTime());
+        return fecha;
     }
     
-    public long diferenciaMinutos(){
+    public String formatoDDMMMYYYYHHMM() {
+    	return "d MMM yyyy HH:mm";
+    }
+    
+    public boolean esCompleta() {
+        return this.salida != null;
+    }
+    
+    public long getDiferenciaMinutos(){
         long difMinutos = -1;
         long milSegundos_e;
         long milSegundos_s;
@@ -136,7 +148,7 @@ public class Liquidacion {
         return difMinutos;
     }
     
-    public long diferenciaHoras(){
+    public long getDiferenciaHoras(){
         long difHoras = -1;
         long milSegundos_e;
         long milSegundos_s;
@@ -153,14 +165,14 @@ public class Liquidacion {
         return difHoras;
     }
     
-    public long diferenciaDias(){
+    public long getDiferenciaDias(){
         long difDias = -1;
         long milSegundos_e;
         long milSegundos_s;
         long difMilisegundos;
         
         if (esCompleta()) {
-            milSegundos_e = entrada.getTimeInMillis();
+        	milSegundos_e = entrada.getTimeInMillis();
             milSegundos_s = salida.getTimeInMillis();
             difMilisegundos = milSegundos_s - milSegundos_e;
             //System.out.println(difMilisegundos);
@@ -170,10 +182,31 @@ public class Liquidacion {
         return difDias;
     }
     
-    public String infoTiempo(){
-        return "Fecha de entrada: "+this.entrada.getTime()+"\nFecha de salida: "+this.salida.getTime()+"\n";
-    }
-
+    public String getDuracion() {
+		
+		long minutos = getDiferenciaMinutos();
+		
+		String duracion = "";
+		
+		if (minutos < 60) {
+			duracion = minutos + " minuto(s)";
+		} else if (minutos == 60) {
+			duracion = "1 hora";
+		} else {
+			long horas = minutos / 60;
+			long min_res = minutos % 60;
+			if (horas <= 24) {
+				duracion = horas + " hora(s)"+ (min_res != 0 ? " y "+min_res+ " minuto(s)" : "") ;
+			} else if (horas > 24) {
+				long dias = horas / 24;
+				long hor_res = horas % 24;
+				duracion = dias + " día(s) " + (hor_res != 0 ? hor_res+ " hora(s)" : "") + (min_res != 0 ? " y "+min_res +" minuto(s)":"");
+			}
+		}
+		
+		return duracion;
+	}
+    
 	@Override
 	public String toString() {
 		return "Liquidacion [consecutivo=" + consecutivo + ", cliente=" + cliente + ", vehiculo=" + vehiculo

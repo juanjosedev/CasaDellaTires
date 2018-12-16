@@ -4,6 +4,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import include.*;
 
@@ -200,8 +201,9 @@ public class modeloLiquidaciones extends Conexion {
 				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
 				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
-				Calendar entrada = toCalendar(tabla.getDate("hora_inicio"));
-				Calendar salida = toCalendar(tabla.getDate("hora_final"));
+				String entrada_str = tabla.getString("hora_inicio");
+				Calendar entrada = dateTimeSQLToCalendar(entrada_str);
+				Calendar salida = null;
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
@@ -436,7 +438,11 @@ public class modeloLiquidaciones extends Conexion {
 		modeloLiquidaciones ml = new modeloLiquidaciones();
 		ArrayList<Liquidacion> lista_lqds = ml.getLiquidacionesCompletas(1);
 		for(Liquidacion l : lista_lqds) {
-			System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.getEntrada().getTime()+" - Salida: "+l.getSalida().getTime()+" tardó "+l.diferenciaMinutos()+" minutos\n");
+			//System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM())
+			//		+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+"\n");
+			//System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()));
+			System.out.println("Cons: "+l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM())
+	  				+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+" | Duración: "+ l.getDuracion());
 		}
 		
 	}

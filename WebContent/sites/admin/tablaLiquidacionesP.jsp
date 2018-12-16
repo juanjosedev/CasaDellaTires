@@ -26,7 +26,7 @@
 			<td class="text-center"><%= l.getConsecutivo() %></td>
 			<td class="text-center"><%= l.getVehiculo().getBeautyPlaca() %></td>
 			<td class="text-center"><%= l.getCliente().getCedula() %></td>
-			<td class="text-center"><%= l.getHora_inicio() %></td>
+			<td class="text-center"><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></td>
 			<td class="text-center"><a href="#detalle<%= l.getConsecutivo() %>"
 				data-toggle="modal">Detalle</a>
 				<div class="modal fade" id="detalle<%= l.getConsecutivo() %>">
@@ -96,7 +96,7 @@
 												<h3 class="media-heading">INFORMACIÓN</h3>
 												<ul>
 													<li><i><b>Consecutivo: </b><%= l.getConsecutivo() %></i></li>
-													<li><i><b>Fecha entrada: </b><%= l.getHora_inicio() %></i></li>
+													<li><i><b>Entrada: </b><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></i></li>
 													<li><i><b>Salida: </b>Pendiente</i></li>
 												</ul>	
 											</div>

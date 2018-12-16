@@ -327,7 +327,7 @@ public class modeloServicios extends Conexion {
 		ArrayList<Detalle> lista_detalles = new ArrayList<>();
 		ArrayList<Servicio> lista_servicios = getAllServicios();
 		
-		System.out.println(lista_servicios.size());
+		//System.out.println(lista_servicios.size());
 		
 		for(long i : lista_id_servicios) {
 			for(Servicio s : lista_servicios) {

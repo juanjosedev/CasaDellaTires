@@ -30,19 +30,8 @@
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">
 		<div class="container-fluid">		
-			<br>
 			<div class="row">
-				<div class="col-md-4">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Buscar...">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-								<span class="icon-search"></span>
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<a href="#agregarLiquidacion" data-toggle="modal"
 						class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo registro</a>
 					<div class="modal fade" id="agregarLiquidacion">
@@ -168,9 +157,6 @@
 					</div>
 				</div>
 			</div>
-			<br>
-			<!-- <div class="row">
-			</div><br> -->
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive" id="tabla_lqds_pendientes">
