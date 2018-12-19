@@ -78,7 +78,6 @@ public class servletLiquidacion extends HttpServlet {
 			
 			response.getWriter().print(sw);
 			
-			
 		}
 		cc.cerrarConexiones();
 		cv.cerrarConexiones();

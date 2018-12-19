@@ -277,11 +277,11 @@ public class modeloUsuario extends Conexion{
 		
 		modeloUsuario mu = new modeloUsuario();
 		
-		//ArrayList<Usuario> lista_operadores = mu.getAllOperadores(1);
+		ArrayList<Usuario> lista_operadores = mu.getAllOperadores(1);
 		
-		//for(Usuario u : lista_operadores) {
-			System.out.println(mu.usuarioYaExiste("maria"));
-		//}
+		for(Usuario u : lista_operadores) {
+			System.out.println(u);
+		}
 		
 	}
 	

@@ -30,19 +30,8 @@
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">
 		<div class="container-fluid">	
-			<br>
 			<div class="row">
-				<div class="col-md-4">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Buscar...">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-								<span class="icon-search"></span>
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<a href="#agregarLiquidacion" data-toggle="modal"
 						class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo servicio</a>
 					<div class="modal fade" id="agregarLiquidacion">
@@ -125,6 +114,40 @@
 						<jsp:include page="tablaServicios.jsp"></jsp:include>
 					</div>
 				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="grafica_ppal sombra">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>SERVICIOS PRESTADOS</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <br>
+                            <select name="" id="slt_grafico" class="form-control pull-right">
+                                <option value="ultimos_7" class="opt_grafico">Últimos 7 días</option>
+                                <option value="ultimos_15" class="opt_grafico">Últimos 15 días</option>
+                                <option value="ultimos_30" class="opt_grafico">Últimos 30 días</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="chart_div">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="grafica_2 sombra text-center">
+                	<br>
+                    <h4>SERVICIOS DE HOY</h4>
+                    <div id="chart_pie">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 			</div>
 		</div>
 	</div>

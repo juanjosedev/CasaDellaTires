@@ -6,6 +6,16 @@ body{
     letter-spacing: 0.3px;
     color: #4f4f4f; 
 }
+.grafica_ppal{
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+.grafica_2{
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
 .menu_nav{
 	background-color: #41495c;
 }

@@ -340,16 +340,55 @@ public class modeloServicios extends Conexion {
 		
 		return lista_detalles;
 	}
+	
+	public ArrayList<String> getTodosLosServicios() {
+		
+		ArrayList<String> arreglo = new ArrayList<>();
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		
+		try {
+			
+			String sql = "SELECT nombre FROM servicios GROUP BY nombre";
+			objSta = getConnection().prepareStatement(sql);
+			tabla = objSta.executeQuery();
+			
+			while(tabla.next()) {
+				
+				arreglo.add(tabla.getString("nombre"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (objSta != null) {
+					objSta.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return arreglo;
+	}
 
 	public static void main(String[] args) {
 
 		modeloServicios ms = new modeloServicios();
 		// modeloTiposVehiculos mtv = new modeloTiposVehiculos();
 
-		String tabla = ms.getTablaServicios("qwe123");
+//		String tabla = ms.getTablaServicios("qwe123");
 
-		System.out.println(tabla);
+//		System.out.println(tabla);
 
+		ArrayList<String> servicios = ms.getTodosLosServicios();
+		
+		for(String nombre: servicios) {
+			System.out.println(nombre+"\n");
+		}
+		
 		// System.out.println(ms.eliminarServicio(id));
 
 		// Servicio s = new Servicio(3, "Cambio de aceite", 55000);

@@ -427,22 +427,109 @@ public class modeloLiquidaciones extends Conexion {
 		return cal;
 	}
 	
+	public String dateTimeCalendarToSQL(Calendar date) {
+		// str format: "YYYY-MM-DD HH:MM:SS"
+		//              0123456789012345678
+//		"d MMM yyyy HH:mm"
+		Calendar cal = Calendar.getInstance();
+		
+		SimpleDateFormat formato_fecha = new SimpleDateFormat("yyyy-MM-d HH:mm:00");
+		String fecha = formato_fecha.format(date.getTime());
+		
+		
+		return fecha;
+	}
+	
 	public static Calendar toCalendar(Date date){ 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		return cal;
 	}
 	
+	public Calendar getDateStart(int dias) {
+		
+		Calendar fecha_actual = Calendar.getInstance();
+		fecha_actual.add(Calendar.DAY_OF_MONTH, dias*-1);
+		return fecha_actual;
+	}
+	
+	public ArrayList<Liquidacion> getLiquidacionesRango(Calendar start){
+		ArrayList<Liquidacion> lista = new ArrayList<>();
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		modeloClientes mc = new modeloClientes();
+		modeloVehiculos mv = new modeloVehiculos();
+		
+		
+		try {
+			
+			String sql = "SELECT * FROM liquidaciones WHERE hora_inicio > ?";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, dateTimeCalendarToSQL(start));
+			
+			tabla = objSta.executeQuery();
+			
+			while(tabla.next()) {
+				
+				long consecutivo = tabla.getLong("consecutivo");
+				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
+				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
+				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
+				Calendar entrada = toCalendar(tabla.getDate("hora_inicio"));
+				Calendar salida = toCalendar(tabla.getDate("hora_final"));
+				int subtotal = tabla.getInt("subtotal");
+				int descuento = tabla.getInt("descuento");
+				int total = tabla.getInt("total");
+				
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, salida, subtotal, descuento, total);
+				
+				lista.add(l);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (objSta != null) {
+					objSta.close();
+					tabla.close();
+					mc.cerrarConexion();
+					mv.cerrarConexion();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return lista;
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		
 		modeloLiquidaciones ml = new modeloLiquidaciones();
-		ArrayList<Liquidacion> lista_lqds = ml.getLiquidacionesCompletas(1);
+//		ArrayList<Liquidacion> lista_lqds = ml.getLiquidacionesCompletas(1);
+//		for(Liquidacion l : lista_lqds) {
+//			//System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM())
+//			//		+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+"\n");
+//			//System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()));
+//			System.out.println("Cons: "+l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM())
+//	  				+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+" | Duración: "+ l.getDuracion());
+//		}
+		
+		Calendar fecha_antigua = ml.getDateStart(3);
+		System.out.println(fecha_antigua.getTime());
+		System.out.println(ml.dateTimeCalendarToSQL(fecha_antigua));
+		
+		ArrayList<Liquidacion> lista_lqds = ml.getLiquidacionesRango(fecha_antigua);
+		
 		for(Liquidacion l : lista_lqds) {
-			//System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM())
-			//		+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+"\n");
-			//System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()));
-			System.out.println("Cons: "+l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM())
-	  				+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+" | Duración: "+ l.getDuracion());
+			System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()));
+//			//		+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+"\n");
+//			//System.out.println("Cons: "+ l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()));
+//			System.out.println("Cons: "+l.getConsecutivo() +" | Entrada: "+l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM())
+//	  				+ " - Salida: "+l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM())+" | Duración: "+ l.getDuracion());
 		}
 		
 	}
