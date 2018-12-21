@@ -94,13 +94,66 @@ $(document).ready(function() {
 		
 	});
 	
+	function getDataBarChartServiciosPrestados() {
+    	
+    	var res = '{"7 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":0,"Pintura":0,"Tuneado":0},"8 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":1,"Tuneado":0},"9 dic":{"Balanceo":0,"Cambio de Aceite":5,"Lavado":0,"Pintura":0,"Tuneado":0},"10 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"11 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":1},"12 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":0,"Pintura":0,"Tuneado":0},"13 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":0,"Pintura":0,"Tuneado":0},"14 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":1,"Pintura":0,"Tuneado":0},"15 dic":{"Balanceo":1,"Cambio de Aceite":4,"Lavado":0,"Pintura":0,"Tuneado":0},"16 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":3,"Pintura":0,"Tuneado":0},"17 dic":{"Balanceo":2,"Cambio de Aceite":2,"Lavado":2,"Pintura":0,"Tuneado":0},"18 dic":{"Balanceo":4,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"19 dic":{"Balanceo":4,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0}}';
+        var json = JSON.parse(res);
+                
+    	return json;
+    	
+    }
+	
+    function jsonToArray(){
+        var array = new Array();
+        var header_array = new Array("D\u00EDas");
+        var json = getDataBarChartServiciosPrestados();
+
+        array.push(header_array);
+
+        for(var key in json) {
+            if (json.hasOwnProperty(key)){
+                array.push(new Array(key));
+            }
+        }
+
+        var subjson = null;
+
+        for(var key in json) {
+            if (json.hasOwnProperty(key)){
+                subjson = json[key];
+                for(var key2 in subjson){
+                    if (subjson.hasOwnProperty(key2)){
+                        array[0].push(key2);
+                    }
+                }
+                break;
+            }
+        }
+            
+        var index = 1;
+        for(var key in json) {
+            if(json.hasOwnProperty(key)){
+                subjson = json[key];
+                for(var key2 in subjson){
+                    if(subjson.hasOwnProperty(key2)){
+                        array[index].push(subjson[key2]);
+                    }
+                }
+                index += 1;
+            }
+        }
+        
+    	return array;
+    }
+	
 	google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(graficarServiciosPrestados_barras);
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(graficarServiciosPrestados_pie);
-
+    
     function graficarServiciosPrestados_pie(){
-        
+//        {"7 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":0,"Pintura":0,"Tuneado":0},"8 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"9 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"10 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"11 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"12 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":0,"Pintura":0,"Tuneado":0},"13 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":0,"Pintura":0,"Tuneado":0},"14 dic":{"Balanceo":1,"Cambio de Aceite":1,"Lavado":0,"Pintura":0,"Tuneado":0},"15 dic":{"Balanceo":1,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"16 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"17 dic":{"Balanceo":2,"Cambio de Aceite":2,"Lavado":2,"Pintura":0,"Tuneado":0},"18 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"19 dic":{"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0}}
+    	
         var data = google.visualization.arrayToDataTable([
             ['Servicio', 'Pedidos'],
             ['Balanceo',  5],
@@ -126,7 +179,7 @@ $(document).ready(function() {
         var array = datos;
 
         if(array == undefined){
-            var data = google.visualization.arrayToDataTable(ultimos_7());
+            var data = google.visualization.arrayToDataTable(jsonToArray());
         }else{
             var data = google.visualization.arrayToDataTable(array);
         }
@@ -143,9 +196,9 @@ $(document).ready(function() {
                 format: '#'
                 
             },
-            colors: ['#0d47a1', '#1e88e5', '#90caf9'],
+//            colors: ['#0d47a1', '#1e88e5', '#90caf9'],
             fontName: 'Roboto',
-            //isStacked: true
+            isStacked: true
         };
         
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
