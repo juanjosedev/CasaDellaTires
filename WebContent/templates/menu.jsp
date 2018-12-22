@@ -15,7 +15,7 @@
 	</div>
 	<div class="row">
 		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation"><a href="#">Inicio <span class="icon-home pull-right"></span></a></li>
+			<li role="presentation"><a href="Inicio.jsp">Inicio <span class="icon-home pull-right"></span></a></li>
 			<li role="presentation"><a href="Liquidaciones.jsp">Liquidaciones <span class="icon-library_books pull-right"></span></a></li>
 			<li role="presentation"><a href="Clientes.jsp">Clientes <span class="icon-group pull-right"></span></a></li>
 			<li role="presentation"><a href="Vehiculos.jsp">Vehículos <span class="icon-drive_eta pull-right"></span></a></li>

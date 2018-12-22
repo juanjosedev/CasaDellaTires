@@ -54,9 +54,7 @@ public class servletLiquidacion extends HttpServlet {
 			Cliente c = cc.getCliente(cedula);
 			response.getWriter().print(cc.getHTMLi(c));
 			
-		}
-		
-		else if(request.getParameter("get_info_vehiculo") != null) {
+		} else if(request.getParameter("get_info_vehiculo") != null) {
 			
 			String placa = request.getParameter("get_info_vehiculo");
 			Vehiculo v = cv.getVehiculo(placa);
@@ -78,7 +76,7 @@ public class servletLiquidacion extends HttpServlet {
 			
 			response.getWriter().print(sw);
 			
-		}
+		} 
 		cc.cerrarConexiones();
 		cv.cerrarConexiones();
 		cl.cerrarConexionesControlador();
