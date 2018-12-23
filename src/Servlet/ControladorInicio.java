@@ -21,22 +21,26 @@ public class ControladorInicio extends HttpServlet {
 		 
 		 modeloLiquidaciones ml = new modeloLiquidaciones();
 		 
-		 String pet = request.getParameter("peticion");
+//		 String pet = request.getParameter("peticion");
 		 String res = "";
 		 
-		 if (pet != null) {
+		 
 			 
-			 if (pet.equals("getBarChartServiciosPrestados")) {
-				 
-				 res = ml.getDataBarChartServiciosPrestados(7);
-				 res(response, res);
-				 
-			 } else if (pet.equals("getDataPieChartServiciosPrestados")){
-				 res = ml.getDataPieChartServiciosPrestados();
-				 res(response, res);
-			 }
+		 if (request.getParameter("getBarChartServiciosPrestados") != null) {
 			 
+			 int lastDays = Integer.parseInt(request.getParameter("getBarChartServiciosPrestados"));
+			 
+			 res = ml.getDataBarChartServiciosPrestados(lastDays);
+//			 ml.cerrarConexion();
+			 res(response, res);
+			 
+		 } else if (request.getParameter("getDataPieChartServiciosPrestados") != null){
+			 res = ml.getDataPieChartServiciosPrestados();
+			 res(response, res);
 		 }
+			 
+		 ml.cerrarConexion();
+		 
 		 
 	 }
 	

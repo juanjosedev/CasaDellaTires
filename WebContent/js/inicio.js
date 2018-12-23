@@ -1,9 +1,14 @@
 $(document).ready(function() {
-	function getDataBarChartServiciosPrestados() {
+	function getDataBarChartServiciosPrestados(lastDays) {
     	
-		$.post("../../inicio", "peticion=getBarChartServiciosPrestados", function(res, est, jqXHR){
+		if(lastDays == undefined) {
+			lastDays = 7;
+		}
+		
+		$.post("../../inicio", "getBarChartServiciosPrestados="+lastDays, function(res, est, jqXHR){
 			
-			var json = JSON.parse(res);			
+			var json = JSON.parse(res);		
+			console.log(json);
 			var array = jsonToArray(json);
 			graficarServiciosPrestados_barras(array);
 			
@@ -13,7 +18,7 @@ $(document).ready(function() {
 	
 	function getDataPieChartServiciosPrestados() {
     	
-		$.post("../../inicio", "peticion=getDataPieChartServiciosPrestados", function(res, est, jqXHR){
+		$.post("../../inicio", "getDataPieChartServiciosPrestados=true", function(res, est, jqXHR){
 			
 			var json = JSON.parse(res);			
 			var array = jsonToArrayPie(json);
@@ -54,7 +59,7 @@ $(document).ready(function() {
 				index += 1;
 			}
 		}
-		
+		console.log(array);
 		return array;
 		
 	}
@@ -109,20 +114,24 @@ $(document).ready(function() {
 //    getDataPieChartServiciosPrestados();
     
     function graficarServiciosPrestados_pie(array){
-    	
-        var data = google.visualization.arrayToDataTable(array);
+    	if(array[1][1] == 0){
+    		document.getElementById('chart_pie').innerHTML = "No hay datos<br>";
+    	} else {
+    		
+    		var data = google.visualization.arrayToDataTable(array);
 //        {"Balanceo":1,"Cambio de Aceite":1,"Lavado":2,"Pintura":0,"Tuneado":0}
-        var options = {
-            //pieHole: .1,
-            legend: {
-                position: 'bottom',
-                maxLines: 3
-            },
-            //colors: ['#0d47a1', '#1e88e5', '#90caf9']
-        };
-    
-        var chart = new google.visualization.PieChart(document.getElementById('chart_pie'));
-        chart.draw(data, options);
+    		var options = {
+//    				pieHole: .1,
+    				legend: {
+    					position: 'bottom',
+    					maxLines: 3
+    				},
+//    				colors: ['#0d47a1', '#1e88e5', '#90caf9']
+    		};
+    		
+    		var chart = new google.visualization.PieChart(document.getElementById('chart_pie'));
+    		chart.draw(data, options);
+    	}
     }
 
     function graficarServiciosPrestados_barras(array) {
@@ -137,6 +146,9 @@ $(document).ready(function() {
             chart: {
             subtitle: 'SERVICIOS PRESTADOS POR D\u00EDAS DE LA SEMANA',
             },
+            legend: {
+            	position: 'top'
+            },
             titleTextStyle: {
             fontSize: 24
             },
@@ -145,7 +157,7 @@ $(document).ready(function() {
                 format: '#'
                 
             },
-//            colors: ['#0d47a1', '#1e88e5', '#90caf9'],
+//            colors: ['#03A9F4'],
             fontName: 'Roboto',
             //isStacked: true
         };
@@ -154,16 +166,17 @@ $(document).ready(function() {
         
         chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        
     }
 
     $("#slt_grafico").change(function(){
         var ult = $(this).val();
         if(ult == 'ultimos_7'){
-            graficarServiciosPrestados_barras(ultimos_7());
+        	getDataBarChartServiciosPrestados(7);
         } else if (ult == 'ultimos_15') {
-            graficarServiciosPrestados_barras(ultimos_15());
+        	getDataBarChartServiciosPrestados(15);
         } else {
-            graficarServiciosPrestados_barras(ultimos_30());
+        	getDataBarChartServiciosPrestados(30);
         }
     });
 

@@ -6,15 +6,36 @@ body{
     letter-spacing: 0.3px;
     color: #4f4f4f; 
 }
+.tag-data1{
+	color: #fff;
+}
+.tag-data1 .media-right, .tag-data .media-left{
+	background-color: rgba(0,0,0,.2);
+	padding: 10px;
+    font-size: 2.5em;
+}
+.tag-data1 .media-body{
+    padding: 10px 20px;
+}
+.tag-data1 .media-body i{
+	color: rgba(255, 255, 255, .8);
+}
+.tag-data2{
+	color: rgba(0, 0, 0, .5);
+	padding: 0 20px;
+}
+.tag-data2 h2{
+	margin:0;
+}
 .grafica_ppal{
     background-color: #fff;
     padding: 20px;
-    border: 1px solid #ccc;
+    color: #777;
     margin-bottom: 20px;
 }
 .grafica_2{
     background-color: #fff;
-    border: 1px solid #ccc;
+    color: #777;
 }
 .menu_nav{
 	background-color: #41495c;

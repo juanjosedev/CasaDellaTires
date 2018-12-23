@@ -9,6 +9,7 @@ import java.util.Locale;
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import include.*;
@@ -450,9 +451,11 @@ public class modeloLiquidaciones extends Conexion {
 //				"Lavado": 2
 //			}
 //		}
-		JsonObject json_fechas = getJsonDatesInstance(lastDays);
+		JsonObject json_services = getJsonServicesInstance();
+		JsonObject json_fechas = getJsonDatesInstance(lastDays, json_services);
 		// Llamo mi tabla con los datos resultset
 		ResultSet tabla = null;
+		PreparedStatement objSta = null;
 	
 		Calendar fecha = null;
 		String nombre_servicio = "";
@@ -483,8 +486,11 @@ public class modeloLiquidaciones extends Conexion {
 		} finally {
 			// uunicamente cerrar el statement
 			try {
+				if (objSta != null) {
+					objSta.close();
+				}
 				if (tabla != null) {
-					//objSta.close();
+					tabla.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -515,7 +521,18 @@ public class modeloLiquidaciones extends Conexion {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// uunicamente cerrar el statement
+			try {
+				if (tabla != null) {
+//					objSta.close();
+//					tabla.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
 		}
+		
 		
 		return tabla;
 		
@@ -523,8 +540,8 @@ public class modeloLiquidaciones extends Conexion {
 	
 	public String getDataPieChartServiciosPrestados() {
 		
-		JsonObject json_data = getServiciosPrestados();
 		Gson gson = new Gson();
+		JsonObject json_data = getServiciosPrestados();
 		
 		String data = gson.toJson(json_data);
 		
@@ -565,7 +582,7 @@ public class modeloLiquidaciones extends Conexion {
 			// uunicamente cerrar el statement
 			try {
 				if (tabla != null) {
-					//objSta.close();
+					tabla.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -593,9 +610,150 @@ public class modeloLiquidaciones extends Conexion {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// uunicamente cerrar el statement
+			try {
+				if (tabla != null) {
+//					objSta.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
 		}
 		
 		return tabla;
+	}
+	
+	public String getDataBarChartLiquidacionesPrestadas(int lastDays) {
+		Gson gson = new Gson();
+		JsonObject json_data = getLiquidacionPrestadas(lastDays);
+		String json = gson.toJson(json_data);
+		return json;
+	}
+	
+	private JsonObject getLiquidacionPrestadas(int lastDays) {
+		
+		Calendar dateStart = getDateStart(lastDays);
+		
+		JsonObject jsonLiquidaciones = getJsonDatesInstance(lastDays, 0);
+		ResultSet tabla = null;
+		
+		try {
+			
+			tabla = getTablaLiquidacionesByDate(dateStart);
+			
+			while (tabla.next()) {
+				
+				Calendar fecha = dateTimeSQLToCalendar(tabla.getString("fecha"));
+				int liquidacionesPrestadas = tabla.getInt("liquidaciones");
+				
+				String keyDate = getKeyDate(fecha);
+				
+				jsonLiquidaciones.addProperty(keyDate, liquidacionesPrestadas);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		
+		return jsonLiquidaciones;
+		
+	}
+	
+	private ResultSet getTablaLiquidacionesByDate(Calendar dateStart) {
+		
+		ResultSet tabla = null;
+		PreparedStatement objSta = null;
+		
+		Calendar dateLimite = Calendar.getInstance();
+		
+		dateLimite.set(Calendar.HOUR_OF_DAY, 0);
+		dateLimite.set(Calendar.SECOND, 0);
+		
+		String fechaInicio = dateTimeCalendarToSQL(dateStart);
+		String fechaLimite = dateTimeCalendarToSQL(dateLimite);
+		
+		try {
+		
+			String sql = "SELECT DATE_FORMAT(hora_inicio, '%Y-%m-%d 00:00:00') AS fecha, COUNT(*) AS liquidaciones FROM liquidaciones WHERE hora_inicio > ? AND hora_inicio < ? GROUP BY fecha;";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, fechaInicio);
+			objSta.setString(2, fechaLimite);
+			tabla = objSta.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return tabla;
+		
+	}
+	
+	public String getDataBarChartGanancias(int lastDays) {
+		Gson gson = new Gson();
+		JsonObject json_data = getGanancias(lastDays);
+		String json = gson.toJson(json_data);
+		return json;
+	}
+	
+	private JsonObject getGanancias(int lastDays) {
+		
+		Calendar dateStart = getDateStart(lastDays);
+		JsonObject jsonGanancias = getJsonDatesInstance(lastDays, 0);
+		ResultSet tabla = null;
+		
+		try {
+			
+			tabla = getTablaGanancias(dateStart);
+			
+			while(tabla.next()) {
+				
+				Calendar fecha = dateTimeSQLToCalendar(tabla.getString("fecha"));
+				int ganancias = tabla.getInt("ganancias");
+				
+				String keyFecha = getKeyDate(fecha);
+				
+				jsonGanancias.addProperty(keyFecha, ganancias);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return jsonGanancias;
+	}
+	
+	private ResultSet getTablaGanancias(Calendar dateStart) {
+		
+		Calendar fechaLimite = Calendar.getInstance();
+		fechaLimite.set(Calendar.HOUR_OF_DAY, 0);
+		fechaLimite.set(Calendar.MINUTE, 0);
+		
+		String sqlFechaInicio = dateTimeCalendarToSQL(dateStart);
+		String sqlFechaLimite = dateTimeCalendarToSQL(fechaLimite);
+		
+		ResultSet tabla = null;
+		PreparedStatement objSta = null;
+		
+		try {
+			
+			String sql = "SELECT DATE_FORMAT(hora_inicio, '%Y-%m-%d 00:00:00') AS fecha, SUM(total) AS ganancias FROM liquidaciones WHERE hora_inicio > ? AND hora_inicio < ? GROUP BY fecha;";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, sqlFechaInicio);
+			objSta.setString(2, sqlFechaLimite);
+			tabla = objSta.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return tabla;
+		
 	}
 	
 	private Calendar dateTimeSQLToCalendar(String datetime) {
@@ -633,12 +791,13 @@ public class modeloLiquidaciones extends Conexion {
 		return cal;
 	}
 	
-	
 	private Calendar getDateStart(int dias) {
 		
-		Calendar fecha_actual = Calendar.getInstance();
-		fecha_actual.add(Calendar.DAY_OF_MONTH, dias*-1);
-		return fecha_actual;
+		Calendar dateStart = Calendar.getInstance();
+		dateStart.add(Calendar.DAY_OF_MONTH, dias*-1);
+		dateStart.set(Calendar.HOUR_OF_DAY, 0);
+		dateStart.set(Calendar.MINUTE, 0);
+		return dateStart;
 	}
 	
 	private static String getKeyDate(Calendar fecha) {
@@ -647,14 +806,12 @@ public class modeloLiquidaciones extends Conexion {
         return keyDate;
 	}
 	
-	private static void addValue(JsonObject json, String key, int add) {
-		int n = Integer.parseInt(json.get("key").toString()); 
-		json.addProperty("key", n+add);
-	}
+//	private static void addValue(JsonObject json, String key, int add) {
+//		int n = Integer.parseInt(json.get("key").toString()); 
+//		json.addProperty("key", n+add);
+//	}
 	
-	
-	
-	private JsonObject getJsonDatesInstance(int lastDays) {
+	private JsonObject getJsonDatesInstance(int lastDays, JsonObject jsonobject) {
 		JsonObject json_dates = new JsonObject();
 		Calendar startDate = getDateStart(lastDays);
 		
@@ -663,6 +820,21 @@ public class modeloLiquidaciones extends Conexion {
 			JsonObject json_services = getJsonServicesInstance();
 			String key_date = getKeyDate(startDate);
 			json_dates.add(key_date, json_services);
+			startDate.add(Calendar.DAY_OF_MONTH, 1);
+			i++;
+		}
+		
+		return json_dates;
+	}
+	
+	private JsonObject getJsonDatesInstance(int lastDays, int valInit) {
+		JsonObject json_dates = new JsonObject();
+		Calendar startDate = getDateStart(lastDays);
+		
+		int i = 0;
+		while(i < lastDays) {
+			String key_date = getKeyDate(startDate);
+			json_dates.addProperty(key_date, valInit);
 			startDate.add(Calendar.DAY_OF_MONTH, 1);
 			i++;
 		}
@@ -682,7 +854,7 @@ public class modeloLiquidaciones extends Conexion {
 			json_services.addProperty(servicio, 0);
 			
 		}
-		
+		ms.cerrarConexion();
 		return json_services;
 		
 	}
@@ -692,7 +864,7 @@ public class modeloLiquidaciones extends Conexion {
 		modeloLiquidaciones ml = new modeloLiquidaciones();
 		
 //		JsonObject json_dates = ml.getServiciosPrestados(13);
-		System.out.println(ml.getDataPieChartServiciosPrestados());
+		System.out.println(ml.getDataBarChartGanancias(7));
 		
 	}
 	
