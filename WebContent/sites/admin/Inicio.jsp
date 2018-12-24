@@ -33,13 +33,13 @@
 			<div class="col-md-3">
 				<div class="media  <%= u.getColor() %> sombra tag-data1">
 					<div class="media-body">
-						<h2 class="media-heading">5</h2>
-						<i>CLIENTES</i>
+						<h2 class="media-heading">8</h2>
+						<i>SERVICIOS</i>
 					</div>
 					<div class="media-right media-middle">
-						<span class="icon-person"></span>
+						<span class="icon-settings"></span>
 					</div>
-				</div>
+				</div>	
 			</div>
 			<div class="col-md-3">
 				<div class="media  <%= u.getColor() %> sombra tag-data1">
@@ -66,26 +66,26 @@
 			<div class="col-md-3">
 				<div class="media  <%= u.getColor() %> sombra tag-data1">
 					<div class="media-body">
-						<h2 class="media-heading">8</h2>
-						<i>SERVICIOS</i>
+						<h2 class="media-heading">5</h2>
+						<i>CLIENTES</i>
 					</div>
 					<div class="media-right media-middle">
-						<span class="icon-settings"></span>
+						<span class="icon-person"></span>
 					</div>
-				</div>	
+				</div>
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-md-9">
-                <div class="grafica_ppal sombra">
+                <div class="grafica_ppal sombra ">
                     <div class="row">
                         <div class="col-md-8">
                             <h3>SERVICIOS PRESTADOS</h3>
                         </div>
                         <div class="col-md-4">
                             <br>
-                            <select name="" id="slt_grafico" class="form-control pull-right">
+                            <select name="" id="slt_graficoServiciosPrestados" class="form-control pull-right">
                                 <option value="ultimos_7" class="opt_grafico">Últimos 7 días</option>
                                 <option value="ultimos_15" class="opt_grafico">Últimos 15 días</option>
                                 <option value="ultimos_30" class="opt_grafico">Últimos 30 días</option>
@@ -93,6 +93,40 @@
                         </div>
                     </div>
                     <div id="chart_div">
+                    </div>
+                </div>
+                <div class="grafica_ppal sombra">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>LIQUIDACIONES REALIZADAS</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <br>
+                            <select name="" id="slt_graficoLiquidacionesRealizadas" class="form-control pull-right">
+                                <option value="ultimos_7" class="opt_grafico">Últimos 7 días</option>
+                                <option value="ultimos_15" class="opt_grafico">Últimos 15 días</option>
+                                <option value="ultimos_30" class="opt_grafico">Últimos 30 días</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="chartLiquidacionesPrestadas">
+                    </div>
+                </div>
+                <div class="grafica_ppal sombra">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>GANANCIAS</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <br>
+                            <select name="" id="slt_graficoGanancias" class="form-control pull-right">
+                                <option value="ultimos_7" class="opt_grafico">Últimos 7 días</option>
+                                <option value="ultimos_15" class="opt_grafico">Últimos 15 días</option>
+                                <option value="ultimos_30" class="opt_grafico">Últimos 30 días</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="chartGanancias">
                     </div>
                 </div>
             </div>

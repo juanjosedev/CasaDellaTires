@@ -1,35 +1,6 @@
 $(document).ready(function() {
-	function getDataBarChartServiciosPrestados(lastDays) {
-    	
-		if(lastDays == undefined) {
-			lastDays = 7;
-		}
-		
-		$.post("../../inicio", "getBarChartServiciosPrestados="+lastDays, function(res, est, jqXHR){
-			
-			var json = JSON.parse(res);		
-			console.log(json);
-			var array = jsonToArray(json);
-			graficarServiciosPrestados_barras(array);
-			
-		});
-    	
-    }
 	
-	function getDataPieChartServiciosPrestados() {
-    	
-		$.post("../../inicio", "getDataPieChartServiciosPrestados=true", function(res, est, jqXHR){
-			
-			var json = JSON.parse(res);			
-			var array = jsonToArrayPie(json);
-			console.log(array);
-			graficarServiciosPrestados_pie(array);
-			
-		});
-    	
-    }
-	
-	function jsonToArrayPie(data) {
+	function jsonToArraySimple(data, name) {
 		
 //		[
 //            ['Servicio', 'Pedidos'],
@@ -41,7 +12,7 @@ $(document).ready(function() {
 //        ]
 		
 		var array = new Array();
-		var header_array = new Array("Servicios", "Pedidos");
+		var header_array = new Array("Dias", name);
 		var json = data;
 		
 		array.push(header_array);
@@ -59,7 +30,7 @@ $(document).ready(function() {
 				index += 1;
 			}
 		}
-		console.log(array);
+		//console.log(array);
 		return array;
 		
 	}
@@ -108,15 +79,29 @@ $(document).ready(function() {
     }
 	
 	google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(getDataBarChartServiciosPrestados);
     google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(getDataBarChartServiciosPrestados);
     google.charts.setOnLoadCallback(getDataPieChartServiciosPrestados);
+    google.charts.setOnLoadCallback(getDataBarChartLiquidacionesRealizadas);
+    google.charts.setOnLoadCallback(getDataBarChartGanancias);
 //    getDataPieChartServiciosPrestados();
+    function getDataPieChartServiciosPrestados() {
+    	
+		$.post("../../inicio", "getDataPieChartServiciosPrestados=true", function(res, est, jqXHR){
+			
+			var json = JSON.parse(res);			
+			var array = jsonToArraySimple(json, "Pedidos");
+			console.log(array);
+			graficarServiciosPrestados_pie(array);
+			
+		});
+    	
+    }
     
     function graficarServiciosPrestados_pie(array){
-    	if(array[1][1] == 0){
-    		document.getElementById('chart_pie').innerHTML = "No hay datos<br>";
-    	} else {
+//    	if(array[1][1] == 0){
+//    		document.getElementById('chart_pie').innerHTML = "No hay datos<br>";
+//    	} else {
     		
     		var data = google.visualization.arrayToDataTable(array);
 //        {"Balanceo":1,"Cambio de Aceite":1,"Lavado":2,"Pintura":0,"Tuneado":0}
@@ -131,9 +116,26 @@ $(document).ready(function() {
     		
     		var chart = new google.visualization.PieChart(document.getElementById('chart_pie'));
     		chart.draw(data, options);
-    	}
+//    	}
     }
 
+    function getDataBarChartServiciosPrestados(lastDays) {
+    	
+		if(lastDays == undefined) {
+			lastDays = 7;
+		}
+		
+		$.post("../../inicio", "getBarChartServiciosPrestados="+lastDays, function(res, est, jqXHR){
+			
+			var json = JSON.parse(res);		
+			//console.log(json);
+			var array = jsonToArray(json);
+			graficarServiciosPrestados_barras(array);
+			
+		});
+    	
+    }
+    
     function graficarServiciosPrestados_barras(array) {
     	
     	if(array == undefined){
@@ -150,7 +152,7 @@ $(document).ready(function() {
             	position: 'top'
             },
             titleTextStyle: {
-            fontSize: 24
+            	fontSize: 24
             },
             bars: 'vertical',
             hAxis: {
@@ -165,11 +167,116 @@ $(document).ready(function() {
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
         
         chart.draw(data, google.charts.Bar.convertOptions(options));
+        
+    }
+    
+    function getDataBarChartLiquidacionesRealizadas(lastDays) {
+    	
+		if(lastDays == undefined) {
+			lastDays = 7;
+		}
+		
+		$.post("../../inicio", "getBarChartLiquidacionesRealizadas="+lastDays, function(res, est, jqXHR){
+//			var res = '{"17 dic":1,"18 dic":2,"19 dic":1,"20 dic":1,"21 dic":2,"22 dic":3,"23 dic":0}';
+			var json = JSON.parse(res);		
+			console.log(json);
+			var array = jsonToArraySimple(json, "Liquidaciones");
+			graficarLiquidacionesPrestadas_barras(array);
+			
+		});
+    	
+    }
+    
+    function graficarLiquidacionesPrestadas_barras(array) {
+//    	{"16 dic":2,"17 dic":1,"18 dic":2,"19 dic":1,"20 dic":1,"21 dic":2,"22 dic":3}
+
+    	if(array == undefined){
+            var data = google.visualization.arrayToDataTable(array);
+        }else{
+            var data = google.visualization.arrayToDataTable(array);
+        }
+        
+        var options = {
+            chart: {
+            subtitle: 'LIQUIDACIONES REALIZADAS POR D\u00EDAS DE LA SEMANA',
+            },
+            legend: {
+            	position: 'top'
+            },
+            titleTextStyle: {
+            	fontSize: 24
+            },
+            bars: 'vertical',
+            hAxis: {
+                format: '#'
+                
+            },
+//            colors: ['#03A9F4'],
+            fontName: 'Roboto',
+            //isStacked: true
+        };
+        
+        var chart = new google.charts.Bar(document.getElementById('chartLiquidacionesPrestadas'));
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));
 
         
     }
+    
+    function getDataBarChartGanancias(lastDays) {
+    	
+		if(lastDays == undefined) {
+			lastDays = 7;
+		}
+		
+		$.post("../../inicio", "getBarChartGanancias="+lastDays, function(res, est, jqXHR){
+//			var res = '{"17 dic":86000,"18 dic":66000,"19 dic":71000,"20 dic":82000,"21 dic":450000,"22 dic":161000,"23 dic":0}';
+			var json = JSON.parse(res);		
+			console.log(json);
+			var array = jsonToArraySimple(json, "Ganancias");
+			graficarGanancias_barras(array);
+			
+		});
+    	
+    }
+    
+    function graficarGanancias_barras(array) {
+//    	{"16 dic":2,"17 dic":1,"18 dic":2,"19 dic":1,"20 dic":1,"21 dic":2,"22 dic":3}
 
-    $("#slt_grafico").change(function(){
+    	if(array == undefined){
+            var data = google.visualization.arrayToDataTable(array);
+        }else{
+            var data = google.visualization.arrayToDataTable(array);
+        }
+        
+        var options = {
+            chart: {
+            subtitle: 'GANANCIAS POR D\u00EDAS DE LA SEMANA',
+            },
+            legend: {
+            	position: 'top'
+            },
+            titleTextStyle: {
+            	fontSize: 24
+            },
+            bars: 'vertical',
+            hAxis: {
+                format: '#'
+                
+            },
+//            colors: ['#03A9F4'],
+            fontName: 'Roboto',
+            //isStacked: true
+        };
+        
+        var chart = new google.charts.Bar(document.getElementById('chartGanancias'));
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+
+        
+    }
+    
+    $("#slt_graficoServiciosPrestados").change(function(){
         var ult = $(this).val();
         if(ult == 'ultimos_7'){
         	getDataBarChartServiciosPrestados(7);
@@ -179,74 +286,26 @@ $(document).ready(function() {
         	getDataBarChartServiciosPrestados(30);
         }
     });
-
-    function ultimos_7(){
-        var datos = [
-            ['D\u00EDas', 'Balanceo', 'Cambio de aceite', 'Lavado'],
-            ['10 dic', 9, 18, 0],
-            ['11 dic', 3, 12, 4],
-            ['12 dic', 2, 11, 3],
-            ['13 dic', 3, 11, 3],
-            ['14 dic', 5, 16, 5],
-            ['15 dic', 7, 18, 6],
-            ['16 dic', 11, 19, 11]
-        ];
-        return datos;
-    }
-
-    function ultimos_15(){
-        var datos = [
-            ['D\u00EDas', 'Balanceo', 'Cambio de aceite', 'Lavado'],
-            ['3 dic', 7, 17, 3],
-            ['4 dic', 4, 13, 5],
-            ['5 dic', 2, 8, 3],
-            ['6 dic', 3, 8, 3],
-            ['7 dic', 7, 16, 5],
-            ['8 dic', 8, 18, 5],
-            ['9 dic', 12, 21, 13],
-            ['10 dic', 9, 18, 0],
-            ['11 dic', 3, 12, 4],
-            ['12 dic', 2, 11, 3],
-            ['13 dic', 3, 11, 3],
-            ['14 dic', 5, 16, 5],
-            ['15 dic', 7, 18, 6],
-            ['16 dic', 11, 19, 11]
-        ];
-        return datos;
-    }
-
-    function ultimos_30(){
-        var datos = [
-            ['D\u00EDas', 'Balanceo', 'Cambio de aceite', 'Lavado'],
-            ['18 nov', 7, 17, 3],
-            ['19 nov', 4, 13, 5],
-            ['20 nov', 2, 8, 3],
-            ['21 nov', 3, 8, 3],
-            ['22 nov', 7, 16, 5],
-            ['23 nov', 8, 18, 5],
-            ['24 nov', 12, 21, 13],
-            ['25 nov', 9, 18, 0],
-            ['26 nov', 3, 12, 4],
-            ['27 nov', 2, 11, 3],
-            ['28 nov', 3, 11, 3],
-            ['29 nov', 5, 16, 5],
-            ['30 nov', 7, 18, 6],
-            ['1 dic', 11, 19, 11],
-            ['2 dic', 7, 17, 3],
-            ['3 dic', 4, 13, 5],
-            ['4 dic', 2, 8, 3],
-            ['5 dic', 3, 8, 3],
-            ['6 dic', 7, 16, 5],
-            ['7 dic', 8, 18, 5],
-            ['8 dic', 12, 21, 13],
-            ['9 dic', 9, 18, 0],
-            ['10 dic', 3, 12, 4],
-            ['11 dic', 2, 11, 3],
-            ['13 dic', 3, 11, 3],
-            ['14 dic', 5, 16, 5],
-            ['15 dic', 7, 18, 6],
-            ['16 dic', 11, 19, 11]
-        ];
-        return datos;
-    }
+    
+    $("#slt_graficoLiquidacionesRealizadas").change(function(){
+        var ult = $(this).val();
+        if(ult == 'ultimos_7'){
+        	getDataBarChartLiquidacionesRealizadas(7);
+        } else if (ult == 'ultimos_15') {
+        	getDataBarChartLiquidacionesRealizadas(15);
+        } else {
+        	getDataBarChartLiquidacionesRealizadas(30);
+        }
+    });
+    
+    $("#slt_graficoGanancias").change(function(){
+        var ult = $(this).val();
+        if(ult == 'ultimos_7'){
+        	getDataBarChartGanancias(7);
+        } else if (ult == 'ultimos_15') {
+        	getDataBarChartGanancias(15);
+        } else {
+        	getDataBarChartGanancias(30);
+        }
+    });
 });

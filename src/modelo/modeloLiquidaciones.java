@@ -756,6 +756,27 @@ public class modeloLiquidaciones extends Conexion {
 		
 	}
 	
+	public String getDataHeader() {
+		Gson gson = new Gson();
+		String data = gson.toJson(new JsonObject());
+		return data;
+	}
+	
+	private JsonObject getHeader() {
+		
+		JsonObject json = new JsonObject();
+		
+		int clientes = 0;
+		int liquidaciones = 0;
+		int ganancias = 0;
+		int servicios = 0;
+		
+		
+		
+		return json;
+		
+	}
+	
 	private Calendar dateTimeSQLToCalendar(String datetime) {
 		// str format: "YYYY-MM-DD HH:MM:SS"
 		//              0123456789012345678
@@ -864,7 +885,7 @@ public class modeloLiquidaciones extends Conexion {
 		modeloLiquidaciones ml = new modeloLiquidaciones();
 		
 //		JsonObject json_dates = ml.getServiciosPrestados(13);
-		System.out.println(ml.getDataBarChartGanancias(7));
+		System.out.println(ml.getDataPieChartServiciosPrestados());
 		
 	}
 	

@@ -23,12 +23,12 @@ public class ControladorInicio extends HttpServlet {
 		 
 //		 String pet = request.getParameter("peticion");
 		 String res = "";
-		 
+		 int lastDays = 0;
 		 
 			 
 		 if (request.getParameter("getBarChartServiciosPrestados") != null) {
 			 
-			 int lastDays = Integer.parseInt(request.getParameter("getBarChartServiciosPrestados"));
+			 lastDays = Integer.parseInt(request.getParameter("getBarChartServiciosPrestados"));
 			 
 			 res = ml.getDataBarChartServiciosPrestados(lastDays);
 //			 ml.cerrarConexion();
@@ -37,6 +37,16 @@ public class ControladorInicio extends HttpServlet {
 		 } else if (request.getParameter("getDataPieChartServiciosPrestados") != null){
 			 res = ml.getDataPieChartServiciosPrestados();
 			 res(response, res);
+		 } else if (request.getParameter("getBarChartLiquidacionesRealizadas") != null) {
+			 lastDays = Integer.parseInt(request.getParameter("getBarChartLiquidacionesRealizadas"));
+			 res = ml.getDataBarChartLiquidacionesPrestadas(lastDays);
+			 res(response, res);
+		 } else if (request.getParameter("getBarChartGanancias") != null) {
+			 
+			 lastDays = Integer.parseInt(request.getParameter("getBarChartGanancias"));
+			 res = ml.getDataBarChartGanancias(lastDays);
+			 res(response, res);
+			 
 		 }
 			 
 		 ml.cerrarConexion();
