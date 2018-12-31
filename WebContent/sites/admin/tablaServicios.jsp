@@ -13,6 +13,7 @@
 		ArrayList<Servicio> lista = mv.getAllServicios(pagina);
 		
 %>
+<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span> Tabla de servicios</h3>
 <table class="table table-bordered table-hover">
 	<thead>
 		<tr>

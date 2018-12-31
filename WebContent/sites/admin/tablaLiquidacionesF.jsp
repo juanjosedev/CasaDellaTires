@@ -9,134 +9,140 @@
 	int lqdCompletas = cl.getContarLiquidacionesCompletas();
 	String paginacion =  Paginacion.getPaginacion("Liquidaciones.jsp", lqdCompletas);
 %>
-<h3>Liquidaciones completas</h3>
-<table class="table table-bordered table-hover">
-	<thead>
-		<tr>
-			<th class="text-center">Consecutivo</th>
-			<th class="text-center">Placa</th>
-			<th class="text-center">Cédula</th>
-			<th class="text-center">Fecha</th>
-			<th class="text-center">Detalle</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% 
-			for(Liquidacion l: lista_completas){
-					ArrayList<Detalle> lista_dlls = l.getLista_detalles();
-		%>
-		<tr>
-			<td class="text-center"><%= l.getConsecutivo() %></td>
-			<td class="text-center"><%= l.getVehiculo().getBeautyPlaca() %></td>
-			<td class="text-center"><%= l.getCliente().getCedula() %></td>
-			<td class="text-center"><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></td>
-			<td class="text-center"><a href="#detalle<%= l.getConsecutivo() %>"
-				data-toggle="modal">Detalle</a>
-				<div class="modal fade" id="detalle<%= l.getConsecutivo() %>">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h2 class="modal-header-title">INFORMACIÓN</h2>
-							</div>
-							<div class="modal-body text-left">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="media">
-											<div class="media-left">
-												<span class="media-object icon-person fs-em-2"></span>
+<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Finalizadas</h3>
+<div class="table-responsive">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th class="text-center">Consecutivo</th>
+				<th class="text-center">Placa</th>
+				<th class="text-center">Cédula</th>
+				<th class="text-center">Fecha</th>
+				<th class="text-center">Detalle</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% 
+				for(Liquidacion l: lista_completas){
+						ArrayList<Detalle> lista_dlls = l.getLista_detalles();
+			%>
+			<tr>
+				<td class="text-center"><%= l.getConsecutivo() %></td>
+				<td class="text-center"><%= l.getVehiculo().getBeautyPlaca() %></td>
+				<td class="text-center"><%= l.getCliente().getCedula() %></td>
+				<td class="text-center"><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></td>
+				<td class="text-center"><a href="#detalle<%= l.getConsecutivo() %>"
+					data-toggle="modal">Detalle</a>
+					<div class="modal fade" id="detalle<%= l.getConsecutivo() %>">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h2 class="modal-header-title">INFORMACIÓN</h2>
+								</div>
+								<div class="modal-body text-left">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="media">
+												<div class="media-left">
+													<span class="media-object icon-person fs-em-2"></span>
+												</div>
+												<div class="media-body">
+													<h3 class="media-heading">CLIENTE</h3>
+													<ul>
+														<li><i><%= l.getCliente().getNombreCompleto() %></i></li>
+														<li><i><%= l.getCliente().getCedula() %></i></li>
+														<li><i><%= l.getCliente().getTelefono() %></i></li>
+														<li><i><%= l.getCliente().getDireccion() %></i></li>
+													</ul>
+												</div>
 											</div>
-											<div class="media-body">
-												<h3 class="media-heading">CLIENTE</h3>
-												<ul>
-													<li><i><%= l.getCliente().getNombreCompleto() %></i></li>
-													<li><i><%= l.getCliente().getCedula() %></i></li>
-													<li><i><%= l.getCliente().getTelefono() %></i></li>
-													<li><i><%= l.getCliente().getDireccion() %></i></li>
-												</ul>
+										</div>
+										<div class="col-md-6">
+											<div class="media">
+												<div class="media-left">
+													<span class="media-object icon-drive_eta fs-em-2"></span>
+												</div>
+												<div class="media-body">
+													<h3 class="media-heading">VEHÍCULO</h3>
+													<ul>
+														<li><i><%= l.getVehiculo().getBeautyPlaca() %></i></li>
+														<li><i><%= l.getVehiculo().getTipo().getNombre() %></i></li>
+														<li><i><%= l.getVehiculo().getMarca() %></i></li>
+														<li><i><%= l.getVehiculo().getModelo() %></i></li>
+													</ul>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="media">
-											<div class="media-left">
-												<span class="media-object icon-drive_eta fs-em-2"></span>
+									<hr>
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Servicio</th>
+													<th>Precio</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% for(Detalle d: lista_dlls){ %>
+												<tr>
+													<td><%= d.getNombre() %></td>
+													<td class="text-right"><%= d.getPrecio() %></td>
+												</tr>
+												<% } %>
+											</tbody>
+										</table>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="media">
+												<div class="media-left">
+													<span class="media-object icon-query_builder fs-em-2"></span>
+												</div>
+												<div class="media-body">
+													<h3 class="media-heading">INFORMACIÓN</h3>
+													<ul>
+														<li><i><b>Consecutivo: </b><%= l.getConsecutivo() %></i></li>
+														<li><i><b>Fecha entrada: </b><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></i></li>
+														<li><i><b>Fecha salida: </b><%= l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM()) %></i></li>
+														<li><i><b>Duración: </b><%= l.getDuracion() %></i></li>
+													</ul>	
+												</div>
 											</div>
-											<div class="media-body">
-												<h3 class="media-heading">VEHÍCULO</h3>
-												<ul>
-													<li><i><%= l.getVehiculo().getBeautyPlaca() %></i></li>
-													<li><i><%= l.getVehiculo().getTipo().getNombre() %></i></li>
-													<li><i><%= l.getVehiculo().getMarca() %></i></li>
-													<li><i><%= l.getVehiculo().getModelo() %></i></li>
-												</ul>
+										</div>
+										<div class="col-md-6">
+											<div class="media">
+												<div class="media-left">
+													<span class="media-object icon-attach_money fs-em-2"></span>
+												</div>
+												<div class="media-body">
+													<h3 class="media-heading">TOTAL: $<i><%= l.getTotal() %></i></h3>
+													<ul>
+														<li><i><b>Subtotal: $</b><%= l.getSubtotal() %></i></li>
+														<li><i><b>Descuento: $</b><%= l.getDescuento() %></i></li>
+													</ul>	
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<hr>
-								<div class="table-responsive">
-									<table class="table table-bordered">
-										<thead>
-											<th>Servicio</th>
-											<th>Precio</th>
-										</thead>
-										<% for(Detalle d: lista_dlls){ %>
-										<tr>
-											<td><%= d.getNombre() %></td>
-											<td class="text-right"><%= d.getPrecio() %></td>
-										</tr>
-										<% } %>
-									</table>
+								<div class="modal-footer">
+									<button type="button"
+										class="boton boton-chico pull-left"
+										data-dismiss="modal">Cerrar</button>
 								</div>
-								<hr>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="media">
-											<div class="media-left">
-												<span class="media-object icon-query_builder fs-em-2"></span>
-											</div>
-											<div class="media-body">
-												<h3 class="media-heading">INFORMACIÓN</h3>
-												<ul>
-													<li><i><b>Consecutivo: </b><%= l.getConsecutivo() %></i></li>
-													<li><i><b>Fecha entrada: </b><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></i></li>
-													<li><i><b>Fecha salida: </b><%= l.infoTiempo(l.getSalida(), l.formatoDDMMMYYYYHHMM()) %></i></li>
-													<li><i><b>Duración: </b><%= l.getDuracion() %></i></li>
-												</ul>	
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="media">
-											<div class="media-left">
-												<span class="media-object icon-attach_money fs-em-2"></span>
-											</div>
-											<div class="media-body">
-												<h3 class="media-heading">TOTAL: $<i><%= l.getTotal() %></i></h3>
-												<ul>
-													<li><i><b>Subtotal: $</b><%= l.getSubtotal() %></i></li>
-													<li><i><b>Descuento: $</b><%= l.getDescuento() %></i></li>
-												</ul>	
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button"
-									class="boton boton-chico pull-left"
-									data-dismiss="modal">Cerrar</button>
 							</div>
 						</div>
 					</div>
-				</div>
-			</td>
-		</tr>
-		<% 
-			}
-		%>
-	</tbody>
-</table>
+				</td>
+			</tr>
+			<% 
+				}
+			%>
+		</tbody>
+	</table>
+</div>
 <script>
 	$(document).ready(function() {
 		function getParameterByName(name) {

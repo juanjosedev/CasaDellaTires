@@ -43,6 +43,11 @@ $(document).ready(function() {
 		
 	}
 	
+//	function getColor() {
+//    	var color = $(".title_maestro").css("background-color");
+//    	return color;
+//    }
+	
 	function cedulaExist (cc) {
 		
 		var data = "cc_exist="+cc;
@@ -73,6 +78,7 @@ $(document).ready(function() {
 					$("#tabla_servicios").html(res);
 					$("#tabla_servicios").show();
 					ejecutarCalculos();
+					$(".table-title").css("background-color", getColor());
 				});
 				hideAlert(art_placa_no_existe);
 			} else {
@@ -159,6 +165,9 @@ $(document).ready(function() {
 					terminarLiquidacion();
 				}, 300);
 			}, 300);
+			btn_volver.hide();
+			btn_confirmar.hide();
+			sbt_crear_lqd.show();
 		});
 	}
 	
@@ -276,6 +285,7 @@ $(document).ready(function() {
 							formulario_liquidacion.hide();
 							btn_volver.show();
 							btn_confirmar.show();
+							$(".table-title").css("background-color", getColor());
 							$(this).hide();
 						} else {
 							getAlert(art_servicio_cero);
@@ -458,5 +468,18 @@ $(document).ready(function() {
 	    });
 		
 	}
+	
+	function getNumeroDeLiquidaciones() {
 		
+		$.post("../../crudliquidacion", "getNumeroDeLiquidaciones=true", function(res, est, jqXHR){
+			
+			console.log(res);
+			var json = JSON.parse(res);
+			console.log(json);
+			$("#label-numeroDeliquidaciones").html(json.numLiquidaciones);
+		});
+		
+	}
+	getNumeroDeLiquidaciones();
+	
 });

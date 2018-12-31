@@ -76,6 +76,11 @@ public class servletLiquidacion extends HttpServlet {
 			
 			response.getWriter().print(sw);
 			
+		} else if (request.getParameter("getNumeroDeLiquidaciones") != null) {
+			
+			String json = cl.getNumeroDeLiquidaciones();
+			response.getWriter().print(json);
+			
 		} 
 		cc.cerrarConexiones();
 		cv.cerrarConexiones();

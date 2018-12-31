@@ -296,6 +296,61 @@ public class modeloLiquidaciones extends Conexion {
 		
 	}
 	
+	public ArrayList<Liquidacion> getLiquidacionesByCliente(long cc){
+		ArrayList<Liquidacion> lista = new ArrayList<>();
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		modeloClientes mc = new modeloClientes();
+		modeloVehiculos mv = new modeloVehiculos();
+		
+		try {
+			
+			String sql = "SELECT * FROM liquidaciones WHERE cc = ? ORDER BY hora_inicio DESC";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setLong(1, cc);
+			
+			tabla = objSta.executeQuery();
+			
+			while(tabla.next()) {
+				
+				long consecutivo = tabla.getLong("consecutivo");
+				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
+				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
+				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
+				
+				
+				String entrada_str = tabla.getString("hora_inicio");
+				String salida_str = tabla.getString("hora_final");
+				
+				Calendar entrada = dateTimeSQLToCalendar(entrada_str);
+//				Calendar salida = dateTimeSQLToCalendar(salida_str);
+				int subtotal = tabla.getInt("subtotal");
+				int descuento = tabla.getInt("descuento");
+				int total = tabla.getInt("total");
+				
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, null, subtotal, descuento, total);
+				
+				lista.add(l);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (objSta != null) {
+					objSta.close();
+					tabla.close();
+					mc.cerrarConexion();
+					mv.cerrarConexion();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return lista;
+	}
+	
 	public boolean agregarDetalle(Detalle dll) {
 		
 		boolean sw = false;
@@ -416,75 +471,28 @@ public class modeloLiquidaciones extends Conexion {
 		return sw;
 		
 	}
-	  /////////////////////////////////////////
-	 ///GRAFICAS//////////////////////////////
-	/////////////////////////////////////////
-	public String getDataBarChartServiciosPrestados(int lastDays) {
-		
-		JsonObject json_data = getServiciosPrestados(lastDays);
+	
+	public String getNumeroDeLiquidaciones() {
+		String jsonLiquidaciones = "";
 		Gson gson = new Gson();
-		
-		String data = gson.toJson(json_data);
-		
-		return data;
-	}
-	
-	private JsonObject getServiciosPrestados(int lastDays) {
-		
-		// 1. Fecha límite
-		Calendar date_start = getDateStart(lastDays);
-		//2 JsonObject que vamos a retornar
-//		{
-//			"17 jul": {
-//				"Balanceo": 3,
-//				"Polichado": 1,
-//				"Lavado": 0
-//			},
-//			"18 jul": {
-//				"Balanceo": 0,
-//				"Polichado": 2,
-//				"Lavado": 3
-//			},
-//			"19 jul": {
-//				"Balanceo": 1,
-//				"Polichado": 2,
-//				"Lavado": 2
-//			}
-//		}
-		JsonObject json_services = getJsonServicesInstance();
-		JsonObject json_fechas = getJsonDatesInstance(lastDays, json_services);
-		// Llamo mi tabla con los datos resultset
-		ResultSet tabla = null;
+		JsonObject json = new JsonObject();
 		PreparedStatement objSta = null;
-	
-		Calendar fecha = null;
-		String nombre_servicio = "";
-		String fecha_key = "";
-		JsonObject json_fecha = null;
-		int val_service_by_date = 0;
+		ResultSet tabla = null;
 		
 		try {
-			tabla = getTablaServiceName_Date(date_start);
 			
-			while(tabla.next()) {
-				
-				fecha = dateTimeSQLToCalendar(tabla.getString("fecha"));
-				nombre_servicio = tabla.getString("nombre");
-				
-				fecha_key = getKeyDate(fecha);
-				json_fecha = (JsonObject) json_fechas.get(fecha_key);
-				
-				val_service_by_date = json_fecha.get(nombre_servicio).getAsInt();
-				
-				json_fecha.addProperty(nombre_servicio, val_service_by_date+1);
-//				System.out.println(nombre_servicio+" - "+n + " - "+fecha_key);
-			}
+			String sql = "SELECT COUNT(consecutivo) AS numLiquidaciones FROM liquidaciones";
+			objSta = getConnection().prepareStatement(sql);
+			tabla = objSta.executeQuery();
+			tabla.next();
+			
+			int numLiquidaciones = tabla.getInt("numLiquidaciones"); 
+
+			json.addProperty("numLiquidaciones", numLiquidaciones);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-//			System.out.println("fecha: "+fecha.getTime());
 		} finally {
-			// uunicamente cerrar el statement
 			try {
 				if (objSta != null) {
 					objSta.close();
@@ -494,64 +502,124 @@ public class modeloLiquidaciones extends Conexion {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}	
+			}
 		}
 		
-		return json_fechas;
-	}
-	private ResultSet getTablaServiceName_Date(Calendar startDate) {
+		jsonLiquidaciones = gson.toJson(json);
 		
+		return jsonLiquidaciones;
+	}
+	
+	  /////////////////////////////////////////
+	 ///GRÁFICAS//////////////////////////////
+	/////////////////////////////////////////
+	
+	/**
+	 * <h2>getDataBarChartServiciosPrestados(int lastDays)</h2>
+	 * Se obtienen los datos de la cantidad de servicios prestados en los últimos <b>n </b><i>(lastDays)</i> días   
+	 * @param lastDays hace referencia a la cantidad de días que va a devolver el método con dicha información
+	 * @return <b>String</b> en formato <b>Json</b>
+	 * <hr>
+	 * <b>Ejemplo:</b>
+	 * {
+			"17 jul": {
+				"Balanceo": 3,
+				"Polichado": 1,
+				"Lavado": 0
+			},
+			"18 jul": {
+				"Balanceo": 0,
+				"Polichado": 2,
+				"Lavado": 3
+			},
+			"19 jul": {
+				"Balanceo": 1,
+				"Polichado": 2,
+				"Lavado": 2
+			}
+		}
+	 */
+	public String getDataBarChartServiciosPrestados(int lastDays) {
+		
+		Gson gson = new Gson();// Creamos el objeto Gson que permite convertir de JsonElement a String
+		JsonObject jsonData = getServiciosPrestados(lastDays);// Traemos los datos en formato JsonObject
+		String strData = gson.toJson(jsonData);// Convertimos de JsonObject a String
+		return strData;
+	}
+	
+	private JsonObject getServiciosPrestados(int lastDays) {
+	
+		Calendar startDate = getDateStart(lastDays);
+		JsonObject jsonServices = getJsonServicesInstance();
+		JsonObject jsonDates = getJsonDatesInstance(lastDays, jsonServices);
 		ResultSet tabla = null;
-		PreparedStatement objSta = null;
-		String fecha_limite = dateTimeCalendarToSQL(startDate);
-		String fecha_actual = dateTimeCalendarToSQL(Calendar.getInstance());
-//		System.out.println("---------->"+fecha_actual);
-		fecha_limite = fecha_limite.substring(0, 10);
-		fecha_actual = fecha_actual.substring(0, 10);
+		Calendar dateSQL = null;
+		String serviceNameSQL = "";
+		String dateKey = "";
+		JsonObject jsonDate = null;
+		int valueServiceDate = 0;
 		
 		try {
-			
-			String sql = "SELECT nombre, hora_inicio AS fecha FROM liquidaciones, detalle "
-					+ "WHERE liquidaciones.consecutivo = detalle.consecutivo_liquidaciones AND hora_inicio > ? AND hora_inicio < ?";
-//			 AND hora_final IS NOT NULL
-			objSta = getConnection().prepareStatement(sql);
-			objSta.setString(1, fecha_limite);
-			objSta.setString(2, fecha_actual);
-			tabla = objSta.executeQuery();
-			
+			tabla = getTablaServiceName_Date(startDate);
+			while(tabla.next()) {
+				dateSQL = dateTimeSQLToCalendar(tabla.getString("fecha"));
+				serviceNameSQL = tabla.getString("nombre");
+				dateKey = getKeyDate(dateSQL);
+				jsonDate = (JsonObject) jsonDates.get(dateKey);
+				valueServiceDate = jsonDate.get(serviceNameSQL).getAsInt();
+				
+				jsonDate.addProperty(serviceNameSQL, (valueServiceDate + 1));				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// uunicamente cerrar el statement
 			try {
 				if (tabla != null) {
-//					objSta.close();
-//					tabla.close();
+					tabla.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}	
 		}
+		return jsonDates;
+	}
+	private ResultSet getTablaServiceName_Date(Calendar startDate) {
 		
+		ResultSet tabla = null;
+		PreparedStatement objSta = null;
+		String startDate_str = dateTimeCalendarToSQL(startDate);
+		String limitDate = dateTimeCalendarToSQL(Calendar.getInstance());
+		startDate_str = startDate_str.substring(0, 10);
+		limitDate = limitDate.substring(0, 10);
 		
+		try {
+			
+			String sql = "SELECT nombre, hora_inicio AS fecha FROM liquidaciones, detalle "
+					+ "WHERE liquidaciones.consecutivo = detalle.consecutivo_liquidaciones AND hora_inicio > ? AND hora_inicio < ?";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, startDate_str);
+			objSta.setString(2, limitDate);
+			tabla = objSta.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return tabla;
-		
 	}
 	
 	public String getDataPieChartServiciosPrestados() {
 		
 		Gson gson = new Gson();
-		JsonObject json_data = getServiciosPrestados();
+		JsonObject json_data = getJsonServiciosPrestados();
 		
 		String data = gson.toJson(json_data);
 		
 		return data;
 	}
 	
-	private JsonObject getServiciosPrestados() {
-		// 1. Fecha límite
-//		Calendar actualDate = Calendar.getInstance();
-		//2 JsonObject que vamos a retornar
+	private JsonObject getJsonServiciosPrestados() {
+		
+		//1 JsonObject que vamos a retornar
 //				{
 //					"Balanceo": 3,
 //					"Polichado": 1,
@@ -594,9 +662,9 @@ public class modeloLiquidaciones extends Conexion {
 	
 	private ResultSet getTablaServiceName_Count() {
 		
-		Calendar actualDate = Calendar.getInstance();
 		ResultSet tabla = null;
 		PreparedStatement objSta = null;
+		Calendar actualDate = Calendar.getInstance();
 		String actualDateSQL = dateTimeCalendarToSQL(actualDate);
 		actualDateSQL = actualDateSQL.substring(0, 10);
 		
@@ -704,6 +772,7 @@ public class modeloLiquidaciones extends Conexion {
 		
 		Calendar dateStart = getDateStart(lastDays);
 		JsonObject jsonGanancias = getJsonDatesInstance(lastDays, 0);
+		
 		ResultSet tabla = null;
 		
 		try {
@@ -756,24 +825,148 @@ public class modeloLiquidaciones extends Conexion {
 		
 	}
 	
-	public String getDataHeader() {
-		Gson gson = new Gson();
-		String data = gson.toJson(new JsonObject());
+	public String getDataPieChartGananciasPorServicio() {
+		
+		Gson gson = new Gson(); 
+		String data = gson.toJson(getJsonGananciasPorServicio());
+		
 		return data;
 	}
 	
-	private JsonObject getHeader() {
+	private JsonObject getJsonGananciasPorServicio() {
 		
-		JsonObject json = new JsonObject();
+		JsonObject jsonServices = getJsonServicesInstance();
+		ResultSet tabla = null;
 		
-		int clientes = 0;
-		int liquidaciones = 0;
-		int ganancias = 0;
-		int servicios = 0;
+		try {
+			
+			tabla = getTablaGananciasPorServicios();
+			
+			while(tabla.next()) {
+				
+				String servicio = tabla.getString("servicio");
+				int ganancias = tabla.getInt("ganancias");
+				
+				jsonServices.addProperty(servicio, ganancias);
+				
+			}
+			
+			// Codigo
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (tabla != null) {
+					tabla.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
+		return jsonServices;
 		
-		return json;
+	}
+	
+	private ResultSet getTablaGananciasPorServicios() {
+		
+		ResultSet tabla = null;
+		PreparedStatement objSta = null;
+		
+		try {
+			
+			String sql = "SELECT nombre AS servicio, SUM(precio) AS ganancias FROM liquidaciones, detalle WHERE consecutivo = consecutivo_liquidaciones AND hora_inicio > DATE_FORMAT(NOW(), '%Y-%m-%d') GROUP BY nombre;";
+			objSta = getConnection().prepareStatement(sql);
+			tabla = objSta.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tabla;
+		
+	}
+	
+	public String getDataBarChartGananciasPorServicio(int lastDays) {
+		
+		Gson gson = new Gson(); 
+		String data = gson.toJson(getJsonGananciasPorServicio(lastDays));
+		
+		return data;
+	}
+	
+	private JsonObject getJsonGananciasPorServicio(int lastDays) {
+		
+		Calendar dateStart = getDateStart(lastDays);
+		
+		JsonObject jsonServices = getJsonServicesInstance();
+		JsonObject jsonDates = getJsonDatesInstance(lastDays, jsonServices);
+		ResultSet tabla = null;
+		
+		Calendar fecha = null;//tabla
+		String nombre_servicio = "";//tabla
+		int precio = 0;//tabla 
+		
+		String fecha_key = "";
+		JsonObject json_fecha = null;
+		int val_ganancia_by_service = 0;
+		
+		try {
+			
+			tabla = getTablaGananciasPorServicios(dateStart);
+			
+			while(tabla.next()) {
+				
+				fecha = dateTimeSQLToCalendar(tabla.getString("fecha"));
+				nombre_servicio = tabla.getString("nombre");
+				precio = tabla.getInt("precio");
+				
+				fecha_key = getKeyDate(fecha);
+				json_fecha = (JsonObject) jsonDates.get(fecha_key);
+				
+				val_ganancia_by_service = json_fecha.get(nombre_servicio).getAsInt();
+				val_ganancia_by_service += precio;
+				
+				json_fecha.addProperty(nombre_servicio, val_ganancia_by_service);
+//				System.out.println(nombre_servicio+" - "+n + " - "+fecha_key);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (tabla != null) {
+					tabla.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return jsonDates;
+		
+	}
+	
+	private ResultSet getTablaGananciasPorServicios(Calendar dateStart) {
+		
+		ResultSet tabla = null;
+		PreparedStatement objSta = null;
+		
+		String dateStartSQL = dateTimeCalendarToSQL(dateStart);
+		
+		try {
+			
+			String sql = "SELECT nombre, hora_inicio AS fecha, precio FROM liquidaciones, detalle WHERE liquidaciones.consecutivo = detalle.consecutivo_liquidaciones AND hora_inicio > ? AND hora_inicio < DATE_FORMAT(NOW(), '%Y-%m-%d');";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, dateStartSQL);
+			tabla = objSta.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tabla;
 		
 	}
 	
@@ -822,7 +1015,7 @@ public class modeloLiquidaciones extends Conexion {
 	}
 	
 	private static String getKeyDate(Calendar fecha) {
-		SimpleDateFormat formato_fecha = new SimpleDateFormat("d MMM", new Locale("es", "ES"));
+		SimpleDateFormat formato_fecha = new SimpleDateFormat("E d MMM", new Locale("es", "ES"));
 		String keyDate = formato_fecha.format(fecha.getTime());
         return keyDate;
 	}
@@ -847,7 +1040,13 @@ public class modeloLiquidaciones extends Conexion {
 		
 		return json_dates;
 	}
-	
+	/**
+	 * <h2>getJsonDatesInstance(int lastDays, int valInit)</h2>
+	 * <p>Se obtiene la 'instancia' de un json cuyas <b>keys</b> (claves), son fechas</p>
+	 * @param lastDays indica en qué fecha debe de empezar, ejemplo: si <b>lastDays</b> es igual a 5, la primera fecha sería la fecha actual menos 5 días
+	 * @param valInit indica con qué valor se iniciarán las <b>keys</b>
+	 * @return <b>JsonObject</b> con las fechas como keys y los valores de acuerdo al @param valInit
+	 */
 	private JsonObject getJsonDatesInstance(int lastDays, int valInit) {
 		JsonObject json_dates = new JsonObject();
 		Calendar startDate = getDateStart(lastDays);
@@ -863,7 +1062,20 @@ public class modeloLiquidaciones extends Conexion {
 		return json_dates;
 	}
 	
-	private JsonObject getJsonServicesInstance() {//TERMINADO
+	
+	/**
+	 * <h2>getJsonServicesInstance()</h2>
+	 * <p>Se obtiene la 'instancia' de un objeto json cuyas <b>keys</b> (claves), son los servicios que se prestan</p>
+	 * @return <b>JsonObject</b> con los nombres de los servicios y sus valores en 0
+	 * <hr>
+	 * <b>Ejemplo:</b>
+	 * {
+			"Balanceo": 0,
+			"Polichado": 0,
+			"Lavado": 0
+		}
+	 */
+	private JsonObject getJsonServicesInstance() {
 		
 		JsonObject json_services = new JsonObject();
 		
@@ -880,13 +1092,14 @@ public class modeloLiquidaciones extends Conexion {
 		
 	}
 	
+	
+	
 	public static void main(String[] args) {
 		
 		modeloLiquidaciones ml = new modeloLiquidaciones();
 		
-//		JsonObject json_dates = ml.getServiciosPrestados(13);
-		System.out.println(ml.getDataPieChartServiciosPrestados());
-		
+//		{"numLiquidaciones":24}
+//		System.out.println();
 	}
 	
 }

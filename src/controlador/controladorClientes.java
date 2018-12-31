@@ -45,5 +45,8 @@ public class controladorClientes {
 	public String getHTMLi(Cliente c) {
 		return mtv.getHTMLi(c);
 	}
+	public ArrayList<Cliente> getBusqueda(String criterio) {
+		return mtv.getBusqueda(criterio);
+	}
 	
 }

@@ -12,6 +12,7 @@
 		ArrayList<Vehiculo> lista = cv.getAllVehiculos(pagina);
 		
 %>
+<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Tabla de Vehículos</h3>
 <table class="table table-bordered table-hover">
 	<thead>
 		<tr>
@@ -19,7 +20,6 @@
 			<th class="text-center text-uppercase">Tipo de vehículo</th>
 			<th class="text-center text-uppercase">Marca</th>
 			<th class="text-center text-uppercase">Modelo</th>
-			<th class="text-center text-uppercase">Historial</th>
 			<th class="text-center text-uppercase">Modificar</th>
 		</tr>
 	</thead>
@@ -30,52 +30,6 @@
 			<td class="text-center"><%= v.getTipo().getNombre() %></td>
 			<td class="text-center"><%= v.getMarca() %></td>
 			<td class="text-center"><%= v.getModelo() %></td>
-			<td class="text-center"><a href="#detalle<%= v.getPlaca() %>"
-				data-toggle="modal">Detalle</a>
-				<div class="modal fade" id="detalle<%= v.getPlaca() %>">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h2 class="modal-header-title">HISTORIAL DEL
-									VEHÍCULO</h2>
-							</div>
-							<div class="modal-body text-left">
-								<p>Selecciona el servicio o el cliente para más
-									información</p>
-								<div class="table-responsive">
-									<table class="table table-striped">
-										<thead>
-											<th>Fecha</th>
-											<th>Servicio</th>
-											<th>Cliente</th>
-										</thead>
-										<tr>
-											<td>21/09/2018</td>
-											<td><a href="#">000368</a></td>
-											<td><a href="">1020656565</a></td>
-										</tr>
-										<tr>
-											<td>05/09/2018</td>
-											<td><a href="#">000333</a></td>
-											<td><a href="">1020656565</a></td>
-										</tr>
-										<tr>
-											<td>16/08/2018</td>
-											<td><a href="#">000320</a></td>
-											<td><a href="">9810021092</a></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button"
-									class="boton boton-chico pull-left"
-									data-dismiss="modal">Cerrar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</td>
 			<td class="text-center"><a
 				href="#modificarCliente<%= v.getPlaca() %>" data-toggle="modal">Modificar</a>
 				<div class="modal fade modal_modificar" id="modificarCliente<%= v.getPlaca() %>">

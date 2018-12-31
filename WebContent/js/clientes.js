@@ -62,6 +62,20 @@ $(document).ready(function() {
 	 * return sw; }
 	 */
 	
+	function getColor() {
+    	var color = $(".title_maestro").css("background-color");
+    	return color;
+    }
+	
+	$(".boton-vacio").css("color", getColor());
+	$(".boton-vacio").mouseover(function(){
+		$(this).css("background-color", getColor());
+		$(this).css("color", "#fff");
+	}).mouseout(function(){
+		$(this).css("background-color", "transparent");
+		$(this).css("color", getColor());
+	});
+	
 	function agregar_cliente() {
 		var data = $("#frm_nuevo_cliente").serialize();
 		$.post("../../crearcliente", data, function(res, est, jqXHR){
@@ -107,11 +121,10 @@ $(document).ready(function() {
 		$.post("../../crearcliente", data, function(res, est, jqXHR){
 			if (res == "true") {
 				frm.find("#alert_modificar_exitoso").show().delay(2000).fadeOut(500);
+				$("#varTelefono").html($("#input_telefono_modificar").val());
+				$("#varDireccion").html($("#input_direccion_modificar").val());
 				setTimeout(function(){
 					$(".modal").modal("hide");
-					setTimeout(function(){
-						location.href ="Clientes.jsp";
-					}, 500);	
 				}, 2500);		
 			} else {
 				frm.find("#alert_modificar_error").show().delay(2000).fadeOut(500);
@@ -269,10 +282,10 @@ $(document).ready(function() {
 	
 	$("#buscar_cc").click(function(e) {
 		if($("#input_buscar_cc").val() == "") {
-			alert("Introduce una cédula a buscar");
+			alert("Introduce un criterio de busqueda");
 		} else {
 			var valor = $("#input_buscar_cc").val();
-			location.href ="Clientes.jsp?cc="+valor;
+			location.href ="Clientes.jsp?query="+valor;
 		} 
 		
 	});

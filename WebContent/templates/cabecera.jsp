@@ -2,6 +2,7 @@
 <meta charset="UTF-8">
 <script src="../../js/jquery.js"></script>
 <script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/design.js"></script>
 <script src="../../js/main.js"></script>
 <script src="../../js/loader.js"></script>
 <link rel="stylesheet" href="../../css/bootstrap.min.css">

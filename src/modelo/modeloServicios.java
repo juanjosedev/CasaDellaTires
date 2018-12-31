@@ -272,9 +272,9 @@ public class modeloServicios extends Conexion {
 		Vehiculo v = mv.getVehiculo(placa);
 		ArrayList<Servicio> lista = getServicios(v.getTipo().getId());
 
-		String tabla = "<hr><h3>Servicios: <small>" + v.getTipo().getNombre()
+		String tabla = "<hr><h3 class=\"text-uppercase\"><span class=\"table-title <%= u.getColor() %>\"></span>Servicios: <small>" + v.getTipo().getNombre()
 				+ "</small></h3><div class=\"table-responsive\">\r\n"
-				+ "														<table class=\"table table-striped\">\r\n"
+				+ "														<table class=\"table table-bordered table-hover\">\r\n"
 				+ "															<thead>\r\n"
 				+ "																<tr>\r\n"
 				+ "																	<th>Servicio</th>\r\n"

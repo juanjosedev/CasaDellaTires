@@ -10,4 +10,5 @@ $(document).ready(function(){
 			}
 		})
 	});
+	$('.modal-header').css('background-color', getColor());
 });

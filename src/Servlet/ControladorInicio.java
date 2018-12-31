@@ -19,6 +19,8 @@ public class ControladorInicio extends HttpServlet {
 	 protected void processRequest(HttpServletRequest request,  HttpServletResponse response)
 				throws ServletException, IOException {
 		 
+		 response.setContentType("text/html;charset=UTF-8");
+		 
 		 modeloLiquidaciones ml = new modeloLiquidaciones();
 		 
 //		 String pet = request.getParameter("peticion");
@@ -47,8 +49,19 @@ public class ControladorInicio extends HttpServlet {
 			 res = ml.getDataBarChartGanancias(lastDays);
 			 res(response, res);
 			 
-		 }
+		 } else if (request.getParameter("getBarChartGananciasPorServicio") != null) {
 			 
+			 lastDays = Integer.parseInt(request.getParameter("getBarChartGananciasPorServicio"));
+			 res = ml.getDataBarChartGananciasPorServicio(lastDays);
+			 res(response, res);
+			 
+		 } else if (request.getParameter("getDataPieChartGananciasPorServicio") != null) {
+			 
+			 res = ml.getDataPieChartGananciasPorServicio();
+			 res(response, res);
+			 
+		 }
+//		 getBarChartGananciasPorServicio 
 		 ml.cerrarConexion();
 		 
 		 

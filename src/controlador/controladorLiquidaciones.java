@@ -67,6 +67,11 @@ public class controladorLiquidaciones{
 		this.mv.cerrarConexion();
 		this.ms.cerrarConexion();
 	}
+	
+	public String getNumeroDeLiquidaciones() {
+		return ml.getNumeroDeLiquidaciones();
+	}
+	
 	/**
 	public static void main(String[] args) {
 		

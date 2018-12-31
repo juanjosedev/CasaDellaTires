@@ -23,28 +23,28 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-library_books"></span> Liquidaciones</h2>
+				<h2 class="text-uppercase"><span class="icon-library_books"></span> Liquidaciones <span class="label pull-right" id="label-numeroDeliquidaciones">0</span></h2>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">
-		<div class="container-fluid">		
+				
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#agregarLiquidacion" data-toggle="modal"
-						class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo registro</a>
+						class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nueva liquidación</a>
 					<div class="modal fade" id="agregarLiquidacion">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h2 class="modal-header-title">AGREGAR</h2>
+									<h3 class="modal-header-title"><span class="icon-assignment"></span> Crear liquidación</h3>
 								</div>
 								<form action="servletliquidaciones" method="post"
 									id="frm_liquidar" name="frm_liquidar">
 									<div class="modal-body text-left">
 										<div id="formulario_liquidacion">
-											<h3>Datos del cliente</h3>
+											<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Datos del cliente</h3>
 											<div class="form-group">
 												<input name="cc" type="text" id="inp_cc_lqr"
 													class="form-control" placeholder="Cédula de la persona">
@@ -91,10 +91,12 @@
 											</div>
 											<hr>
 											<div class="table-responsive">
-							                    <table class="table table-bordered">
+							                    <table class="table table-bordered table-hover">
 							                        <thead>
-							                            <th>Servicio</th>
-							                            <th>Precio</th>
+								                        <tr>
+								                            <th>Servicio</th>
+								                            <th>Precio</th>
+								                        </tr>
 							                        </thead>
 							                        <tbody id="tabla_serviciosi">
 							                        </tbody>
@@ -110,7 +112,7 @@
 														<div class="media-body">
 															<h3 class="media-heading">INFORMACIÓN</h3>
 															<ul>
-																<li><i><b>Consecutivo: </b>00984</i></li>
+																<li><i><b>Consecutivo: </b>00000</i></li>
 																<li><i><b>Fecha: </b><var id="info_fecha"></var></i></li>
 																<li><i><b>Entrada: </b><var id="info_hora_actual"></var></i></li>
 																<li><i><b>Salida: </b>Pendiente</i></li>
@@ -159,15 +161,15 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="table-responsive" id="tabla_lqds_pendientes">
+					<div class="" id="tabla_lqds_pendientes">
 						<jsp:include page="tablaLiquidacionesP.jsp"></jsp:include>
 					</div>
-					<div class="table-responsive" id="tabla_lqds_finalizados">
+					<div class="" id="tabla_lqds_finalizados">
 						<jsp:include page="tablaLiquidacionesF.jsp"></jsp:include>
 					</div>
 				</div>
 			</div>
-		</div>
+		
 	</div>
 </body>
 </html>

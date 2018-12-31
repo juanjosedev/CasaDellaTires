@@ -241,7 +241,60 @@ public class modeloClientes extends Conexion {
 		return HTMLcode;
 	}
 	
-	/**
+	public ArrayList<Cliente> getBusqueda(String criterio) {
+		
+		ArrayList<Cliente> listaClientes = new ArrayList<>();
+		
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		try {
+			
+			String sql = "SELECT * FROM clientes WHERE cc LIKE ? OR nombre LIKE ? OR primer_apellido LIKE ? OR segundo_apellido LIKE ? OR telefono LIKE ? OR direccion LIKE ?";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, "%"+criterio+"%");
+			objSta.setString(2, "%"+criterio+"%");
+			objSta.setString(3, "%"+criterio+"%");
+			objSta.setString(4, "%"+criterio+"%");
+			objSta.setString(5, "%"+criterio+"%");
+			objSta.setString(6, "%"+criterio+"%");
+			tabla = objSta.executeQuery();
+			
+			while(tabla.next()) {
+				long cedula = tabla.getLong("cc");
+				String nombre = tabla.getString("nombre");
+				String primer_apellido = tabla.getString("primer_apellido");
+				String segundo_apellido = tabla.getString("segundo_apellido");
+				String telefono = tabla.getString("telefono");
+				String direccion = tabla.getString("direccion");
+
+				listaClientes.add(new Cliente(cedula, nombre, primer_apellido, segundo_apellido, telefono, direccion));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (objSta != null) {
+					objSta.close();
+				}
+				if (tabla != null) {
+					tabla.close();					
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return listaClientes;
+	}
+	
+	public void imprimirArrayList(ArrayList<Cliente> listaClientes) {
+		
+		for(Cliente c : listaClientes) {
+			System.out.println(c);
+		}
+		
+	}
 	
 	public static void main(String[] args) {
 		
@@ -255,11 +308,10 @@ public class modeloClientes extends Conexion {
 		
 		//System.out.println(mc.getCliente(9010));
 		
-		//long cc = 8080;
+		//long cc = 8080;mau
 		
-		System.out.println(mc.getContarClientes());
+		mc.imprimirArrayList(mc.getBusqueda("saas"));
 		
 	}
-	*/
 	
 }

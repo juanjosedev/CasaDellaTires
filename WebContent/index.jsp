@@ -7,7 +7,7 @@
 	Usuario u = (Usuario) username;
 	if(u != null){
 		if(u.getTipo().equals("Admin")){
-			response.sendRedirect("sites/admin/Liquidaciones.jsp");
+			response.sendRedirect("sites/admin/Inicio.jsp");
 		}else{
 			response.sendRedirect("sites/operador/Liquidaciones.jsp");
 		}
