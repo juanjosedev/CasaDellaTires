@@ -12,7 +12,6 @@ public class Detalle {
 		this.precio = precio;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}

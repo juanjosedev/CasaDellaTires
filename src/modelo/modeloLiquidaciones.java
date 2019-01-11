@@ -4,13 +4,15 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.json.simple.JSONObject;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 import include.*;
   
@@ -370,11 +372,8 @@ public class modeloLiquidaciones extends Conexion {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (objSta != null) {
+				if (objSta != null)
 					objSta.close();
-					//ms.cerrarConexion();
-					//mtv.cerrarConexion();
-				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1096,10 +1095,58 @@ public class modeloLiquidaciones extends Conexion {
 	
 	public static void main(String[] args) {
 		
-		modeloLiquidaciones ml = new modeloLiquidaciones();
-		
-//		{"numLiquidaciones":24}
-//		System.out.println();
+//		{"servicio_nombre":"llamarlo","servicios":{"1":"234324","5":"13443"}}
+//		{"1":"234324","5":"13443"}
+//
+//		String json = "{\"servicio_nombre\":\"llamarlo\",\"servicios\":{\"1\":\"234324\",\"5\":\"13443\"}}";
+//		Gson gson = new Gson();
+//		JsonObject json_servicio = gson.fromJson(json, JsonObject.class);
+//		JsonObject json_precios = gson.fromJson(json_servicio.get("servicios"), JsonObject.class);
+//		
+//		ArrayList<DetalleServicio> lista_detalle = new ArrayList<>();
+//		
+//		
+//		
+//		
+//		
+//		JsonArray json_precios_array =  json_precios.getAsJsonArray();
+//		System.out.println(json_servicio);
+//		System.out.println(json_precios);
+//		
+//		modeloTiposVehiculos mtv = new modeloTiposVehiculos();
+//		
+//		try {
+//			
+//			Map<String, Integer> attributes = new HashMap<String, Integer>();
+//			Set<Entry<String, JsonElement>> entrySet = json_precios.entrySet();
+//			
+//			for(Map.Entry<String,JsonElement> entry : entrySet){
+//				attributes.put(entry.getKey(),json_precios.get(entry.getKey()).getAsInt());
+//	        }
+//			
+//			for(Map.Entry<String,Integer> att : attributes.entrySet()){
+//	            
+//				long id_tipo_vehiculo = Long.parseLong(att.getKey());
+//				int precio = att.getValue();
+//				
+//				tipoVehiculo tv = mtv.getTipoVehiculo(id_tipo_vehiculo);
+//				
+//				DetalleServicio dll_servicio = new DetalleServicio(tv, precio);
+//				lista_detalle.add(dll_servicio);
+//            } 
+//			 
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		Servicio2 nuevo_servicio = new Servicio2(json_servicio.get("servicio_nombre").getAsString(), lista_detalle);
+//		
+//		System.out.println(nuevo_servicio);
+//		
+//		ModeloServicios2 ms2 = new ModeloServicios2();
+//		boolean sw = ms2.agregarNuevoServicio(nuevo_servicio);
+//		System.out.println(sw);
+//		mtv.cerrarConexion();
+//		
 	}
 	
 }

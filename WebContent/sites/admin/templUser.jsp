@@ -40,14 +40,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="container-profile">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="profile-header sombra">
-						<span class="icon-person"></span>
-						<h2 class="text-center text-uppercase"><%= c.getNombre() %></h2>
-					</div>
-				</div>
-			</div>
+			<h2 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span> <%= c.getNombre() %></h2>
 		<div class="row">
 			<div class="profile-data col-md-6">
 				<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span> Información personal <a href="#modificarCliente<%=c.getCedula()%>" data-toggle="modal" class="boton-vacio boton-chico pull-right">Editar</a></h3>
@@ -126,44 +119,44 @@
 					<li>
 						<div class="media">
 							<div class="media-left media-middle">
-								<span class="media-object icon-credit_card fs-em-2 bg-cian"></span>
+								<span class="media-object icon-credit_card fs-em-2"></span>
 							</div>
 							<div class="media-body">
 								<h4 class="media-heading"><%= c.getCedula() %></h4>
-								<i>Cédula</i>
+								<var class="media-heading-small">Cédula</var>
 							</div>
 						</div>
 					</li>
 					<li>
 						<div class="media">
 							<div class="media-left media-middle">
-								<span class="media-object icon-account_box fs-em-2 bg-azul-claro"></span>
+								<span class="media-object icon-account_box fs-em-2"></span>
 							</div>
 							<div class="media-body">
 								<h4 class="media-heading"><%= c.getNombreCompleto() %></h4>
-								<i>Nombre completo</i>
+								<var class="media-heading-small">Nombre completo</var>
 							</div>
 						</div>
 					</li>
 					<li>
 						<div class="media">
 							<div class="media-left media-middle">
-								<span class="media-object icon-phone fs-em-2 bg-azul"></span>
+								<span class="media-object icon-phone fs-em-2"></span>
 							</div>
 							<div class="media-body">
 								<h4 class="media-heading"><var id="varTelefono"><%= c.getTelefono() %></var></h4>
-								<i>Teléfono</i>
+								<var class="media-heading-small">Teléfono</var>
 							</div>
 						</div>
 					</li>
 					<li>
 						<div class="media">
 							<div class="media-left media-middle">
-								<span class="media-object icon-location_on fs-em-2 bg-indigo"></span>
+								<span class="media-object icon-location_on fs-em-2"></span>
 							</div>
 							<div class="media-body">
 								<h4 class="media-heading"><var id="varDireccion"><%= c.getDireccion() %></var></h4>
-								<i>Dirección</i>
+								<var class="media-heading-small">Dirección</var>
 							</div>
 						</div>
 					</li>

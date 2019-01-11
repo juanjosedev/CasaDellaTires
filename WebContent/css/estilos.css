@@ -37,23 +37,27 @@ body{
     color: #fff;
 }
 .container-profile .profile-data{
-	padding: 15px;
+	padding: 0 15px;
 }
 .container-profile .profile-data ul{
 	background: #fff;
 	list-style: none;
 	padding-left: 0;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 .container-profile .profile-data ul li{
-	padding: 15px;
+	padding: 10px;
+   	border-bottom: 1px solid #ddd;
     /*margin-bottom: -1px;
     border: 1px solid #ddd;*/
 }
 .container-profile .profile-data ul li .media span{
 	padding: 5px;
     border-radius: 50%;
-    color: #fff;
+    color: #03a9f4;
+}
+.media-heading-small{
+	color: #bbb;
 }
 .container-query{
 	background: #fff;
@@ -566,4 +570,12 @@ input.boton:focus, input.boton-vacio:focus {
 .media-heading {
     margin-top: 0;
     margin-bottom: 0px;
+}
+label{
+	font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+}
+.input-group-addon{
+    background-color: #dedede;
+    border: none;
 }
