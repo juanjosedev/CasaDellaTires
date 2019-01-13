@@ -75,3 +75,10 @@ function requestGetParameter(name) {
     results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+function getColor() {
+	var color = $(".title_maestro").css("background-color");
+	return color;
+}
+
+/////////////////////
+

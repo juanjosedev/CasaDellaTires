@@ -14,21 +14,25 @@
 		ArrayList<Servicio2> lista = ms2.getAllServicios();
 		
 %>
-<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span> Tabla de servicios</h3>
-<table class="table table-bordered table-hover">
+<br>
+<!-- <h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span> Tabla de servicios</h3> -->
+<table class="table table-hover sombra">
 	<thead>
 		<tr>
-			<th class="text-center text-uppercase">Id</th>
-			<th class="text-center">Nombre</th>
-			<th class="text-center">Detalle</th>
+			<th class="text-center" colspan="3">Tabla de servicios</th>
 		</tr>
 	</thead>
 	<tbody>
+		<tr class="bg-ddd">
+			<td class="text-right"><b>Id</b></td>
+			<td class="text-left"><b>Nombre</b></td>
+			<td class="text-center"><b>Detalle</b></td>
+		</tr>
 		<% for(Servicio2 s : lista){ %>
 		<tr>
-			<td class="text-center"><%= s.getId() %></td>
-			<td class="text-center"><%= s.getNombre() %></td>
-			<td class="text-center"><a href="Servicios2.jsp?servicio=<%= s.getId() %>" data-toggle="modal">Ver</a></td>
+			<td class="text-right"><%= s.getId() %></td>
+			<td class="text-left"><%= s.getNombre() %></td>
+			<td class="text-center"><a href="Servicios2.jsp?servicio=<%= s.getNombre() %>" data-toggle="modal"><span class="icon-remove_red_eye"></span></a></td>
 		</tr>
 		<% } %>
 	</tbody>

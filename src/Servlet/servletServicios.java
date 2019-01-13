@@ -104,15 +104,16 @@ public class servletServicios extends HttpServlet {
 			boolean flag = ms2.editarPrecio(id_detalle, precio);
 			response.getWriter().println(flag);			
 		} else if (request.getParameter("json_add_precio") != null) {
+			
 			boolean sw = false;
-//			{"id_servicio":"14","servicios":{"14":"78"}}
+//			{"servicio_nombre":"Lavado","servicios":{"5":"21"}}
 			String json = request.getParameter("json_add_precio");
 			Gson gson = new Gson();
-			JsonObject json_servicio = gson.fromJson(json, JsonObject.class);
-			JsonObject json_precios_add = gson.fromJson(json_servicio.get("servicios"), JsonObject.class);
+			JsonObject json_servicio = gson.fromJson(json, JsonObject.class);// json completo
+			JsonObject json_precios_add = gson.fromJson(json_servicio.get("servicios"), JsonObject.class); // subjson
 			
-			ArrayList<DetalleServicio> lista_detalle = new ArrayList<>();
-			modeloTiposVehiculos mtv = new modeloTiposVehiculos();
+			ArrayList<DetalleServicio> lista_detalle = new ArrayList<>(); // creamos la lista de detalles para llenarla luego
+			modeloTiposVehiculos mtv = new modeloTiposVehiculos(); // instancia de tipo de vehiculos
 			
 			try {
 				
@@ -120,7 +121,7 @@ public class servletServicios extends HttpServlet {
 				Set<Entry<String, JsonElement>> entrySet = json_precios_add.entrySet();
 				
 				for(Map.Entry<String,JsonElement> entry : entrySet){
-					attributes.put(entry.getKey(),json_precios_add.get(entry.getKey()).getAsInt());
+					attributes.put(entry.getKey(), json_precios_add.get(entry.getKey()).getAsInt());
 		        }
 				
 				for(Map.Entry<String,Integer> att : attributes.entrySet()){
@@ -134,11 +135,11 @@ public class servletServicios extends HttpServlet {
 					lista_detalle.add(dll_servicio);
 	            } 
 //			Servicio2 nuevo_servicio = new Servicio2(json_servicio.get("id_servicio").getAsLong(), lista_detalle);
-				long id_servicio = json_servicio.get("id_servicio").getAsLong();
+				String nombre_servicio = json_servicio.get("servicio_nombre").getAsString();
 //			System.out.println(nuevo_servicio);
 				
 				for(DetalleServicio dll: lista_detalle) {
-					sw = ms2.agregarDetalle(dll, id_servicio);					
+					sw = ms2.agregarServicios(dll, nombre_servicio);					
 				}
 				
 				 

@@ -25,8 +25,8 @@
 			ModeloServicios2 ms2 = new ModeloServicios2();
 			
 			
-			long id_servicio = Long.parseLong(request.getParameter("servicio"));
-			Servicio2 s2 = ms2.getServicio(id_servicio);
+			String nombre_servicio = request.getParameter("servicio");
+			Servicio2 s2 = ms2.getServicio(nombre_servicio);
 			ArrayList<DetalleServicio> lista_detalles = s2.getLista_detalle();
 		
 			ArrayList<tipoVehiculo> lista = ctv.getAllTipoVehiculos(-1);

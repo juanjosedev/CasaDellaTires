@@ -226,10 +226,10 @@ public class modeloClientes extends Conexion {
 	public String getHTMLi(Cliente c) {
 		String HTMLcode = "<div class=\"media\">\r\n" + 
 				"		<div class=\"media-left\">\r\n" + 
-				"		<span class=\"media-object icon-user fs-em-2\"></span>\r\n" + 
+				"		<span class=\"media-object icon-person fs-em-2\"></span>\r\n" + 
 				"		</div>\r\n" + 
 				"		<div class=\"media-body\">\r\n" + 
-				"		<h3 class=\"media-heading\">CLIENTE</h3>\r\n" + 
+				"		<h4 class=\"media-heading\">Cliente</h4>\r\n" + 
 				"		<ul>\r\n" +
 				"		<li><i>"+c.getNombreCompleto()+"</i></li>\r\n" + 
 				"		<li><i>"+c.getCedula()+"</i></li>\r\n" + 

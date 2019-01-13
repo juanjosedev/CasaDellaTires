@@ -32,7 +32,9 @@ $(document).ready(function(){
 				showAlert(alert_crear_exito, 'Se ha agregado nuevos vehículos para este servicio');
 				// 2. actualizar la tabla precios
 				var peticion_servicio = requestGetParameter('servicio');
-				$('#container_tabla_precios').load('tablaPrecios.jsp?servicio='+peticion_servicio);
+				$('#container_tabla_precios').load('tablaPrecios.jsp?servicio='+peticion_servicio, function(){
+					tableDesign();
+				});
 				// 3. actualizar la tabla añadir precios
 				$('#container_add_nuevo_precio').load('tablaNuevosPrecios.jsp?servicio='+peticion_servicio, function(){
 					init();					
@@ -106,9 +108,9 @@ $(document).ready(function(){
 
 	function getJsonAddPrecio(){
 		var json = {};
-		var id = requestGetParameter('servicio');
+		var nombre = requestGetParameter('servicio');
 //		alert(id);
-		json['id_servicio'] = id;
+		json['servicio_nombre'] = nombre;
 		json['servicios'] = {};
 		
 		$('input:checked').each(function(){

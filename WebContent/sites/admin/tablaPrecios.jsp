@@ -11,21 +11,24 @@
 		ModeloServicios2 ms2 = new ModeloServicios2();
 		
 		try{
-			long id_servicio = Long.parseLong(request.getParameter("servicio"));
-			Servicio2 s = ms2.getServicio(id_servicio);
+			String nombre_servicio = request.getParameter("servicio");
+			Servicio2 s = ms2.getServicio(nombre_servicio);
 		
 %>
-<table class="table table-bordered table-hover">
+<table class="table table-hover sombra">
 	<thead>
 		<tr>
-			<th>Id</th>
-			<th>Nombre</th>
-			<th class="text-right">Precio</th>
-			<th>Eliminar</th>
-			<th>Editar</th>
+			<th class="text-center" colspan="5">Tabla de precios</th>
 		</tr>
 	</thead>
 	<tbody>
+		<tr class="bg-ddd">
+			<th class="text-right">Id</th>
+			<th class="text-left">Nombre</th>
+			<th class="text-right">Precio</th>
+			<th class="text-center">Eliminar</th>
+			<th class="text-center">Editar</th>
+		</tr>
 	<%
 		ArrayList<DetalleServicio> lista_detalles = s.getLista_detalle();
 		for(DetalleServicio dll: lista_detalles){
@@ -34,8 +37,8 @@
 			<td class="text-right"><var class="var_id"><%= dll.getId() %></var></td>
 			<td><%= dll.getTipo_vehiculo().getNombre() %></td>
 			<td class="text-right"><var class="var_precio"><%= dll.getPrecio() %></var></td>
-			<td>
-				<a href="#eliminarDetalle<%= dll.getId() %>" data-toggle="modal">Eliminar</a>
+			<td class="text-center">
+				<a href="#eliminarDetalle<%= dll.getId() %>" data-toggle="modal"><span class="icon-delete"></span></a>
 				<div class="modal fade modal_modificar" id="eliminarDetalle<%= dll.getId() %>">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -63,8 +66,8 @@
 					</div>
 				</div>
 			</td>
-			<td>
-				<a href="#editarDetalle<%= dll.getId() %>" data-toggle="modal">Editar</a>
+			<td class="text-center">
+				<a href="#editarDetalle<%= dll.getId() %>" data-toggle="modal"><span class="icon-edit"></span></a>
 				<div class="modal fade modal_modificar" id="editarDetalle<%= dll.getId() %>">
 					<div class="modal-dialog">
 						<div class="modal-content">

@@ -11,28 +11,33 @@
 		}
 		ArrayList<Cliente> lista = cc.getAllClientes(pagina);
 %>
-<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Tabla de Clientes</h3>
+<br>
 <div class="table-responsive">
-	<table class="table table-bordered table-hover">
+	<table class="table table-hover sombra">
 		<thead>
 			<tr>
-				<th class="text-center text-uppercase">Cédula</th>
-				<th class="text-center text-uppercase">Nombre</th>
-				<th class="text-center text-uppercase">Teléfono</th>
-				<th class="text-center text-uppercase">Dirección</th>
-				<th class="text-center text-uppercase">Ver perfil</th>
+				<th class="text-center" colspan="5">Tabla de clientes</th>
 			</tr>
 		</thead>
+		<thead>
+		</thead>
 		<tbody>
+			<tr class="bg-ddd">
+				<th class="text-right">Cédula</th>
+				<th class="text-left">Nombre</th>
+				<th class="text-right">Teléfono</th>
+				<th class="text-left">Dirección</th>
+				<th class="text-center">Ver perfil</th>
+			</tr>
 			<%
 				for (Cliente valor : lista) {
 			%>
 			<tr>
-				<td class="text-center"><%=valor.getCedula()%></td>
-				<td class="text-center"><%=valor.getNombreCompleto()%></td>
-				<td class="text-center"><%=valor.getTelefono()%></td>
-				<td class="text-center"><%=valor.getDireccion()%></td>
-				<td class="text-center"><a href="Clientes.jsp?user=<%= valor.getCedula() %>" data-toggle="modal">Ver perfil</a></td>
+				<td class="text-right"><%=valor.getCedula()%></td>
+				<td class="text-left"><%=valor.getNombreCompleto()%></td>
+				<td class="text-right"><%=valor.getTelefono()%></td>
+				<td class="text-left"><%=valor.getDireccion()%></td>
+				<td class="text-center"><a href="Clientes.jsp?user=<%= valor.getCedula() %>" data-toggle="modal"><span class="icon-remove_red_eye"></span></a></td>
 			<%
 				}//Cierre del for
 			%>

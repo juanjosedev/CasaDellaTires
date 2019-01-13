@@ -9,19 +9,22 @@
 	int lqdCompletas = cl.getContarLiquidacionesCompletas();
 	String paginacion =  Paginacion.getPaginacion("Liquidaciones.jsp", lqdCompletas);
 %>
-<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Finalizadas</h3>
+<!-- <h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Finalizadas</h3> -->
 <div class="table-responsive">
-	<table class="table table-bordered table-hover">
+	<table class="table table-hover sombra">
 		<thead>
 			<tr>
+				<th class="text-center" colspan="5">Tabla de liquidaciones finalizadas</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="bg-ddd">
 				<th class="text-center">Consecutivo</th>
 				<th class="text-center">Placa</th>
 				<th class="text-center">Cédula</th>
 				<th class="text-center">Fecha</th>
 				<th class="text-center">Detalle</th>
 			</tr>
-		</thead>
-		<tbody>
 			<% 
 				for(Liquidacion l: lista_completas){
 						ArrayList<Detalle> lista_dlls = l.getLista_detalles();
@@ -32,12 +35,12 @@
 				<td class="text-center"><%= l.getCliente().getCedula() %></td>
 				<td class="text-center"><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></td>
 				<td class="text-center"><a href="#detalle<%= l.getConsecutivo() %>"
-					data-toggle="modal">Detalle</a>
+					data-toggle="modal"><span class="icon-dehaze"></span></a>
 					<div class="modal fade" id="detalle<%= l.getConsecutivo() %>">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h2 class="modal-header-title">INFORMACIÓN</h2>
+									<h3 class="modal-header-title text-left  <%= u.getColor() %>"><span class="icon-info_outline"></span> INFORMACIÓN</h3>
 								</div>
 								<div class="modal-body text-left">
 									<div class="row">
@@ -47,7 +50,7 @@
 													<span class="media-object icon-person fs-em-2"></span>
 												</div>
 												<div class="media-body">
-													<h3 class="media-heading">CLIENTE</h3>
+													<h4 class="media-heading">Cliente</h4>
 													<ul>
 														<li><i><%= l.getCliente().getNombreCompleto() %></i></li>
 														<li><i><%= l.getCliente().getCedula() %></i></li>
@@ -63,7 +66,7 @@
 													<span class="media-object icon-drive_eta fs-em-2"></span>
 												</div>
 												<div class="media-body">
-													<h3 class="media-heading">VEHÍCULO</h3>
+													<h4 class="media-heading">Vehículo</h4>
 													<ul>
 														<li><i><%= l.getVehiculo().getBeautyPlaca() %></i></li>
 														<li><i><%= l.getVehiculo().getTipo().getNombre() %></i></li>
@@ -76,11 +79,11 @@
 									</div>
 									<hr>
 									<div class="table-responsive">
-										<table class="table table-bordered table-hover">
+										<table class="table table-hover sombra">
 											<thead>
-												<tr>
+												<tr class="bg-ddd">
 													<th>Servicio</th>
-													<th>Precio</th>
+													<th class="text-right">Precio</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -101,7 +104,7 @@
 													<span class="media-object icon-query_builder fs-em-2"></span>
 												</div>
 												<div class="media-body">
-													<h3 class="media-heading">INFORMACIÓN</h3>
+													<h4 class="media-heading">Información</h4>
 													<ul>
 														<li><i><b>Consecutivo: </b><%= l.getConsecutivo() %></i></li>
 														<li><i><b>Fecha entrada: </b><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></i></li>
@@ -117,7 +120,7 @@
 													<span class="media-object icon-attach_money fs-em-2"></span>
 												</div>
 												<div class="media-body">
-													<h3 class="media-heading">TOTAL: $<i><%= l.getTotal() %></i></h3>
+													<h4 class="media-heading">Total: $<i><%= l.getTotal() %></i></h4>
 													<ul>
 														<li><i><b>Subtotal: $</b><%= l.getSubtotal() %></i></li>
 														<li><i><b>Descuento: $</b><%= l.getDescuento() %></i></li>

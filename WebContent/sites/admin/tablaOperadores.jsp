@@ -12,26 +12,29 @@
 	}
 	ArrayList<Usuario> lista = mu.getAllOperadores(pagina);
 %>
-<table class="table table-bordered table-hover">
+<table class="table table-hover">
 	<thead>
 		<tr>
-			<th class="text-center text-uppercase">Usuario</th>
-			<th class="text-center text-uppercase">Nombre</th>
-			<th class="text-center text-uppercase">Teléfono</th>
-			<th class="text-center text-uppercase">Dirección</th>
-			<th class="text-center text-uppercase">Historial</th>
-			<th class="text-center text-uppercase">Modificar</th>
+			<th colspan="6" class="text-center">Tabla de operadores</th>
 		</tr>
 	</thead>
 	<tbody>
+		<tr class="bg-ddd">
+			<th class="text-left text-uppercase">Usuario</th>
+			<th class="text-left text-uppercase">Nombre</th>
+			<th class="text-right text-uppercase">Teléfono</th>
+			<th class="text-left text-uppercase">Dirección</th>
+			<th class="text-center text-uppercase">Historial</th>
+			<th class="text-center text-uppercase">Modificar</th>
+		</tr>
 		<%
 			for (Usuario valor : lista) {
 		%>
 		<tr>
-			<td class="text-center"><%=valor.getUsuario()%></td>
-			<td class="text-center"><%=valor.getNombreCompleto()%></td>
-			<td class="text-center"><%=valor.getTelefono()%></td>
-			<td class="text-center"><%=valor.getDireccion()%></td>
+			<td class="text-left"><%=valor.getUsuario()%></td>
+			<td class="text-left"><%=valor.getNombreCompleto()%></td>
+			<td class="text-right"><%=valor.getTelefono()%></td>
+			<td class="text-left"><%=valor.getDireccion()%></td>
 			<td class="text-center"><a href="#detalle" data-toggle="modal">Detalle</a>
 				<div class="modal fade" id="detalle">
 					<div class="modal-dialog">

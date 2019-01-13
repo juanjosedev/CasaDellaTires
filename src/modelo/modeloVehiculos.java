@@ -201,10 +201,10 @@ public class modeloVehiculos extends Conexion{
 	public String getHTMLi(Vehiculo v) {
 		String HTMLcode = "<div class=\"media\">\r\n" + 
 				"			<div class=\"media-left\">\r\n" + 
-				"			<span class=\"media-object icon-truck fs-em-2\"></span>\r\n" + 
+				"			<span class=\"media-object icon-drive_eta fs-em-2\"></span>\r\n" + 
 				"			</div>\r\n" + 
 				"			<div class=\"media-body\">\r\n" + 
-				"			<h3 class=\"media-heading\">VEHÍCULO</h3>\r\n" + 
+				"			<h4 class=\"media-heading\">Vehículo</h4>\r\n" + 
 				"			<ul>\r\n" + 
 				"			<li><i>"+v.getBeautyPlaca()+"</i></li>\r\n" + 
 				"			<li><i>"+v.getTipo().getNombre()+"</i></li>\r\n" + 

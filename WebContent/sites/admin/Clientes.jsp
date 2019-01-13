@@ -36,7 +36,7 @@
 			ArrayList<Cliente> listaClientes = cc.getBusqueda(criterio);
 	%>
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Buscar cliente..." id="input_buscar_cc" name="input_buscar_cc">
 					<span class="input-group-btn">
@@ -46,10 +46,9 @@
 					</span>
 				</div>
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<button class="boton <%= u.getColor() %> boton-chico pull-right sombra" id="volver"><span class="icon-navigate_before"></span> VOLVER A LA TABLA</button>
-			</div>
-				
+			</div>	
 		</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -88,7 +87,7 @@
 			} else{
 		%>
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Buscar cliente..." id="input_buscar_cc" name="input_buscar_cc">
 					<span class="input-group-btn">
@@ -98,7 +97,7 @@
 					</span>
 				</div>
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<a href="#agregarCliente " data-toggle="modal"
 					class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo cliente</a>
 				<div class="modal fade" id="agregarCliente">

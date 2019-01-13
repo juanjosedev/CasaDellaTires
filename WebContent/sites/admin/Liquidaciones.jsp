@@ -38,13 +38,13 @@
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h3 class="modal-header-title"><span class="icon-assignment"></span> Crear liquidación</h3>
+									<h3 class="modal-header-title text-uppercase"><span class="icon-assignment"></span> Crear Liquidación</h3>
 								</div>
 								<form action="servletliquidaciones" method="post"
 									id="frm_liquidar" name="frm_liquidar">
 									<div class="modal-body text-left">
 										<div id="formulario_liquidacion">
-											<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Datos del cliente</h3>
+											<h4><span class="table-title <%= u.getColor() %>"></span>Datos del cliente</h4>
 											<div class="form-group">
 												<input name="cc" type="text" id="inp_cc_lqr"
 													class="form-control" placeholder="Cédula de la persona">
@@ -110,7 +110,7 @@
 															<span class="media-object icon-query_builder fs-em-2"></span>
 														</div>
 														<div class="media-body">
-															<h3 class="media-heading">INFORMACIÓN</h3>
+															<h4 class="media-heading">Información</h4>
 															<ul>
 																<li><i><b>Consecutivo: </b>00000</i></li>
 																<li><i><b>Fecha: </b><var id="info_fecha"></var></i></li>
@@ -126,7 +126,7 @@
 															<span class="media-object icon-attach_money fs-em-2"></span>
 														</div>
 														<div class="media-body">
-															<h3 class="media-heading">TOTAL: $<i><var id="info_total">0</var></i></h3>
+															<h4 class="media-heading">Total: $<i><var id="info_total">0</var></i></h4>
 															<ul>
 																<li><i><b>Subtotal: $</b><var id="info_subtotal">0</var></i></li>
 																<li><i><b>Descuento: $</b><var id="info_descuento">0</var></i></li>

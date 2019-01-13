@@ -12,26 +12,29 @@
 		ArrayList<Vehiculo> lista = cv.getAllVehiculos(pagina);
 		
 %>
-<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span>Tabla de Vehículos</h3>
-<table class="table table-bordered table-hover">
+<br>
+<table class="table table-hover sombra">
 	<thead>
 		<tr>
-			<th class="text-center text-uppercase">Placa</th>
-			<th class="text-center text-uppercase">Tipo de vehículo</th>
-			<th class="text-center text-uppercase">Marca</th>
-			<th class="text-center text-uppercase">Modelo</th>
-			<th class="text-center text-uppercase">Modificar</th>
+			<th class="text-center" colspan="5">Tabla de vehículos</th>
 		</tr>
 	</thead>
 	<tbody>
+		<tr class="bg-ddd">
+			<th class="text-left">Placa</th>
+			<th class="text-left">Tipo de vehículo</th>
+			<th class="text-left">Marca</th>
+			<th class="text-left">Modelo</th>
+			<th class="text-left">Editar</th>
+		</tr>
 		<% for(Vehiculo v : lista){ %>
 		<tr>
-			<td class="text-center"><%= v.getBeautyPlaca() %></td>
-			<td class="text-center"><%= v.getTipo().getNombre() %></td>
-			<td class="text-center"><%= v.getMarca() %></td>
-			<td class="text-center"><%= v.getModelo() %></td>
-			<td class="text-center"><a
-				href="#modificarCliente<%= v.getPlaca() %>" data-toggle="modal">Modificar</a>
+			<td class="text-left"><%= v.getBeautyPlaca() %></td>
+			<td class="text-left"><%= v.getTipo().getNombre() %></td>
+			<td class="text-left"><%= v.getMarca() %></td>
+			<td class="text-left"><%= v.getModelo() %></td>
+			<td class="text-left"><a
+				href="#modificarCliente<%= v.getPlaca() %>" data-toggle="modal"><span class="icon-edit"></span></a>
 				<div class="modal fade modal_modificar" id="modificarCliente<%= v.getPlaca() %>">
 					<div class="modal-dialog">
 						<div class="modal-content">

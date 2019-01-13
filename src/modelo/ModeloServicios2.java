@@ -9,7 +9,7 @@ import include.*;
 
 public class ModeloServicios2 extends Conexion{
 	
-	public boolean agregarNuevoServicio(Servicio2 servicio) {
+	public boolean agregarNuevoServicio(Servicio2 servicio) {//COMPLETE
 		boolean flag = false;
 		PreparedStatement objSta = null;
 		
@@ -19,17 +19,17 @@ public class ModeloServicios2 extends Conexion{
 		
 		try {
 			
-			String sql = "INSERT INTO table_servicios (nombre) VALUES (?)";
-			objSta = getConnection().prepareStatement(sql);
-			objSta.setString(1, servicio.getNombre());
-			
-			flag = objSta.executeUpdate() == 1;
+//			String sql = "INSERT INTO table_servicios (nombre) VALUES (?)";
+//			objSta = getConnection().prepareStatement(sql);
+//			objSta.setString(1, servicio.getNombre());
+//			
+//			flag = objSta.executeUpdate() == 1;
 			
 			ArrayList<DetalleServicio> lista = servicio.getLista_detalle();
 			
 			for(DetalleServicio dllsvc : lista) {
 				
-				agregarDetalle(dllsvc, servicio.getId());
+				agregarServicios(dllsvc, servicio.getNombre());
 				
 			}
 			
@@ -47,17 +47,17 @@ public class ModeloServicios2 extends Conexion{
 		return flag;
 	}
 	
-	public boolean agregarDetalle(DetalleServicio dll, long id_servicio) {
+	public boolean agregarServicios(DetalleServicio dll, String nombre) {//COMPLETE
 		
 		boolean flag = false;
 		PreparedStatement objSta = null;
 		
 		try {
 			
-			String sql = "INSERT INTO precios (id_servicio, id_tipo_vehiculo, precio) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO servicios (id_tipo_vehiculo, nombre, precio) VALUES (?, ?, ?)";
 			objSta = getConnection().prepareStatement(sql);
-			objSta.setLong(1, id_servicio);
-			objSta.setLong(2, dll.getTipo_vehiculo().getId());
+			objSta.setLong(1, dll.getTipo_vehiculo().getId());
+			objSta.setString(2, nombre);
 			objSta.setInt(3, dll.getPrecio());
 			
 			flag = objSta.executeUpdate() == 1;
@@ -77,27 +77,27 @@ public class ModeloServicios2 extends Conexion{
 		
 	}
 	
-	public Servicio2 getServicio(long id) {
+	public Servicio2 getServicio(String nombre) {
 		
 		Servicio2 s = null;
 		PreparedStatement objSta = null;
 		ResultSet tabla = null;
 		
 		try {
-			String sql = "SELECT id, nombre FROM table_servicios WHERE id = ?";
+			String sql = "SELECT id, nombre FROM servicios WHERE nombre = ?";
 			objSta = getConnection().prepareStatement(sql);
-			objSta.setLong(1, id);
+			objSta.setString(1, nombre);
 			
 			tabla = objSta.executeQuery();
 			
 			while(tabla.next()) {
 				
 				Long id_s = tabla.getLong("id");
-				String nombre = tabla.getString("nombre");
+				String nombre_s = tabla.getString("nombre");
 				
-				ArrayList<DetalleServicio> lista_detalles = getDetalles(id_s);
+				ArrayList<DetalleServicio> lista_detalles = getDetalles(nombre);
 				
-				s = new Servicio2(id_s, nombre, lista_detalles);
+				s = new Servicio2(id_s, nombre_s, lista_detalles);
 			}
 			
 			
@@ -126,7 +126,7 @@ public class ModeloServicios2 extends Conexion{
 		
 		try {
 		
-			String sql = "SELECT id, nombre FROM table_servicios";
+			String sql = "SELECT 0 AS id, nombre FROM servicios GROUP BY nombre;";
 			objSta = getConnection().prepareStatement(sql);
 			tabla = objSta.executeQuery();
 			
@@ -134,7 +134,7 @@ public class ModeloServicios2 extends Conexion{
 				
 				long id = tabla.getLong("id");
 				String nombre = tabla.getString("nombre");
-				ArrayList<DetalleServicio> lista_detalle = getDetalles(id);
+				ArrayList<DetalleServicio> lista_detalle = getDetalles(nombre);
 				
 				Servicio2 svc2 = new Servicio2(id, nombre, lista_detalle);
 				
@@ -158,7 +158,7 @@ public class ModeloServicios2 extends Conexion{
 		return lista_servicios;
 	}
 	
-	public ArrayList<DetalleServicio> getDetalles(long id_servicio) {
+	public ArrayList<DetalleServicio> getDetalles(String nombre) {
 		
 		ArrayList<DetalleServicio> lista_detalles = new ArrayList<>();
 		PreparedStatement objSta = null;
@@ -166,9 +166,9 @@ public class ModeloServicios2 extends Conexion{
 		modeloTiposVehiculos mtv = new modeloTiposVehiculos();
 		try {
 			
-			String sql = "SELECT id, id_tipo_vehiculo, precio FROM precios WHERE id_servicio = ?";
+			String sql = "SELECT id, id_tipo_vehiculo, precio FROM servicios WHERE nombre LIKE ?";
 			objSta = getConnection().prepareStatement(sql);
-			objSta.setLong(1, id_servicio);
+			objSta.setString(1, nombre);
 			tabla = objSta.executeQuery();
 			
 			while(tabla.next()) {
@@ -230,11 +230,11 @@ public class ModeloServicios2 extends Conexion{
 	
 		boolean flag = false;
 		
-PreparedStatement objSta = null;
+		PreparedStatement objSta = null;
 		
 		try {
 			
-			String sql = "DELETE FROM precios WHERE id = ?";
+			String sql = "DELETE FROM servicios WHERE id = ?";
 			objSta = getConnection().prepareStatement(sql);
 			objSta.setLong(1, id_detalle);
 			flag = objSta.executeUpdate() == 1;			
@@ -262,7 +262,7 @@ PreparedStatement objSta = null;
 				
 		try {
 			
-			String sql = "UPDATE precios SET precio = ? WHERE id = ?";
+			String sql = "UPDATE servicios SET precio = ? WHERE id = ?";
 			objSta = getConnection().prepareStatement(sql);
 			objSta.setInt(1, precio);
 			objSta.setLong(2, id);

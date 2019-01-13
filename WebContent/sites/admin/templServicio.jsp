@@ -11,8 +11,8 @@
 		ModeloServicios2 ms2 = new ModeloServicios2();
 		
 		try{
-			long id_servicio = Long.parseLong(request.getParameter("servicio"));
-			Servicio2 s = ms2.getServicio(id_servicio);
+			String nombre = request.getParameter("servicio");
+			Servicio2 s = ms2.getServicio(nombre);
 			//response.getWriter().print("<h2>"+s+"</h2>");
 		
 %>
@@ -21,7 +21,11 @@
 	<h2><span class="table-title <%= u.getColor() %>"></span> <%= s.getNombre() %></h2>
 	<div class="row">
 		<div class="profile-data col-md-12">
-			<h3>Información <a href="#modificarServicio" data-toggle="modal" class="boton-vacio boton-chico pull-right">Editar</a></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<a href="#modificarServicio" data-toggle="modal" class="boton-vacio boton-chico pull-right">Editar</a>
+				</div>
+			</div>
 			<div class="modal fade modal_modificar" id="modificarServicio">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -53,8 +57,8 @@
 						</form>
 					</div>
 				</div>
-			</div><br>
-			<ul class="sombra">
+			</div>
+			<!-- <ul class="sombra">
 				<li>
 					<div class="media">
 						<div class="media-left media-middle">
@@ -77,10 +81,51 @@
 						</div>
 					</div>
 				</li>
-			</ul>
+			</ul> --><br>
+			<div class="table-responsive">
+				<table class="table table-hover sombra">
+					<thead>
+						<tr>
+							<th class="text-center">Información</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div class="media">
+									<div class="media-left media-middle">
+										<span class="media-object icon-credit_card fs-em-2"></span>
+									</div>
+									<div class="media-body">
+										<h4 class="media-heading"><%= s.getId() %></h4>
+										<var class="media-heading-small">Id del servicio</var>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="media">
+									<div class="media-left media-middle">
+										<span class="media-object icon-account_box fs-em-2"></span>
+									</div>
+									<div class="media-body">
+										<h4 class="media-heading"><%= s.getNombre() %></h4>
+										<var class="media-heading-small">Nombre del servicio</var>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<div class="profile-data col-md-12">
-			<h3>Precios <a href="#addNewPrecio" data-toggle="modal" class="boton-vacio boton-chico pull-right">Añadir</a></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<a href="#addNewPrecio" data-toggle="modal" class="boton-vacio boton-chico pull-right">Añadir</a>
+				</div>
+			</div>
 			<div class="modal fade" id="addNewPrecio">
 				<div class="modal-dialog">
 					<div class="modal-content">
