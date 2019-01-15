@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 import org.json.simple.JSONObject;
@@ -325,12 +326,66 @@ public class modeloLiquidaciones extends Conexion {
 				String salida_str = tabla.getString("hora_final");
 				
 				Calendar entrada = dateTimeSQLToCalendar(entrada_str);
-//				Calendar salida = dateTimeSQLToCalendar(salida_str);
+				Calendar salida = salida_str == null ? dateTimeSQLToCalendar(salida_str) : null;
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");
 				
-				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, null, subtotal, descuento, total);
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, salida, subtotal, descuento, total);
+				
+				lista.add(l);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (objSta != null) {
+					objSta.close();
+					tabla.close();
+					mc.cerrarConexion();
+					mv.cerrarConexion();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return lista;
+	}
+	
+	public ArrayList<Liquidacion> getLiquidacionesByCliente(String placa){
+		ArrayList<Liquidacion> lista = new ArrayList<>();
+		PreparedStatement objSta = null;
+		ResultSet tabla = null;
+		modeloClientes mc = new modeloClientes();
+		modeloVehiculos mv = new modeloVehiculos();
+		
+		try {
+			
+			String sql = "SELECT * FROM liquidaciones WHERE placa = ? ORDER BY hora_inicio DESC";
+			objSta = getConnection().prepareStatement(sql);
+			objSta.setString(1, placa);
+			
+			tabla = objSta.executeQuery();
+			
+			while(tabla.next()) {
+				
+				long consecutivo = tabla.getLong("consecutivo");
+				Cliente cliente = mc.getCliente(tabla.getLong("cc"));
+				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
+				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
+				
+				String entrada_str = tabla.getString("hora_inicio");
+				String salida_str = tabla.getString("hora_final");
+				
+				Calendar entrada = dateTimeSQLToCalendar(entrada_str);
+				Calendar salida = salida_str != null ? dateTimeSQLToCalendar(salida_str) : null;
+				int subtotal = tabla.getInt("subtotal");
+				int descuento = tabla.getInt("descuento");
+				int total = tabla.getInt("total");
+				
+				Liquidacion l = new Liquidacion(consecutivo, cliente, vehiculo, lista_detalles, entrada, salida, subtotal, descuento, total);
 				
 				lista.add(l);
 			}
@@ -1147,6 +1202,7 @@ public class modeloLiquidaciones extends Conexion {
 //		System.out.println(sw);
 //		mtv.cerrarConexion();
 //		
+	
 	}
 	
 }

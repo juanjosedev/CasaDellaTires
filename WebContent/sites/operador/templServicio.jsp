@@ -57,7 +57,31 @@
 						</form>
 					</div>
 				</div>
-			</div><br>
+			</div>
+			<!-- <ul class="sombra">
+				<li>
+					<div class="media">
+						<div class="media-left media-middle">
+							<span class="media-object icon-credit_card fs-em-2"></span>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading"><%= s.getId() %></h4>
+							<var class="media-heading-small">Id del servicio</var>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="media">
+						<div class="media-left media-middle">
+							<span class="media-object icon-account_box fs-em-2"></span>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading"><%= s.getNombre() %></h4>
+							<var class="media-heading-small">Nombre del servicio</var>
+						</div>
+					</div>
+				</li>
+			</ul> --><br>
 			<div class="table-responsive">
 				<table class="table table-hover sombra">
 					<thead>
@@ -143,8 +167,6 @@
 			response.getWriter().print("<h2>Error con el dato de entrada</h2>");
 		} catch (NullPointerException e){
 			response.getWriter().print("<h2>El servicio no existe </h2>");
-		}finally{
-			
 		}
 		ms2.cerrarConexion();
 	}

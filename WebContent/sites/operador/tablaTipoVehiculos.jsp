@@ -1,6 +1,9 @@
 <%@ page import="java.util.*, controlador.*, include.*, modelo.*"%>
 <%
 	controladorTipoVehiculos ctv = new controladorTipoVehiculos();
+	HttpSession sesion = request.getSession(true);
+	Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
+	Usuario u = (Usuario) username;
 	int pagina = 1;
 	if(request.getParameter("page") != null) {
 		pagina = Integer.parseInt(request.getParameter("page"));
@@ -44,7 +47,7 @@
 								<button type="button"
 									class="boton boton-chico pull-left"
 									data-dismiss="modal">Cerrar</button>
-								<input type="submit" class="boton boton-chico bg-azul"
+								<input type="submit" class="boton boton-chico <%= u.getColor() %>"
 									id="modificar" name="modificar" value="Guardar cambios">
 							</div>
 						</div>
@@ -73,7 +76,7 @@
 			var listas = document.getElementsByClassName("page_p");
 			for(var i = 0; i < listas.length; i++){
 				if(listas[i].innerText == pagina_actual){
-					listas[i].firstChild.className += " page_active";
+					listas[i].firstChild.className += "<%= u.getColor() %> page_active";;
 				}
 			}		
 		}

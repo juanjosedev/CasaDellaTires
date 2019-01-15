@@ -37,7 +37,7 @@
 				<td class="text-left"><%=valor.getNombreCompleto()%></td>
 				<td class="text-right"><%=valor.getTelefono()%></td>
 				<td class="text-left"><%=valor.getDireccion()%></td>
-				<td class="text-center"><a href="Clientes.jsp?user=<%= valor.getCedula() %>" data-toggle="modal"><span class="icon-remove_red_eye"></span></a></td>
+				<td class="text-center"><a href="Clientes.jsp?user=<%= valor.getCedula() %>"><span class="icon-remove_red_eye"></span></a></td>
 			<%
 				}//Cierre del for
 			%>

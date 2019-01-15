@@ -184,6 +184,8 @@ $(document).ready(function() {
     
     function getDataBarChartServiciosPrestados(lastDays) {
     	
+    	$("#chart_div").css("visibility", "hidden");
+    	
 		if(lastDays == undefined) {
 			lastDays = 7;
 		}
@@ -191,9 +193,14 @@ $(document).ready(function() {
 		$.post("../../inicio", "getBarChartServiciosPrestados="+lastDays, function(res, est, jqXHR){
 			
 			var json = JSON.parse(res);		
-			//console.log(json);
-			graficarServiciosPrestados_barras(json);
 			
+			$("#chart_div").parent().find(".carga").fadeOut(1000);									
+			setTimeout(function(){
+				graficarServiciosPrestados_barras(json);
+				$("#chart_div").fadeIn(1000);
+				$("#chart_div").css("visibility", "visible");
+			}, 1000);
+					
 		});
     	
     }
@@ -250,21 +257,20 @@ $(document).ready(function() {
     
     function getDataBarChartLiquidacionesRealizadas(lastDays) {
     	
-    	$("#chart_div").css("visibility", "hidden");
+    	$("#chartLiquidacionesPrestadas").css("visibility", "hidden");
     	
 		if(lastDays == undefined) {
 			lastDays = 7;
 		}
 		
 		$.post("../../inicio", "getBarChartLiquidacionesRealizadas="+lastDays, function(res, est, jqXHR){
-//			var res = '{"17 dic":1,"18 dic":2,"19 dic":1,"20 dic":1,"21 dic":2,"22 dic":3,"23 dic":0}';
+
 			var json = JSON.parse(res);		
-//			console.log(getSumaJson(json));
-			graficarLiquidacionesPrestadas_barras(json);
-			$(".carga").fadeOut(1000);									
+			$("#chartLiquidacionesPrestadas").parent().find(".carga").fadeOut(1000);									
 			setTimeout(function(){
-				$("#chart_div").fadeIn(1000);
-				$("#chart_div").css("visibility", "visible");
+				graficarLiquidacionesPrestadas_barras(json);
+				$("#chartLiquidacionesPrestadas").fadeIn(1000);
+				$("#chartLiquidacionesPrestadas").css("visibility", "visible");
 			}, 1000);
 		});
     	
@@ -310,6 +316,7 @@ $(document).ready(function() {
     
     function getDataBarChartGanancias(lastDays) {
     	
+    	$("#chartGanancias").css("visibility", "hidden");
     	
 		if(lastDays == undefined) {
 			lastDays = 7;
@@ -319,7 +326,12 @@ $(document).ready(function() {
 //			var res = '{"17 dic":86000,"18 dic":66000,"19 dic":71000,"20 dic":82000,"21 dic":450000,"22 dic":161000,"23 dic":0}';
 			var json = JSON.parse(res);		
 //			console.log(json);
-			graficarGanancias_barras(json);
+			$("#chartGanancias").parent().find(".carga").fadeOut(1000);									
+			setTimeout(function(){
+				graficarGanancias_barras(json);
+				$("#chartGanancias").fadeIn(1000);
+				$("#chartGanancias").css("visibility", "visible");
+			}, 1000);
 			
 		});
     	
@@ -365,6 +377,8 @@ $(document).ready(function() {
 
     function getDataBarChartGananciasPorServicio(lastDays) {
     	
+    	$("#chartGananciasServicio").css("visibility", "hidden");
+    	
 		if(lastDays == undefined) {
 			lastDays = 7;
 		}
@@ -373,8 +387,12 @@ $(document).ready(function() {
 //			var res = '{"18 dic":{"Alineación de luces":0,"Balanceo":66000,"Cambio de Aceite":43000,"Lavado":0,"Pintura":0,"Tuneado":0},"19 dic":{"Alineación de luces":0,"Balanceo":71000,"Cambio de Aceite":71000,"Lavado":71000,"Pintura":0,"Tuneado":0},"20 dic":{"Alineación de luces":0,"Balanceo":82000,"Cambio de Aceite":82000,"Lavado":82000,"Pintura":0,"Tuneado":0},"21 dic":{"Alineación de luces":0,"Balanceo":422000,"Cambio de Aceite":422000,"Lavado":450000,"Pintura":0,"Tuneado":422000},"22 dic":{"Alineación de luces":95000,"Balanceo":161000,"Cambio de Aceite":138000,"Lavado":95000,"Pintura":0,"Tuneado":0},"23 dic":{"Alineación de luces":0,"Balanceo":0,"Cambio de Aceite":0,"Lavado":0,"Pintura":0,"Tuneado":0},"24 dic":{"Alineación de luces":91000,"Balanceo":114000,"Cambio de Aceite":0,"Lavado":91000,"Pintura":0,"Tuneado":0}}';
 			var json = JSON.parse(res);		
 //			console.log(getSumaJson(json));
-			graficarGananciasPorServicio(json);
-			
+			$("#chartGananciasServicio").parent().find(".carga").fadeOut(1000);	
+			setTimeout(function(){
+				graficarGananciasPorServicio(json);
+				$("#chartGananciasServicio").fadeIn(1000);
+				$("#chartGananciasServicio").css("visibility", "visible");
+			}, 1000);
 		});
     	
     }

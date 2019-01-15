@@ -1,13 +1,16 @@
+<%@ page import="include.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="include.*" %>
 <%
 	HttpSession sesion = request.getSession(true);
 	Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
-	Usuario u = (Usuario) username;
-	if(u == null){
-		response.sendRedirect("../../index.jsp");
-	}
+	if(username == null){
+		response.sendRedirect("http://localhost:8080/CasaDellaTires/");
+	}else{
+		Usuario u = (Usuario) username;
+		if(!u.getTipo().equals("Operador")){
+			response.sendRedirect("../../index.jsp");
+		}	
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,7 +20,7 @@
 <title>Admin | TIPOS DE VEHÍCULOS</title>
 </head>
 <body>
-	<div class="container-fluid title_maestro">
+	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
 				<h2 class="text-uppercase"><span class="icon-local_shipping"></span> TIPOS DE VEHÍCULOS</h2>
@@ -41,7 +44,7 @@
 				</div>
 				<div class="col-md-8">
 					<a href="#agregarLiquidacion" data-toggle="modal"
-						class="boton bg-azul boton-chico pull-right sombra">Nuevo tipo</a>
+						class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo tipo</a>
 					<div class="modal fade" id="agregarLiquidacion">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -72,7 +75,7 @@
 										<button type="button"
 											class="boton boton-chico pull-left"
 											data-dismiss="modal">Cerrar</button>
-										<input type="submit" class="boton boton-chico bg-azul"
+										<input type="submit" class="boton boton-chico <%= u.getColor() %>"
 											id="submit_nuevo_tipo_vehiculo"
 											name="submit_nuevo_tipo_vehiculo" value="Agregar">
 									</div>
@@ -94,3 +97,4 @@
 	</div>
 </body>
 </html>
+<% } %>

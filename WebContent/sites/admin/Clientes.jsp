@@ -24,7 +24,7 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-group"></span> Clientes</h2>
+				<h2><span class="icon-group"></span> Clientes</h2>
 			</div>
 		</div>
 	</div>
@@ -50,33 +50,45 @@
 				<button class="boton <%= u.getColor() %> boton-chico pull-right sombra" id="volver"><span class="icon-navigate_before"></span> VOLVER A LA TABLA</button>
 			</div>	
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span> Se encontraron <b><%= listaClientes.size() %></b> resultados.</h3>
-			</div>
-		</div>
+		<br>
+		<div class="table-responsive">
+			<table class="table table-hover sombra">
+				<thead>
+					<tr>
+						<td colspan="2">Se encontraron <b><%= listaClientes.size() %></b> resultados.</td>
+					</tr>
+				</thead>
 	<%	
 		if(listaClientes.size() != 0){
 	%>
-		<div class="row">
+		
+				<tbody>
+					<tr class="bg-ddd">
+						<th>Nombre</th>
+						<th class="text-center">Perfil</th>
+					</tr>
 		<%			
 			for(Cliente c : listaClientes){
 		%>
-			<div class="col-md-12">
-				<div class="container-query sombra">
-					<h4><span class="icon-person <%= u.getColor() %>"></span> <%= c.getNombreCompleto() %>
-					<a href="Clientes.jsp?user=<%= c.getCedula() %>" class="boton-vacio boton-chico pull-right"> VER PERFIL</a>
-					</h4>
-				</div> 
-			</div>
+			<tr>
+				<td>
+					<%= c.getNombreCompleto() %>
+				</td> 
+				<td class="text-center">
+					<a href="Clientes.jsp?user=<%= c.getCedula() %>"><span class="icon-remove_red_eye"></span></a>
+				</td>
+			</tr>
+			
 		<%	
 			}
 		%>
-		</div>
+				</tbody>
 		<%
 			}//Cierre del if
 		%>
 		
+			</table>
+		</div>
 	<%
 			
 	} else if(request.getParameter("user") != null) {//cierre if

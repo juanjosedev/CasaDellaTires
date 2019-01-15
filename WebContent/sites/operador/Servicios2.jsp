@@ -8,7 +8,7 @@
 		response.sendRedirect("http://localhost:8080/CasaDellaTires/");
 	}else{
 		Usuario u = (Usuario) username;
-		if(!u.getTipo().equals("Admin")){
+		if(!u.getTipo().equals("Operador")){
 			response.sendRedirect("../../index.jsp");
 		}	
 %>
@@ -23,7 +23,7 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2><span class="icon-local_car_wash"></span> Servicios</h2>
+				<h2 class="text-uppercase"><span class="icon-settings"></span> Servicios 2</h2>
 			</div>
 		</div>
 	</div>

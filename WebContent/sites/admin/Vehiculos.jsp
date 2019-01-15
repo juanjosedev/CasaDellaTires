@@ -10,7 +10,7 @@
 		Usuario u = (Usuario) username;
 		if(!u.getTipo().equals("Admin")){
 			response.sendRedirect("../../index.jsp");
-		}	
+		}
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,12 +24,15 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-drive_eta"></span> Vehículos</h2>
+				<h2><span class="icon-drive_eta"></span> Vehículos</h2>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">
+	<%
+		if(request.getParameter("query") == null && request.getParameter("profile") == null){
+	%>
 		<div class="row">
 			<div class="col-md-5">
 				<div class="input-group">
@@ -52,7 +55,9 @@
 							</div>
 							<form action="" method="post" id="frm_agregar">
 								<div class="modal-body text-left">
-									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">Los campos con asterisco (*) son obligatorios</div>
+									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">
+										Los campos con asterisco (*) son obligatorios
+									</div>
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
@@ -174,6 +179,15 @@
 			</div>
 		</div>
 	</div>
+	<%		
+		}else{
+	%>
+	
+	<jsp:include page="templVehiculos.jsp"></jsp:include>
+	
+	<%		
+		}
+	%>
 </body>
 </html>
 <% } %>

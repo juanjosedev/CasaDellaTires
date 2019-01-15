@@ -21,6 +21,10 @@ public class controladorVehiculos {
 		return mv.agregarNuevoVehiculo(v);
 	}
 	
+	public ArrayList<Vehiculo> getBusqueda(String query) {
+		return mv.getBusqueda(query);
+	}
+	
 	public boolean modificarVehiculo(Vehiculo v) {
 		return mv.modificarVehiculo(v);
 	} 

@@ -37,8 +37,8 @@
 					<div class="modal fade" id="detalle<%= l.getConsecutivo() %>">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<div class="modal-header">
-									<h3 class="modal-header-title text-left <%= u.getColor() %>"><span class="icon-info_outline"></span> INFORMACIÓN</h3>
+								<div class="modal-header  <%= u.getColor() %>">
+									<h3 class="modal-header-title text-left"><span class="icon-info_outline"></span> INFORMACIÓN</h3>
 								</div>
 								<div class="modal-body text-left">
 									<div class="row">

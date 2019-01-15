@@ -23,7 +23,7 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2><span class="icon-group"></span> Operadores</h2>
+				<h2 class="text-uppercase"><span class="icon-group"></span> Operadores</h2>
 			</div>
 		</div>
 	</div>

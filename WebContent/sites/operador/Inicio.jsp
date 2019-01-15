@@ -8,7 +8,7 @@
 		response.sendRedirect("http://localhost:8080/CasaDellaTires/");
 	}else{
 		Usuario u = (Usuario) username;
-		if(!u.getTipo().equals("Admin")){
+		if(!u.getTipo().equals("Operador")){
 			response.sendRedirect("../../index.jsp");
 		}	
 %>
@@ -23,14 +23,14 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2><span class="icon-poll"></span> Inicio</h2>
+				<h2 class="text-uppercase"><span class="icon-home"></span> Inicio</h2>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<div class="media  <%= u.getColor() %> sombra tag-data1">
 					<div class="media-body">
 						<h2 class="media-heading" id="label_servicios_prestados_hoy"></h2>
@@ -41,7 +41,18 @@
 					</div>
 				</div>	
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-3">
+				<div class="media  <%= u.getColor() %> sombra tag-data1">
+					<div class="media-body">
+						<h2 class="media-heading">7</h2>
+						<i>LIQUIDACIONES</i>
+					</div>
+					<div class="media-right media-middle">
+						<span class="icon-library_books"></span>
+					</div>
+				</div>	
+			</div>
+			<div class="col-md-3">
 				<div class="media  <%= u.getColor() %> sombra tag-data1">
 					<div class="media-body">
 						<h2 class="media-heading" id="label_ganancias_servicio_hoy">577050</h2>
@@ -51,6 +62,17 @@
 						<span class="icon-attach_money"></span>
 					</div>
 				</div>	
+			</div>
+			<div class="col-md-3">
+				<div class="media  <%= u.getColor() %> sombra tag-data1">
+					<div class="media-body">
+						<h2 class="media-heading">5</h2>
+						<i>CLIENTES</i>
+					</div>
+					<div class="media-right media-middle">
+						<span class="icon-person"></span>
+					</div>
+				</div>
 			</div>
 		</div>
 		<br>
@@ -71,7 +93,7 @@
                         </div>
                     </div>
                    	<div class="carga">
-                   		<span class="icon-poll"></span>
+                   		<img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/09b24e31234507.564a1d23c07b4.gif" alt="Cargando...">
                    	</div>
                     <div id="chart_div">
                     </div>
@@ -90,9 +112,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="carga">
-                   		<span class="icon-poll"></span>
-                   	</div>
                     <div id="chartLiquidacionesPrestadas">
                     </div>
                 </div>
@@ -110,9 +129,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="carga">
-                   		<span class="icon-poll"></span>
-                   	</div>
                     <div id="chartGanancias">
                     </div>
                 </div>
@@ -130,9 +146,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="carga">
-                   		<span class="icon-poll"></span>
-                   	</div>
                     <div id="chartGananciasServicio">
                     </div>
                 </div>

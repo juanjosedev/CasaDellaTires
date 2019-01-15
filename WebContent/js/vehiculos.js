@@ -17,7 +17,7 @@ $(document).ready(function() {
 	}
 	
 	function getAlert (alert) {
-		alert.show().delay(2000).fadeOut(500);
+		alert.show().delay(10000).fadeOut(500);
 	}
 	
 	function agregarVehiculo () {

@@ -1,11 +1,16 @@
 <%@ page import="include.*" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%
 	HttpSession sesion = request.getSession(true);
 	Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
-	Usuario u = (Usuario) username;
-	if(u == null){
-		response.sendRedirect("../../index.jsp");
-	}
+	if(username == null){
+		response.sendRedirect("http://localhost:8080/CasaDellaTires/");
+	}else{
+		Usuario u = (Usuario) username;
+		if(!u.getTipo().equals("Operador")){
+			response.sendRedirect("../../index.jsp");
+		}	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,42 +20,31 @@
 <title>Admin | Liquidaciones</title>
 </head>
 <body>
-	<div class="container-fluid title_maestro">
+	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-library_books"></span> Liquidaciones</h2>
+				<h2 class="text-uppercase"><span class="icon-library_books"></span> Liquidaciones <span class="label pull-right" id="label-numeroDeliquidaciones">0</span></h2>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">
-		<div class="container-fluid">		
-			<br>
+				
 			<div class="row">
-				<div class="col-md-4">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Buscar...">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-								<span class="icon-search"></span>
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<a href="#agregarLiquidacion" data-toggle="modal"
-						class="boton bg-azul boton-chico pull-right sombra">Nuevo registro</a>
+						class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nueva liquidación</a>
 					<div class="modal fade" id="agregarLiquidacion">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h2 class="modal-header-title">AGREGAR</h2>
+									<h3 class="modal-header-title text-uppercase"><span class="icon-assignment"></span> Crear Liquidación</h3>
 								</div>
 								<form action="servletliquidaciones" method="post"
 									id="frm_liquidar" name="frm_liquidar">
 									<div class="modal-body text-left">
 										<div id="formulario_liquidacion">
-											<h3>Datos del cliente</h3>
+											<h4><span class="table-title <%= u.getColor() %>"></span>Datos del cliente</h4>
 											<div class="form-group">
 												<input name="cc" type="text" id="inp_cc_lqr"
 													class="form-control" placeholder="Cédula de la persona">
@@ -97,10 +91,12 @@
 											</div>
 											<hr>
 											<div class="table-responsive">
-							                    <table class="table table-bordered">
+							                    <table class="table table-bordered table-hover">
 							                        <thead>
-							                            <th>Servicio</th>
-							                            <th>Precio</th>
+								                        <tr>
+								                            <th>Servicio</th>
+								                            <th>Precio</th>
+								                        </tr>
 							                        </thead>
 							                        <tbody id="tabla_serviciosi">
 							                        </tbody>
@@ -114,9 +110,9 @@
 															<span class="media-object icon-query_builder fs-em-2"></span>
 														</div>
 														<div class="media-body">
-															<h3 class="media-heading">INFORMACIÓN</h3>
+															<h4 class="media-heading">Información</h4>
 															<ul>
-																<li><i><b>Consecutivo: </b>00984</i></li>
+																<li><i><b>Consecutivo: </b>00000</i></li>
 																<li><i><b>Fecha: </b><var id="info_fecha"></var></i></li>
 																<li><i><b>Entrada: </b><var id="info_hora_actual"></var></i></li>
 																<li><i><b>Salida: </b>Pendiente</i></li>
@@ -130,7 +126,7 @@
 															<span class="media-object icon-attach_money fs-em-2"></span>
 														</div>
 														<div class="media-body">
-															<h3 class="media-heading">TOTAL: $<i><var id="info_total">0</var></i></h3>
+															<h4 class="media-heading">Total: $<i><var id="info_total">0</var></i></h4>
 															<ul>
 																<li><i><b>Subtotal: $</b><var id="info_subtotal">0</var></i></li>
 																<li><i><b>Descuento: $</b><var id="info_descuento">0</var></i></li>
@@ -152,8 +148,8 @@
 										<button type="button"
 											class="boton boton-chico bg-cian" id="btn_volver">Volver</button>
 										<button type="button"
-											class="boton boton-chico bg-azul" id="btn_confirmar">Confirmar</button>	
-										<input type="submit" class="boton boton-chico bg-azul"
+											class="boton boton-chico <%= u.getColor() %>" id="btn_confirmar">Confirmar</button>	
+										<input type="submit" class="boton boton-chico <%= u.getColor() %>"
 											id="sbt_new_lqd"
 											name="sbt_new_lqd" value="Crear liquidación">
 									</div>
@@ -163,20 +159,18 @@
 					</div>
 				</div>
 			</div>
-			<br>
-			<!-- <div class="row">
-			</div><br> -->
 			<div class="row">
 				<div class="col-md-12">
-					<div class="table-responsive" id="tabla_lqds_pendientes">
+					<div class="" id="tabla_lqds_pendientes">
 						<jsp:include page="tablaLiquidacionesP.jsp"></jsp:include>
 					</div>
-					<div class="table-responsive" id="tabla_lqds_finalizados">
+					<div class="" id="tabla_lqds_finalizados">
 						<jsp:include page="tablaLiquidacionesF.jsp"></jsp:include>
 					</div>
 				</div>
 			</div>
-		</div>
+		
 	</div>
 </body>
 </html>
+<% } %>

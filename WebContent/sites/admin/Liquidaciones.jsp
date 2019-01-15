@@ -23,7 +23,7 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-library_books"></span> Liquidaciones <span class="label pull-right" id="label-numeroDeliquidaciones">0</span></h2>
+				<h2><span class="icon-library_books"></span> Liquidaciones <span class="label pull-right" id="label-numeroDeliquidaciones">0</span></h2>
 			</div>
 		</div>
 	</div>
