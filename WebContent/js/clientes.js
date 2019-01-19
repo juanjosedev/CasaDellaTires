@@ -11,15 +11,6 @@ $(document).ready(function() {
 			return !/^[ a-z\u00E1\u00E9\u00ED\u00F3\u00FA\u00FC\u00F1]*$/i.test(cadena);
 			
 		}
-		/*
-		 * var sw = true;
-		 * 
-		 * if (sw) { for (var i = 0; i < cadena.length; i++) {
-		 * 
-		 * if (!letra_en_cadena(cadena[i])) sw = false ; } }
-		 * 
-		 * return sw;
-		 */
 		
 	}
 	
@@ -51,17 +42,6 @@ $(document).ready(function() {
 	    });
 	}
 	
-	/**
-	 * function letra_en_cadena(c) {
-	 * 
-	 * var sw = false; var letras = " abcdefghijklmnopqrstuvwxyzáéíóú\u00F1";
-	 * 
-	 * for (var i = 0; i < letras.length; i++) { sw = c == letras[i]; if (sw)
-	 * break ; }
-	 * 
-	 * return sw; }
-	 */
-	
 	function getColor() {
     	var color = $(".title_maestro").css("background-color");
     	return color;
@@ -90,7 +70,9 @@ $(document).ready(function() {
 	}
 	
 	function actualizar_tabla() {
-		$("#tabla_clientes").load("tablaClientes.jsp");
+		$("#tabla_clientes").load("tablaClientes.jsp", function(){
+			tableDesign();
+		});
 		setTimeout(function(){
 			
 			var alert_modificar_exitoso = $(".modal_modificar #alert_modificar_exitoso").hide();
@@ -180,39 +162,40 @@ $(document).ready(function() {
 		var sw = true;
 		
 		if(input_cc.val() == "") {
-			alert_agregar_cc.show().delay(2000).fadeOut(500);
+			showAlert(alert_validacion_cc, " Rellena el campo cédula");
 			sw = false;
 		} else {
 			var cc = parseInt(input_cc.val());
 			if (isNaN(cc)) {
-				alert_validacion_cc.show().delay(2000).fadeOut(500);
+				showAlert(alert_validacion_cc, " Unicamente números");
 				sw = false;
 			} else {
 				if (input_nombre.val() == "") {
-					alert_agregar_nombre.show().delay(2000).fadeOut(500);
+					showAlert(alert_agregar_nombre, " Rellena el campo nombre");
 					sw = false;
 				} else {
 					var nombre = input_nombre.val();
 					nombre = nombre.toLowerCase();
 					if (validar_letras(nombre)) {
-						alert_validacion_nombre.show().delay(2000).fadeOut(500);
+						showAlert(alert_agregar_nombre, " Unicamente letras");
 						sw = false;
 					} else {
 						if (input_primer_apellido.val() == "") {
-							alert_agregar_apellido.show().delay(2000).fadeOut(500);
+							showAlert(alert_agregar_apellido, " Rellena el campo primer apellido");
+//							alert_agregar_apellido.show().delay(2000).fadeOut(500);
 							sw = false;
 						} else {
 							var primer_apellido = input_primer_apellido.val();
 							primer_apellido = primer_apellido.toLowerCase();
 							if (validar_letras(primer_apellido)) {
-								alert_validar_apellido.show().delay(2000).fadeOut(500);
+								showAlert(alert_agregar_apellido, " Unicamente letras");
 								sw = false;
 							} else {
 								if(input_segundo_apellido.val() != "") {
 									var segundo_apellido = input_segundo_apellido.val();
 									segundo_apellido = segundo_apellido.toLowerCase();
 									if(validar_letras(segundo_apellido)) {
-										alert_validar_segundo_apellido.show().delay(2000).fadeOut(500);
+										showAlert(alert_validar_segundo_apellido, " Unicamente letras");
 										sw = false;
 									}
 								}

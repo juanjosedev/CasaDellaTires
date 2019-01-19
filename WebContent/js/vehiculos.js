@@ -57,7 +57,9 @@ $(document).ready(function() {
 	}
 	
 	function actualizar_tabla() {
-		$(".tabla_vehiculos").load("tablaVehiculos.jsp");
+		$(".tabla_vehiculos").load("tablaVehiculos.jsp", function(){
+			tableDesign();
+		});
 	}
 	
 	function getParameterByName(name) {
@@ -151,5 +153,15 @@ $(document).ready(function() {
 		
 		modificarVehiculo(formulario);
 		
+	});
+	
+	$('#buscar_vehiculo').click(function(){
+		var query = $('#input_vehiculo_cc').val();
+		//      false                     false
+		if (!inpVacio(query) && !inpVacioSoloEspacios(query)) {
+			location.href = 'Vehiculos.jsp?query='+query;
+		} else {
+			alert('Introduce un criterio de búsqueda');
+		}
 	});
 });

@@ -43,7 +43,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header <%= u.getColor() %>">
-								<h3 class="modal-header-title"><span class="icon-edit"></span> Eliminar detalle</h3>
+								<h3 class="modal-header-title text-left"><span class="icon-edit"></span> Eliminar detalle</h3>
 							</div>
 							<div class="modal-body text-left">
 								<div class="media">
@@ -71,7 +71,7 @@
 				<div class="modal fade modal_modificar" id="editarDetalle<%= dll.getId() %>">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<div class="modal-header <%= u.getColor() %>">
+							<div class="modal-header <%= u.getColor() %> text-left">
 								<h3 class="modal-header-title"><span class="icon-edit"></span> Editar detalle</h3>
 							</div>
 							<form>
@@ -85,6 +85,8 @@
 									<div class="form-group">
 										<input name="inp_precio_update" type="text" id="inp_precio_update" class="form-control" placeholder="Precio del servicio" value="<%= dll.getPrecio() %>">
 									</div>
+									<div class="alert alert-danger alt_editar_precio_error" id="" role="alert"><span class="icon-error"></span> <var id="msg"></var></div>
+									<div class="alert alert-success alt_editar_precio_exito" id="" role="alert"><span class="icon-check_circle"></span> <var id="msg"></var></div>
 								</div>
 								<div class="modal-footer">
 									<button type="button"

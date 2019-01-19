@@ -44,6 +44,7 @@
 							</div>
 							<form action="" method="post" id="frm_nuevo_servicio" name="frm_nuevo_servicio"> 
 								<div class="modal-body text-left">
+									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">Los campos con asterisco (*) son obligatorios</div>
 									<div class="form-group">
 										<label for="inp_servicio">Nombre del servicio*</label>
 										<input type="text" name="inp_servicio" id="inp_servicio" class="form-control" placeholder="Nombre">
@@ -84,7 +85,6 @@
 										<div class="alert alert-danger" id="alt_crear_error" role="alert"><var id="msg"></var></div>
 										<div class="alert alert-success" id="alt_crear_exito" role="alert"><var id="msg"></var></div>
 									</div>
-									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">Los campos con asterisco (*) son obligatorios</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button"

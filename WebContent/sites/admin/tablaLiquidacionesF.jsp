@@ -79,14 +79,26 @@
 									</div>
 									<hr>
 									<div class="table-responsive">
-										<table class="table table-hover sombra">
+										<table class="table table-hover sombra table-modal">
 											<thead>
+												<tr>
+													<th colspan="2">
+														<div class="media">
+															<div class="media-left">
+																<span class="media-object icon-local_car_wash fs-em-2"></span>
+															</div>
+															<div class="media-body">
+																<h4 class="media-heading">Servicios</h4>
+															</div>
+														</div>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
 												<tr class="bg-ddd">
 													<th>Servicio</th>
 													<th class="text-right">Precio</th>
 												</tr>
-											</thead>
-											<tbody>
 												<% for(Detalle d: lista_dlls){ %>
 												<tr>
 													<td><%= d.getNombre() %></td>
@@ -120,10 +132,10 @@
 													<span class="media-object icon-attach_money fs-em-2"></span>
 												</div>
 												<div class="media-body">
-													<h4 class="media-heading">Total: $<i><%= l.getTotal() %></i></h4>
+													<h4 class="media-heading">Total: <var class="pull-right">$<%= l.getTotal() %></var></h4>
 													<ul>
-														<li><i><b>Subtotal: $</b><%= l.getSubtotal() %></i></li>
-														<li><i><b>Descuento: $</b><%= l.getDescuento() %></i></li>
+														<li><b><i>Subtotal:</i> </b><i class="pull-right">$<%= l.getSubtotal() %></i></li>
+														<li><b><i>Descuento:</i> </b><i class="pull-right">$<%= l.getDescuento() %></i></li>
 													</ul>	
 												</div>
 											</div>

@@ -100,9 +100,9 @@
 												value="<%=c.getDireccion()%>">
 										</div>
 										<div class="alert alert-success" id="alert_modificar_exitoso"
-															role="alert">Se ha editado correctamente</div>
+															role="alert"><span class="icon-check_circle"></span> Se ha editado correctamente</div>
 										<div class="alert alert-danger" id="alert_modificar_error"
-															role="alert">ERROR al modificar el cliente</div>
+															role="alert"><span class="icon-error"></span> Error al modificar el cliente</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button"
@@ -191,9 +191,9 @@
 							</thead>
 							<tbody>
 								<tr class="bg-ddd">
-									<th class="text-left">Consecutivo</th>
-									<th class="text-left">Vehículo</th>
-									<th class="text-right">Fecha</th>
+									<th class="text-center">Consecutivo</th>
+									<th class="text-center">Vehículo</th>
+									<th class="text-center">Fecha</th>
 									<th class="text-center">Detalle</th>
 								</tr>
 							<%
@@ -202,9 +202,9 @@
 									lista_dlls = lqd.getLista_detalles();
 							%>
 								<tr>
-									<td class="text-left"><a href="#"><%= lqd.getConsecutivo() %></a></td>
-									<td class="text-left"><a href="Vehiculos.jsp?profile=<%= lqd.getVehiculo().getFirstPlaca()+lqd.getVehiculo().getSecondPlaca() %>" title="<%= lqd.getVehiculo().getTipo().getNombre() %>"><%= lqd.getVehiculo().getBeautyPlaca() %></a></td>
-									<td class="text-right"><%= lqd.infoTiempo(lqd.getEntrada(), lqd.formatoDDMMMYYYYHHMM()) %></td>
+									<td class="text-center"><%= lqd.getConsecutivo() %></td>
+									<td class="text-center"><a href="Vehiculos.jsp?profile=<%= lqd.getVehiculo().getFirstPlaca()+lqd.getVehiculo().getSecondPlaca() %>" title="<%= lqd.getVehiculo().getTipo().getNombre() %>"><%= lqd.getVehiculo().getBeautyPlaca() %></a></td>
+									<td class="text-center"><%= lqd.infoTiempo(lqd.getEntrada(), lqd.formatoDDMMMYYYYHHMM()) %></td>
 									<td class="text-center"><a href="#detalle<%= lqd.getConsecutivo() %>" data-toggle="modal"><span class="icon-dehaze"></span></a>
 										<div class="modal fade" id="detalle<%= lqd.getConsecutivo() %>">
 											<div class="modal-dialog">
@@ -292,7 +292,7 @@
 																			<li><i><b>Fecha entrada: </b><%= lqd.infoTiempo(lqd.getEntrada(), lqd.formatoDDMMMYYYYHHMM()) %></i></li>
 																			<li><i><b>Fecha salida: </b><%= lqd.getSalida() != null ? lqd.infoTiempo(lqd.getSalida(), lqd.formatoDDMMMYYYYHHMM()) : "Pendiente" %></i></li>
 																			<li><i><b>Duración: </b><%= lqd.getSalida() != null ? lqd.getDuracion() : "Pendiente" %></i></li>
-																		</ul>	
+																		</ul>		
 																	</div>
 																</div>
 															</div>
@@ -302,10 +302,10 @@
 																		<span class="media-object icon-attach_money fs-em-2"></span>
 																	</div>
 																	<div class="media-body">
-																		<h4 class="media-heading">Total: $<i><%= lqd.getTotal() %></i></h4>
+																		<h4 class="media-heading">Total: <var class="pull-right">$<%= lqd.getTotal() %></var></h4>
 																		<ul>
-																			<li><i><b>Subtotal: $</b><%= lqd.getSubtotal() %></i></li>
-																			<li><i><b>Descuento: $</b><%= lqd.getDescuento() %></i></li>
+																			<li><b><i>Subtotal:</i></b><i class="pull-right">$<%= lqd.getSubtotal() %></i></li>
+																			<li><b><i>Descuento:</i></b><i class="pull-right">$<%= lqd.getDescuento() %></i></li>
 																		</ul>	
 																	</div>
 																</div>
@@ -351,7 +351,7 @@
 </div><br>
 <div class="row">
 	<div class="col-md-12">
-		<div class="alert alert-danger" role="alert">Error en el dato de entrada: <strong>"<%= request.getParameter("user") %>"</strong>.</div>	
+		<div class="alert alert-danger" role="alert"><span class="icon-error"></span> Error en el dato de entrada: <strong>'<%= request.getParameter("user") %>'</strong>.</div>	
 	</div>
 </div>
 <%
@@ -374,7 +374,7 @@
 </div><br>
 <div class="row">
 	<div class="col-md-12">
-		<div class="alert bg-ambar" role="alert">El cliente con el número de cédula <strong><%= request.getParameter("user") %></strong> no fue encontrado.</div>	
+		<div class="alert bg-ambar" role="alert"><span class="icon-warning"></span> El cliente con el número de cédula <strong><%= request.getParameter("user") %></strong> no fue encontrado.</div>	
 	</div>
 </div>
 <%

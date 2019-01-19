@@ -12,11 +12,11 @@
 			
 		
 %>
-<table class="table table-bordered table-hover">
+<table class="table table-hover table-modal sombra">
 	<thead>
-		<tr>
+		<tr class="bg-ddd">
 			<th>Vehículo</th>
-			<th>Precio</th>
+			<th class="left">Precio</th>
 		</tr>
 	</thead>
 	<tbody>

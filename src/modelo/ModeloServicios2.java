@@ -298,35 +298,7 @@ public class ModeloServicios2 extends Conexion{
 	
 	public static void main(String[] args) {
 		
-		/**
-		 * PALÍNDROMAS
-		 * acaso hubo buhos aca
-		 * a la gorda drogala
-		 * anita lava la tina
-		 * reconocer
-		 */
-		
-//		String cadena = "Reconocer";
-//		String str = cadena.toLowerCase().replace(" ", "");
-//		String str_reverse = "";
-//		
-//		for(int i = str.length() - 1; i >= 0; i--) {
-//			
-//			str_reverse += str.charAt(i);
-//			
-//		}
-//		
-//		boolean flag = false;
-//		
-//		for(int i = 0; i < str.length(); i++) {
-//			
-//			flag = (str.charAt(i) == str_reverse.charAt(i));
-//			
-//		}
-//		
-//		System.out.println(flag ? cadena + " es palíndroma" : "No es palíndroma");
-//		System.out.println(str);
-//		System.out.println(str_reverse);
+//		System.out.println(new ModeloServicios2().getAllServicios().size() > 1);
 		
 	}
 }

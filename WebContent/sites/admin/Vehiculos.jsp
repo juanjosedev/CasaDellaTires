@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList, include.*, controlador.*" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
 	HttpSession sesion = request.getSession(true);
 	Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
@@ -18,13 +18,13 @@
 <jsp:include page="../../templates/cabecera.jsp"></jsp:include>
 <script src="../../js/vehiculos.js"></script>
 <!-- MODIFICAR JS -->
-<title>Admin | VEHÕCULOS</title>
+<title>Admin | VEH√çCULOS</title>
 </head>
 <body>
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2><span class="icon-drive_eta"></span> VehÌculos</h2>
+				<h2><span class="icon-drive_eta"></span> Veh√≠culos</h2>
 			</div>
 		</div>
 	</div>
@@ -34,24 +34,24 @@
 		if(request.getParameter("query") == null && request.getParameter("profile") == null){
 	%>
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Buscar vehÌculo..." id="input_buscar_cc" name="input_buscar_cc">
+					<input type="text" class="form-control" placeholder="Buscar veh√≠culo..." id="input_vehiculo_cc" name="input_vehiculo_cc">
 					<span class="input-group-btn">
-						<button class="boton <%= u.getColor() %>" type="button" id="buscar_cc">
+						<button class="boton <%= u.getColor() %>" type="button" id="buscar_vehiculo">
 							<span class="icon-search"></span>
 						</button>
 					</span>
 				</div>
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<a href="#agregarVehiculo" data-toggle="modal"
-					class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo vehÌculo</a>
+					class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo veh√≠culo</a>
 				<div class="modal fade" id="agregarVehiculo">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header <%= u.getColor() %>">
-								<h3 class="modal-header-title"><span class="icon-assignment"></span> Registrar vehÌculo</h3>
+								<h3 class="modal-header-title"><span class="icon-assignment"></span> Registrar veh√≠culo</h3>
 							</div>
 							<form action="" method="post" id="frm_agregar">
 								<div class="modal-body text-left">
@@ -65,11 +65,11 @@
 													class="form-control" placeholder="PLACA: ABC*"
 													maxlength="3">
 												<div class="alert alert-danger"
-													id="art_vacio_pl1" role="alert">Rellena este campo</div>
+													id="art_vacio_pl1" role="alert"><span class="icon-error"></span> Rellena este campo</div>
 												<div class="alert alert-danger"
-													id="art_uni_lts_pl1" role="alert">Unicamente letras</div>
+													id="art_uni_lts_pl1" role="alert"><span class="icon-error"></span> Unicamente letras</div>
 												<div class="alert alert-danger"
-													id="art_tam_pl1" role="alert">Son exactamente 3 letras</div>
+													id="art_tam_pl1" role="alert"><span class="icon-error"></span> Son exactamente 3 letras</div>
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -78,11 +78,11 @@
 													class="form-control" placeholder="PLACA: 123*"
 													maxlength="3">
 												<div class="alert alert-danger"
-													id="art_vacio_pl2" role="alert">Rellena este campo</div>
+													id="art_vacio_pl2" role="alert"><span class="icon-error"></span> Rellena este campo</div>
 												<div class="alert alert-danger"
-													id="art_uni_num_pl2" role="alert">Unicamente n˙meros</div>
+													id="art_uni_num_pl2" role="alert"><span class="icon-error"></span> Unicamente n√∫meros</div>
 												<div class="alert alert-danger"
-													id="art_tam_pl2" role="alert">Son exactamente 3 n˙meros</div>	
+													id="art_tam_pl2" role="alert"><span class="icon-error"></span> Son exactamente 3 n√∫meros</div>	
 											</div>
 										</div>
 									</div>
@@ -104,7 +104,7 @@
 												
 												</select>
 												<div class="alert alert-danger"
-													id="art_vacio_tipo" role="alert">Selecciona el tipo de vehÌculo</div>
+													id="art_vacio_tipo" role="alert"><span class="icon-error"></span> Selecciona el tipo de veh√≠culo</div>
 											</div>
 										</div>
 									</div>
@@ -154,9 +154,9 @@
 										</div>
 									</div>
 									<div class="alert alert-danger"
-										id="art_error" role="alert">Placa ya registrada</div>
+										id="art_error" role="alert"><span class="icon-error"></span> Placa ya registrada</div>
 									<div class="alert alert-success"
-										id="art_exito" role="alert">Se agregÛ el vehÌculo correctamente</div>	
+										id="art_exito" role="alert"><span class="icon-check_circle"></span> Se agreg√≥ el veh√≠culo correctamente</div>	
 								</div>
 								<div class="modal-footer">
 									<button type="button"

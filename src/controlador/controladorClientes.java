@@ -25,10 +25,6 @@ public class controladorClientes {
 		return mtv.editarCliente(c);
 	}
 	
-	public boolean eliminarCliente(long cc) {
-		return mtv.eliminarCliente(cc);
-	}
-	
 	public Cliente getCliente(long cc) {
 		return mtv.getCliente(cc);
 	}

@@ -112,6 +112,7 @@ $(document).ready(function() {
 		var cc = "get_info_cliente="+cedula_cliente;
 		$.post("../../crudliquidacion", cc, function(res, est, jqXHR){
 			$("#info_cliente").html(res);
+			descriptionDesign();
 		});
 		
 	}
@@ -120,6 +121,7 @@ $(document).ready(function() {
 		var placa = "get_info_vehiculo="+placa_vehiculo;
 		$.post("../../crudliquidacion", placa, function(res, est, jqXHR){
 			$("#info_vehiculo").html(res);
+			descriptionDesign();
 		});
 	}
 	
@@ -172,10 +174,14 @@ $(document).ready(function() {
 	}
 	
 	function actualizarTablaPendientes() {
-		$("#tabla_lqds_pendientes").load("tablaLiquidacionesP.jsp");
+		$("#tabla_lqds_pendientes").load("tablaLiquidacionesP.jsp", function(){
+			descriptionDesign();
+		});
 	}
 	function actualizarTablaFinalizados() {
-		$("#tabla_lqds_finalizados").load("tablaLiquidacionesF.jsp");
+		$("#tabla_lqds_finalizados").load("tablaLiquidacionesF.jsp", function(){
+			descriptionDesign();
+		});
 	}
 	
 	function terminarLiquidacion() {
@@ -451,6 +457,7 @@ $(document).ready(function() {
                 col2.append(val);
                 tabla.append(fila);
                 fila.setAttribute("id", "r"+id);
+                col2.setAttribute("class", "text-right");
             } else {
                 var fila_buscar = document.getElementById("r"+id)
                 tabla.removeChild(fila_buscar);

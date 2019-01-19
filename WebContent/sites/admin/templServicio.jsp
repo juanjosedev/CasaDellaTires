@@ -18,46 +18,51 @@
 %>
 	
 <div class="container-profile">
+	<div class="row">
+		<div class="col-md-12">
+			<a href="Servicios2.jsp" class="boton boton-chico pull-right <%= u.getColor() %>"><span class="icon-navigate_before"></span> Volver a la tabla</a>
+		</div>
+	</div>
 	<h2><span class="table-title <%= u.getColor() %>"></span> <%= s.getNombre() %></h2>
 	<div class="row">
 		<div class="profile-data col-md-12">
-			<div class="row">
-				<div class="col-md-12">
+			<!--<div class="row">
+				 <div class="col-md-12">
 					<a href="#modificarServicio" data-toggle="modal" class="boton-vacio boton-chico pull-right">Editar</a>
-				</div>
-			</div>
-			<div class="modal fade modal_modificar" id="modificarServicio">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header <%= u.getColor() %>">
-							<h3 class="modal-header-title"><span class="icon-edit"></span> Editar servicio</h3>
+					<div class="modal fade modal_modificar" id="modificarServicio">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header <%= u.getColor() %>">
+									<h3 class="modal-header-title"><span class="icon-edit"></span> Editar servicio</h3>
+								</div>
+								<form action="" method="post"
+									id="form_editar_servicio" name="form_editar_servicio">
+									<div class="modal-body text-left">
+										<div class="form-group">
+											<input name="id_modificar" type="text" id="id" class="form-control"
+												placeholder="Id del servicio"
+												value="<%= s.getId() %>" readonly="readonly">
+										</div>
+										<div class="form-group">
+											<input name="nombre" type="text" id="inp_nombre_modificar"
+												class="form-control" placeholder="Nombre"
+												value="<%= s.getNombre() %>">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button"
+											class="boton boton-chico pull-left"
+											data-dismiss="modal">Cerrar</button>
+										<input type="submit" class="boton boton-chico <%= u.getColor() %>"
+											id="modificar_cliente" name="modificar_cliente"
+											value="Guardar cambios">
+									</div>
+								</form>
+							</div>
 						</div>
-						<form action="" method="post"
-							id="form_editar_servicio" name="form_editar_servicio">
-							<div class="modal-body text-left">
-								<div class="form-group">
-									<input name="id_modificar" type="text" id="id" class="form-control"
-										placeholder="Id del servicio"
-										value="<%= s.getId() %>" readonly="readonly">
-								</div>
-								<div class="form-group">
-									<input name="nombre" type="text" id="inp_nombre_modificar"
-										class="form-control" placeholder="Nombre"
-										value="<%= s.getNombre() %>">
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button"
-									class="boton boton-chico pull-left"
-									data-dismiss="modal">Cerrar</button>
-								<input type="submit" class="boton boton-chico <%= u.getColor() %>"
-									id="modificar_cliente" name="modificar_cliente"
-									value="Guardar cambios">
-							</div>
-						</form>
 					</div>
 				</div>
-			</div><br>
+			</div>--><br> 
 			<div class="table-responsive">
 				<table class="table table-hover sombra">
 					<thead>
@@ -110,15 +115,15 @@
 						</div>
 						<form action="" method="post" id="frm_add_precio" name="frm_add_precio"> 
 							<div class="modal-body text-left">
+								<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert"><span class="icon-warning"></span> Los campos con asterisco (*) son obligatorios</div>
 								<div class="">
 									<label>Tipo de vehículos* <i>(Mínimo un vehículo)</i></label>
 									<div class="table-responsive" id="container_add_nuevo_precio">
 										<jsp:include page="tablaNuevosPrecios.jsp"></jsp:include>
 									</div>
-									<div class="alert alert-danger" id="alt_crear_error" role="alert"><var id="msg"></var></div>
-									<div class="alert alert-success" id="alt_crear_exito" role="alert"><var id="msg"></var></div>
+									<div class="alert alert-danger" id="alt_crear_error" role="alert"><span class="icon-error"></span> <var id="msg"></var></div>
+									<div class="alert alert-success" id="alt_crear_exito" role="alert"><span class="icon-check_circle"></span> <var id="msg"></var></div>
 								</div>
-								<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">Los campos con asterisco (*) son obligatorios</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button"
@@ -132,6 +137,7 @@
 				</div>
 			</div>
 			<br>
+			<div class="alert alert-success" id="alt_eliminar_exito" role="alert"><span class="icon-check_circle"></span> <var id="msg"></var></div>
 			<div class="table-responsive" id="container_tabla_precios">
 				<jsp:include page="tablaPrecios.jsp"></jsp:include>
 			</div>

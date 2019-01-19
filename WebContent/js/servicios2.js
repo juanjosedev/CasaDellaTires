@@ -6,6 +6,10 @@ $(document).ready(function(){
 	alert_crear_error.hide();
 	var alert_crear_exito = $('#alt_crear_exito');
 	alert_crear_exito.hide();
+	var alert_eliminar_exito = $('#alt_eliminar_exito');
+	alert_eliminar_exito.hide();
+	var alert_editar_precio_exito = $('.alt_editar_precio_exito');
+	var alert_editar_precio_error = $('.alt_editar_precio_error');
 	
 	function crearServicio(jsonstr) {
 		var data = "json="+jsonstr;
@@ -18,7 +22,13 @@ $(document).ready(function(){
 			
 			var formulario = $('#frm_nuevo_servicio');
 			limpiarForm(formulario);
-			
+			actualizarTablaServicios();
+		});
+	}
+	
+	function actualizarTablaServicios() {
+		$(".tabla_servicios").load("tablaServicios2.jsp", function(){
+			tableDesign();
 		});
 	}
 	
@@ -33,12 +43,13 @@ $(document).ready(function(){
 				// 2. actualizar la tabla precios
 				var peticion_servicio = requestGetParameter('servicio');
 				$('#container_tabla_precios').load('tablaPrecios.jsp?servicio='+peticion_servicio, function(){
-					tableDesign();
+					// 3. actualizar la tabla añadir precios
+					$('#container_add_nuevo_precio').load('tablaNuevosPrecios.jsp?servicio='+peticion_servicio, function(){
+						init();					
+						tableDesign();
+					});
 				});
-				// 3. actualizar la tabla añadir precios
-				$('#container_add_nuevo_precio').load('tablaNuevosPrecios.jsp?servicio='+peticion_servicio, function(){
-					init();					
-				});
+				
 			} else {
 				showAlert(alert_crear_error, 'Oh no... parece que tenemos problemas al añadir un nuevo precio');
 			}
@@ -54,8 +65,9 @@ $(document).ready(function(){
 			var ans = res.includes('true');
 			if (ans) {
 				fila.find('.var_precio').text(precio);
+				showAlert(alert_editar_precio_exito, 'El precio se editó con éxito');
 			} else {
-				console.log('houston!!!!!!');
+				showAlert(alert_editar_precio_error, 'Error al editar el precio');
 			}
 			
 		});
@@ -76,7 +88,8 @@ $(document).ready(function(){
 				setTimeout(function(){
 					closeActiveModal();
 					setTimeout(function(){
-						removerFila(fila);						
+						removerFila(fila);
+						showAlert(alert_eliminar_exito, "Se ha eliminado el servicio correctamente");
 					}, 300);
 				}, 300);
 			} else {
@@ -212,10 +225,15 @@ $(document).ready(function(){
 			var fila = $(this).closest('tr');
 			var id = fila.find('.var_id').text();
 			var precio = fila.find('#inp_precio_update').val();
-			
+						
 			editarPrecio(id, precio, fila);
 			
 		});
+		alert_editar_precio_exito = $('.alt_editar_precio_exito');
+		alert_editar_precio_error = $('.alt_editar_precio_error');
+		
+		alert_editar_precio_exito.hide();
+		alert_editar_precio_error.hide();
 		
 		$('.inp_eliminar').click(function(){
 			

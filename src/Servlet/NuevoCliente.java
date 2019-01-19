@@ -72,12 +72,16 @@ public class NuevoCliente extends HttpServlet {
 			if (cont_c.editarCliente(modificar_cliente)) {
 				aud = new Auditoria(u.getUsuario(), modulo, "Editar");
 				ma.insertarAuditoria(aud);
+				cont_c.cerrarConexiones();
 				response.getWriter().print(true);
 			} else {
 				response.getWriter().print(false);
+				cont_c.cerrarConexiones();
 			}
 
 		}
+		
+		ma.cerrarConexion();
 
 	}
 

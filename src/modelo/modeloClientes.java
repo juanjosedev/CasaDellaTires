@@ -140,54 +140,22 @@ public class modeloClientes extends Conexion {
 		
 		try {
 			
-			String sql = "UPDATE clientes SET nombre = ?, primer_apellido = ?, segundo_apellido = ?, telefono = ?, direccion = ? WHERE cc = ?";
+			String sql = "UPDATE clientes SET telefono = ?, direccion = ? WHERE cc = ?";
 			objSta = getConnection().prepareStatement(sql);
-			objSta.setString(1, c.getNombre());
-			objSta.setString(2, c.getPrimer_apellido());
-			objSta.setString(3, c.getSegundo_apellido());
-			objSta.setString(4, c.getTelefono());
-			objSta.setString(5, c.getDireccion());
-			objSta.setLong(6, c.getCedula());
+			objSta.setString(1, c.getTelefono());
+			objSta.setString(2, c.getDireccion());
+			objSta.setLong(3, c.getCedula());
 			if (objSta.executeUpdate() == 1) sw = true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
-		
-			
-			
-			
-		}
-		
-		return sw;
-		
-	}
-	
-	public boolean eliminarCliente(long cc) {
-		
-		boolean sw = false;
-		PreparedStatement objSta = null;
-		
-		try {
-			
-			String sql = "DELETE FROM clientes WHERE cc = ?";
-			objSta = getConnection().prepareStatement(sql);
-			objSta.setLong(1, cc);
-			if (objSta.executeUpdate() == 1) sw = true;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			/**
 			try {
-				if (getConnection() != null)
-					getConnection().close();
 				if (objSta != null)
 					objSta.close();
-			} catch (Exception e) {
+			} catch(Exception e) {
 				e.printStackTrace();
-			}*/
+			}
 		}
 		
 		return sw;
@@ -245,6 +213,8 @@ public class modeloClientes extends Conexion {
 		
 		ArrayList<Cliente> listaClientes = new ArrayList<>();
 		
+//		System.out.println(criterio);
+		
 		PreparedStatement objSta = null;
 		ResultSet tabla = null;
 		try {
@@ -298,19 +268,9 @@ public class modeloClientes extends Conexion {
 	
 	public static void main(String[] args) {
 		
-		//Cliente c_editar = new Cliente(9010, "Mateo", "Leal", "", "3001", "Santa Elena parte baja");
-		
-		modeloClientes mc = new modeloClientes();
-		
-		//System.out.println(mc.getCliente(9010));
-		
-		//System.out.println(mc.editarCliente(c_editar) ? "Editado" : "ERROR");
-		
-		//System.out.println(mc.getCliente(9010));
-		
-		//long cc = 8080;mau
-		
-		mc.imprimirArrayList(mc.getBusqueda("saas"));
+//		modeloClientes mc = new modeloClientes();
+//		
+//		mc.imprimirArrayList(mc.getBusqueda("bélén"));
 		
 	}
 	

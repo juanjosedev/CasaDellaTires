@@ -96,6 +96,7 @@ public class servletLiquidacion extends HttpServlet {
 			response.getWriter().print(json);
 
 		}
+		ma.cerrarConexion();
 		cc.cerrarConexiones();
 		cv.cerrarConexiones();
 		cl.cerrarConexionesControlador();

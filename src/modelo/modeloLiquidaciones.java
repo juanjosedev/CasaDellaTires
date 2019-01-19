@@ -321,12 +321,11 @@ public class modeloLiquidaciones extends Conexion {
 				Vehiculo vehiculo = mv.getVehiculo(tabla.getString("placa"));
 				ArrayList<Detalle> lista_detalles = getDetalles(consecutivo);
 				
-				
 				String entrada_str = tabla.getString("hora_inicio");
 				String salida_str = tabla.getString("hora_final");
 				
 				Calendar entrada = dateTimeSQLToCalendar(entrada_str);
-				Calendar salida = salida_str == null ? dateTimeSQLToCalendar(salida_str) : null;
+				Calendar salida = salida_str != null ? dateTimeSQLToCalendar(salida_str) : null;
 				int subtotal = tabla.getInt("subtotal");
 				int descuento = tabla.getInt("descuento");
 				int total = tabla.getInt("total");

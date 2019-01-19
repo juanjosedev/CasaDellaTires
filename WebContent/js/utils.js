@@ -59,7 +59,7 @@ function inpAlphaCheckbox(){
 }
 function showAlert(alert, mensaje){
 	alert.find("var").text(mensaje);
-	alert.show().delay(3000).fadeOut(500);;
+	alert.show().delay(10000).fadeOut(500);;
 }
 function limpiarForm(formulario){
 	formulario[0].reset();
@@ -79,6 +79,3 @@ function getColor() {
 	var color = $(".title_maestro").css("background-color");
 	return color;
 }
-
-/////////////////////
-

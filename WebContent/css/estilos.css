@@ -6,6 +6,9 @@ body{
     letter-spacing: 0.3px;
     color: #4f4f4f; 
 }
+.nav li a span{
+    font-size: large;
+}
 .carga{
 	width:100%;
 	height: 50px;
@@ -110,7 +113,7 @@ body{
     padding-bottom: 10px;
 }
 .menu_nav{
-	background-color: #41495c;
+	background-color: #263238;
 }
 .menu_nav a {
     color: rgba(245, 245, 245, 0.6);
@@ -137,7 +140,7 @@ body{
 	font-weight: 400;
 	cursor: pointer;
 	border: none;
-	background-color: #bdc3c7;
+	background-color: #546E7A;
 	color: rgba(255,255,255,9);
 	-webkit-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
@@ -504,7 +507,7 @@ colors: ['#F44336', '#9C27B0', '#3F51B5', '#03A9F4', '#4CAF50', '#2196F3', '#CDD
 	color: #fff;
 } 
 .modal .modal-dialog .modal-content .modal-footer{
-	background: #41495c;
+	background: #263238;
 	border-radius: 0 0 5px 5px;
 }
 .modal .modal-dialog .modal-content .modal-header .modal-header-title{
@@ -647,4 +650,8 @@ label{
 }
 hr{
     margin-top: 0px !important;
+}
+.alert span{
+    font-size: large;
+    vertical-align: sub;
 }

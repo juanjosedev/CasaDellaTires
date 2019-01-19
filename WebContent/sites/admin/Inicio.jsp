@@ -33,7 +33,7 @@
 			<div class="col-md-6">
 				<div class="media  <%= u.getColor() %> sombra tag-data1">
 					<div class="media-body">
-						<h2 class="media-heading" id="label_servicios_prestados_hoy"></h2>
+						<h2 class="media-heading" id="label_servicios_prestados_hoy">0</h2>
 						<i>SERVICIOS</i>
 					</div>
 					<div class="media-right media-middle">
@@ -44,7 +44,7 @@
 			<div class="col-md-6">
 				<div class="media  <%= u.getColor() %> sombra tag-data1">
 					<div class="media-body">
-						<h2 class="media-heading" id="label_ganancias_servicio_hoy">577050</h2>
+						<h2 class="media-heading" id="label_ganancias_servicio_hoy">0</h2>
 						<i>GANANCIAS</i>
 					</div>
 					<div class="media-right media-middle">

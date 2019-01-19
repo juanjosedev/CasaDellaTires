@@ -1,6 +1,6 @@
 <%@ page import="java.util.*, controlador.*, include.*, modelo.*"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
 	HttpSession sesion = request.getSession(true);
 	Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
@@ -55,7 +55,7 @@
 			<table class="table table-hover sombra">
 				<thead>
 					<tr>
-						<td colspan="2">Se encontraron <b><%= listaClientes.size() %></b> resultados.</td>
+						<td colspan="5">Se encontraron <b><%= listaClientes.size() %></b> resultados.</td>
 					</tr>
 				</thead>
 	<%	
@@ -64,20 +64,24 @@
 		
 				<tbody>
 					<tr class="bg-ddd">
-						<th>Nombre</th>
-						<th class="text-center">Perfil</th>
+						<th class="text-right">CÃ©dula</th>
+						<th class="text-left">Nombre</th>
+						<th class="text-right">TelÃ©fono</th>
+						<th class="text-left">DirecciÃ³n</th>
+						<th class="text-center">Ver perfil</th>
 					</tr>
 		<%			
 			for(Cliente c : listaClientes){
 		%>
-			<tr>
-				<td>
-					<%= c.getNombreCompleto() %>
-				</td> 
-				<td class="text-center">
-					<a href="Clientes.jsp?user=<%= c.getCedula() %>"><span class="icon-remove_red_eye"></span></a>
-				</td>
-			</tr>
+					<tr>
+						<td class="text-right"><%= c.getCedula() %></td>
+						<td class="text-left"><%= c.getNombreCompleto() %></td> 
+						<td class="text-right"><%= c.getTelefono() %></td>
+						<td class="text-left"><%= c.getDireccion() %></td>
+						<td class="text-center">
+							<a href="Clientes.jsp?user=<%= c.getCedula() %>"><span class="icon-remove_red_eye"></span></a>
+						</td>
+					</tr>
 			
 		<%	
 			}
@@ -121,54 +125,45 @@
 							<form action="post" method="crearcliente"
 								id="frm_nuevo_cliente" name="frm_nuevo_cliente">
 								<div class="modal-body text-left">
-									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">Los campos con asterisco (*) son obligatorios</div>
+									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert"><span class="icon-warning"></span> Los campos con asterisco (*) son obligatorios</div>
 									<div class="form-group">
 										<input name="cc_agregar" type="text" id="input_cc" class="form-control"
-											placeholder="Cédula de la persona*">
-										<div class="alert alert-danger" id="alert_agregar_cc"
-											role="alert">Rellena este campo</div>
+											placeholder="CÃ©dula de la persona*">
 										<div class="alert alert-danger" id="alert_validacion_cc"
-											role="alert">Unicamente números</div>
+											role="alert"><span class="icon-error"></span><var></var></div>
 									</div>
 									<div class="form-group">
 										<input name="nombre" type="text" id="input_nombre"
 											class="form-control" placeholder="Nombre*">
 										<div class="alert alert-danger" id="alert_agregar_nombre"
-											role="alert">Rellena este campo</div>
-										<div class="alert alert-danger"
-											id="alert_validacion_nombre" role="alert">Unicamente
-											letras</div>
+											role="alert"><span class="icon-error"></span><var></var></div>
 									</div>
 									<div class="form-group">
 										<input name="primer_apellido" type="text"
 											id="input_primer_apellido" class="form-control"
 											placeholder="Primer apellido*">
 										<div class="alert alert-danger" id="alert_agregar_apellido"
-											role="alert">Rellena este campo</div>
-										<div class="alert alert-danger"
-											id="alert_validar_apellido" role="alert">Unicamente
-											letras</div>
+											role="alert"><span class="icon-error"></span><var></var></div>
 									</div>
 									<div class="form-group">
 										<input name="segundo_apellido" type="text"
 											id="input_segundo_apellido" class="form-control"
 											placeholder="Segundo apellido">
 										<div class="alert alert-danger"
-											id="alert_validar_segundo_apellido" role="alert">Unicamente
-											letras</div>	
+											id="alert_validar_segundo_apellido" role="alert"><span class="icon-error"></span><var></var></div>	
 									</div>
 									<div class="form-group">
 										<input name="telefono" type="text" id="input_telefono"
-											class="form-control" placeholder="Teléfono">
+											class="form-control" placeholder="TelÃ©fono">
 									</div>
 									<div class="form-group">
 										<input name="direccion" type="text" id="input_direccion"
-											class="form-control" placeholder="Dirección">
+											class="form-control" placeholder="DirecciÃ³n">
 									</div>
 									<div class="alert alert-success" id="alert_agregar_exitoso"
-											role="alert">El cliente se registró correctamente</div>
+											role="alert"><span class="icon-check_circle"></span> El cliente se registrÃ³ correctamente</div>
 									<div class="alert alert-danger" id="alert_agregar_error"
-											role="alert">Cédula ya registrada</div>
+											role="alert"><span class="icon-error"></span> CÃ©dula ya registrada</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button"
@@ -184,7 +179,6 @@
 				</div>
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="col-md-12">
 				<div class="" id="tabla_clientes">

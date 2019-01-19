@@ -74,6 +74,8 @@ public class servletVehiculos extends HttpServlet {
 			response.getWriter().print(sw);
 		}
 
+		ma.cerrarConexion();
+		
 	}
 
 	/**
