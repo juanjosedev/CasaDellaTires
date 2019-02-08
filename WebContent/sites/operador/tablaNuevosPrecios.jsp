@@ -6,17 +6,17 @@
 		response.sendRedirect("http://localhost:8080/CasaDellaTires/");
 	}else{
 		Usuario u = (Usuario) username;
-		if(!u.getTipo().equals("Operador")){
+		if(!u.getTipo().equals("Admin")){
 			response.sendRedirect("../../index.jsp");
 		} else {
 			
 		
 %>
-<table class="table table-bordered table-hover">
+<table class="table table-hover table-modal sombra">
 	<thead>
-		<tr>
+		<tr class="bg-ddd">
 			<th>Vehículo</th>
-			<th>Precio</th>
+			<th class="left">Precio</th>
 		</tr>
 	</thead>
 	<tbody>

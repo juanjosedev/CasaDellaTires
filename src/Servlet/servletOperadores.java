@@ -6,8 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import include.Auditoria;
 import include.Usuario;
+import modelo.ModeloAuditorias;
 import modelo.modeloUsuario;
 
 /**
@@ -17,9 +20,16 @@ import modelo.modeloUsuario;
 public class servletOperadores extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
+	private String modulo = "operadores";
+	
 	 protected void processRequest(HttpServletRequest request,  HttpServletResponse response)
 				throws ServletException, IOException {
 		 response.setContentType("text/html;charset=UTF-8");
+		 HttpSession sesion = request.getSession(true);
+		Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
+		Usuario u = (Usuario) username;
+		ModeloAuditorias ma = new ModeloAuditorias();
+		Auditoria aud = null;
 		 
 		 modeloUsuario mu = new modeloUsuario();
 		 String msgstr = "";
@@ -45,13 +55,19 @@ public class servletOperadores extends HttpServlet {
 				Usuario nuevo_operador = new Usuario(usuario, clave, nombre, primer_apellido, segundo_apellido, telefono, direccion);
 				
 				boolean flag = mu.registrarOperador(nuevo_operador);
+				
+				if(flag) {
+					aud = new Auditoria(u.getUsuario(), modulo, "Crear");
+					ma.insertarAuditoria(aud);
+				}
+				
 				res(response, flag);
 				
 			}
 			
 		 }
 		 mu.cerrarConexion();
-				 
+		 ma.cerrarConexion();
 	 }
 	    	
 	

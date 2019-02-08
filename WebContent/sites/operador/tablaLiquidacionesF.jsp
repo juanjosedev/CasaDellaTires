@@ -19,10 +19,10 @@
 		</thead>
 		<tbody>
 			<tr class="bg-ddd">
-				<th class="text-center">Consecutivo</th>
-				<th class="text-center">Placa</th>
-				<th class="text-center">Cédula</th>
-				<th class="text-center">Fecha</th>
+				<th class="text-right">Consecutivo</th>
+				<th class="text-left">Placa</th>
+				<th class="text-right">Cédula</th>
+				<th class="text-right">Fecha</th>
 				<th class="text-center">Detalle</th>
 			</tr>
 			<% 
@@ -30,17 +30,17 @@
 						ArrayList<Detalle> lista_dlls = l.getLista_detalles();
 			%>
 			<tr>
-				<td class="text-center"><%= l.getConsecutivo() %></td>
-				<td class="text-center"><%= l.getVehiculo().getBeautyPlaca() %></td>
-				<td class="text-center"><%= l.getCliente().getCedula() %></td>
-				<td class="text-center"><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></td>
+				<td class="text-right"><%= l.getConsecutivo() %></td>
+				<td class="text-left"><%= l.getVehiculo().getBeautyPlaca() %></td>
+				<td class="text-right"><%= l.getCliente().getCedula() %></td>
+				<td class="text-right"><%= l.infoTiempo(l.getEntrada(), l.formatoDDMMMYYYYHHMM()) %></td>
 				<td class="text-center"><a href="#detalle<%= l.getConsecutivo() %>"
 					data-toggle="modal"><span class="icon-dehaze"></span></a>
 					<div class="modal fade" id="detalle<%= l.getConsecutivo() %>">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<div class="modal-header">
-									<h3 class="modal-header-title text-left  <%= u.getColor() %>"><span class="icon-info_outline"></span> INFORMACIÓN</h3>
+								<div class="modal-header <%= u.getColor() %>">
+									<h3 class="modal-header-title text-left"><span class="icon-info_outline"></span> INFORMACIÓN</h3>
 								</div>
 								<div class="modal-body text-left">
 									<div class="row">
@@ -79,14 +79,26 @@
 									</div>
 									<hr>
 									<div class="table-responsive">
-										<table class="table table-hover sombra">
+										<table class="table table-hover sombra table-modal">
 											<thead>
+												<tr>
+													<th colspan="2">
+														<div class="media">
+															<div class="media-left">
+																<span class="media-object icon-local_car_wash fs-em-2"></span>
+															</div>
+															<div class="media-body">
+																<h4 class="media-heading">Servicios</h4>
+															</div>
+														</div>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
 												<tr class="bg-ddd">
 													<th>Servicio</th>
 													<th class="text-right">Precio</th>
 												</tr>
-											</thead>
-											<tbody>
 												<% for(Detalle d: lista_dlls){ %>
 												<tr>
 													<td><%= d.getNombre() %></td>
@@ -120,10 +132,10 @@
 													<span class="media-object icon-attach_money fs-em-2"></span>
 												</div>
 												<div class="media-body">
-													<h4 class="media-heading">Total: $<i><%= l.getTotal() %></i></h4>
+													<h4 class="media-heading">Total: <var class="pull-right">$<%= l.getTotal() %></var></h4>
 													<ul>
-														<li><i><b>Subtotal: $</b><%= l.getSubtotal() %></i></li>
-														<li><i><b>Descuento: $</b><%= l.getDescuento() %></i></li>
+														<li><b><i>Subtotal:</i> </b><i class="pull-right">$<%= l.getSubtotal() %></i></li>
+														<li><b><i>Descuento:</i> </b><i class="pull-right">$<%= l.getDescuento() %></i></li>
 													</ul>	
 												</div>
 											</div>

@@ -23,7 +23,7 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-library_books"></span> Liquidaciones <span class="label pull-right" id="label-numeroDeliquidaciones">0</span></h2>
+				<h2><span class="icon-library_books"></span> Liquidaciones <span class="label pull-right" id="label-numeroDeliquidaciones">0</span></h2>
 			</div>
 		</div>
 	</div>
@@ -53,12 +53,11 @@
 												<div class="alert alert-danger" id="art_uni_num__cc"
 													role="alert">Unicamente números</div>
 												<div class="alert alert-danger" id="art_cc_no_existe"
-													role="alert">
-													La cédula no existe <a href="Clientes.jsp?agregar=true"
+													role="alert"><span class="icon-cancel"></span> La cédula no existe <a href="Clientes.jsp?agregar=true"
 														class="pull-right"><span class="label label-danger">Registrar</span></a>
 												</div>
 												<div class="alert alert-success" id="art_cc_existe"
-													role="alert">Cédula correcta</div>
+													role="alert"><span class="icon-verified_user"></span> Cédula correcta</div>
 											</div>
 											<div class="form-group">
 												<input name="placa" type="text" id="inp_placa_lqr"
@@ -69,12 +68,11 @@
 												<div class="alert alert-danger" id="art_val_placa"
 													role="alert">Placa inválida (6 caracteres)</div>
 												<div class="alert alert-danger" id="art_placa_no_existe"
-													role="alert">
-													La placa no existe <a href="Vehiculos.jsp?agregar=true"
+													role="alert"><span class="icon-cancel"></span> La placa no existe <a href="Vehiculos.jsp?agregar=true"
 														class="pull-right"><span class="label label-danger">Registrar</span></a>
 												</div>
 												<div class="alert alert-success" id="art_placa_existe"
-													role="alert">Placa correcta</div>
+													role="alert"><span class="icon-verified_user"></span> Placa correcta</div>
 											</div>
 											<div class="form-group" id="tabla_servicios"></div>
 											<div class="alert alert-danger" id="art_servicio_cero"
@@ -91,11 +89,11 @@
 											</div>
 											<hr>
 											<div class="table-responsive">
-							                    <table class="table table-bordered table-hover">
+							                    <table class="table table-hover table-modal">
 							                        <thead>
-								                        <tr>
+								                        <tr class="bg-ddd">
 								                            <th>Servicio</th>
-								                            <th>Precio</th>
+								                            <th class="text-right">Precio</th>
 								                        </tr>
 							                        </thead>
 							                        <tbody id="tabla_serviciosi">
@@ -126,10 +124,10 @@
 															<span class="media-object icon-attach_money fs-em-2"></span>
 														</div>
 														<div class="media-body">
-															<h4 class="media-heading">Total: $<i><var id="info_total">0</var></i></h4>
+															<h4 class="media-heading">Total: <i class="pull-right">$<var id="info_total">0</var></i></h4>
 															<ul>
-																<li><i><b>Subtotal: $</b><var id="info_subtotal">0</var></i></li>
-																<li><i><b>Descuento: $</b><var id="info_descuento">0</var></i></li>
+																<li><b><i>Subtotal: </i></b><i class="pull-right">$<var id="info_subtotal">0</var></i></li>
+																<li><b><i>Descuento: </i></b><i class="pull-right">$<var id="info_descuento" class="pull-right">0</var></i></li>
 															</ul>	
 														</div>
 													</div>

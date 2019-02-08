@@ -88,6 +88,11 @@ public class servletLiquidacion extends HttpServlet {
 			long consecutivo = Long.parseLong(request.getParameter("terminar_lqd"));
 			boolean sw = cl.terminarLiquidacion(consecutivo);
 
+			if(sw) {
+				aud = new Auditoria(u.getUsuario(), modulo, "Editar");
+				ma.insertarAuditoria(aud);
+			}
+			
 			response.getWriter().print(sw);
 
 		} else if (request.getParameter("getNumeroDeLiquidaciones") != null) {

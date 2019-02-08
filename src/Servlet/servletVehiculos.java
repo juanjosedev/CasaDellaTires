@@ -48,6 +48,7 @@ public class servletVehiculos extends HttpServlet {
 
 			if(sw) {
 				aud = new Auditoria(u.getUsuario(), modulo, "Crear");
+				ma.insertarAuditoria(aud);
 			}
 			
 			ctv.cerrarConexiones();
@@ -65,9 +66,9 @@ public class servletVehiculos extends HttpServlet {
 			tipoVehiculo tv = new tipoVehiculo(Long.parseLong(tipo), "");
 			boolean sw = ctv.modificarVehiculo(new Vehiculo(placa, tv, marca, modelo));
 
-			if(sw) {
-				aud = new Auditoria(u.getUsuario(), modulo, "Editar");
-			}
+//			if(sw) {
+//				aud = new Auditoria(u.getUsuario(), modulo, "Editar");
+//			}
 			
 			ctv.cerrarConexiones();
 

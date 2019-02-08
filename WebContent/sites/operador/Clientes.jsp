@@ -1,6 +1,6 @@
 <%@ page import="java.util.*, controlador.*, include.*, modelo.*"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
 	HttpSession sesion = request.getSession(true);
 	Object username = sesion.getAttribute("username") == null ? null : sesion.getAttribute("username");
@@ -24,7 +24,7 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-group"></span> Clientes</h2>
+				<h2><span class="icon-group"></span> Clientes</h2>
 			</div>
 		</div>
 	</div>
@@ -50,33 +50,49 @@
 				<button class="boton <%= u.getColor() %> boton-chico pull-right sombra" id="volver"><span class="icon-navigate_before"></span> VOLVER A LA TABLA</button>
 			</div>	
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<h3 class="text-uppercase"><span class="table-title <%= u.getColor() %>"></span> Se encontraron <b><%= listaClientes.size() %></b> resultados.</h3>
-			</div>
-		</div>
+		<br>
+		<div class="table-responsive">
+			<table class="table table-hover sombra">
+				<thead>
+					<tr>
+						<td colspan="5">Se encontraron <b><%= listaClientes.size() %></b> resultados.</td>
+					</tr>
+				</thead>
 	<%	
 		if(listaClientes.size() != 0){
 	%>
-		<div class="row">
+		
+				<tbody>
+					<tr class="bg-ddd">
+						<th class="text-right">CÃ©dula</th>
+						<th class="text-left">Nombre</th>
+						<th class="text-right">TelÃ©fono</th>
+						<th class="text-left">DirecciÃ³n</th>
+						<th class="text-center">Ver perfil</th>
+					</tr>
 		<%			
 			for(Cliente c : listaClientes){
 		%>
-			<div class="col-md-12">
-				<div class="container-query sombra">
-					<h4><span class="icon-person <%= u.getColor() %>"></span> <%= c.getNombreCompleto() %>
-					<a href="Clientes.jsp?user=<%= c.getCedula() %>" class="boton-vacio boton-chico pull-right"> VER PERFIL</a>
-					</h4>
-				</div> 
-			</div>
+					<tr>
+						<td class="text-right"><%= c.getCedula() %></td>
+						<td class="text-left"><%= c.getNombreCompleto() %></td> 
+						<td class="text-right"><%= c.getTelefono() %></td>
+						<td class="text-left"><%= c.getDireccion() %></td>
+						<td class="text-center">
+							<a href="Clientes.jsp?user=<%= c.getCedula() %>"><span class="icon-remove_red_eye"></span></a>
+						</td>
+					</tr>
+			
 		<%	
 			}
 		%>
-		</div>
+				</tbody>
 		<%
 			}//Cierre del if
 		%>
 		
+			</table>
+		</div>
 	<%
 			
 	} else if(request.getParameter("user") != null) {//cierre if
@@ -109,54 +125,45 @@
 							<form action="post" method="crearcliente"
 								id="frm_nuevo_cliente" name="frm_nuevo_cliente">
 								<div class="modal-body text-left">
-									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">Los campos con asterisco (*) son obligatorios</div>
+									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert"><span class="icon-warning"></span> Los campos con asterisco (*) son obligatorios</div>
 									<div class="form-group">
 										<input name="cc_agregar" type="text" id="input_cc" class="form-control"
-											placeholder="Cédula de la persona*">
-										<div class="alert alert-danger" id="alert_agregar_cc"
-											role="alert">Rellena este campo</div>
+											placeholder="CÃ©dula de la persona*">
 										<div class="alert alert-danger" id="alert_validacion_cc"
-											role="alert">Unicamente números</div>
+											role="alert"><span class="icon-error"></span><var></var></div>
 									</div>
 									<div class="form-group">
 										<input name="nombre" type="text" id="input_nombre"
 											class="form-control" placeholder="Nombre*">
 										<div class="alert alert-danger" id="alert_agregar_nombre"
-											role="alert">Rellena este campo</div>
-										<div class="alert alert-danger"
-											id="alert_validacion_nombre" role="alert">Unicamente
-											letras</div>
+											role="alert"><span class="icon-error"></span><var></var></div>
 									</div>
 									<div class="form-group">
 										<input name="primer_apellido" type="text"
 											id="input_primer_apellido" class="form-control"
 											placeholder="Primer apellido*">
 										<div class="alert alert-danger" id="alert_agregar_apellido"
-											role="alert">Rellena este campo</div>
-										<div class="alert alert-danger"
-											id="alert_validar_apellido" role="alert">Unicamente
-											letras</div>
+											role="alert"><span class="icon-error"></span><var></var></div>
 									</div>
 									<div class="form-group">
 										<input name="segundo_apellido" type="text"
 											id="input_segundo_apellido" class="form-control"
 											placeholder="Segundo apellido">
 										<div class="alert alert-danger"
-											id="alert_validar_segundo_apellido" role="alert">Unicamente
-											letras</div>	
+											id="alert_validar_segundo_apellido" role="alert"><span class="icon-error"></span><var></var></div>	
 									</div>
 									<div class="form-group">
 										<input name="telefono" type="text" id="input_telefono"
-											class="form-control" placeholder="Teléfono">
+											class="form-control" placeholder="TelÃ©fono">
 									</div>
 									<div class="form-group">
 										<input name="direccion" type="text" id="input_direccion"
-											class="form-control" placeholder="Dirección">
+											class="form-control" placeholder="DirecciÃ³n">
 									</div>
 									<div class="alert alert-success" id="alert_agregar_exitoso"
-											role="alert">El cliente se registró correctamente</div>
+											role="alert"><span class="icon-check_circle"></span> El cliente se registrÃ³ correctamente</div>
 									<div class="alert alert-danger" id="alert_agregar_error"
-											role="alert">Cédula ya registrada</div>
+											role="alert"><span class="icon-error"></span> CÃ©dula ya registrada</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button"
@@ -172,7 +179,6 @@
 				</div>
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="col-md-12">
 				<div class="" id="tabla_clientes">

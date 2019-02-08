@@ -23,7 +23,7 @@
 	<div class="container-fluid title_maestro <%= u.getColor() %>">
 		<div class="row">
 			<div class="col-md-12">
-				<h2 class="text-uppercase"><span class="icon-settings"></span> Servicios 2</h2>
+				<h2><span class="icon-local_car_wash"></span> Servicios</h2>
 			</div>
 		</div>
 	</div>
@@ -44,20 +44,20 @@
 							</div>
 							<form action="" method="post" id="frm_nuevo_servicio" name="frm_nuevo_servicio"> 
 								<div class="modal-body text-left">
-									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert">Los campos con asterisco (*) son obligatorios</div>
+									<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert"><span class="icon-warning"></span> Los campos con asterisco (*) son obligatorios</div>
 									<div class="form-group">
 										<label for="inp_servicio">Nombre del servicio*</label>
 										<input type="text" name="inp_servicio" id="inp_servicio" class="form-control" placeholder="Nombre">
-										<div class="alert alert-danger" id="alt_servicio" role="alert"><var id="msg"></var></div>
+										<div class="alert alert-danger" id="alt_servicio" role="alert"><span class="icon-error"></span> <var id="msg"></var></div>
 									</div>
 									<div class="">
 										<label>Tipo de vehículos* <i>(Mínimo un vehículo)</i></label>
 										<div class="table-responsive">
-											<table class="table table-bordered table-hover">
+											<table class="table table-hover table-modal sombra">
 												<thead>
-													<tr>
+													<tr class="bg-ddd">
 														<th>Vehículo</th>
-														<th>Precio</th>
+														<th class="text-right">Precio</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -82,8 +82,8 @@
 												</tbody>
 											</table>
 										</div>
-										<div class="alert alert-danger" id="alt_crear_error" role="alert"><var id="msg"></var></div>
-										<div class="alert alert-success" id="alt_crear_exito" role="alert"><var id="msg"></var></div>
+										<div class="alert alert-danger" id="alt_crear_error" role="alert"><span class="icon-error"></span> <var id="msg"></var></div>
+										<div class="alert alert-success" id="alt_crear_exito" role="alert"><span class="icon-check_circle"></span> <var id="msg"></var></div>
 									</div>
 								</div>
 								<div class="modal-footer">

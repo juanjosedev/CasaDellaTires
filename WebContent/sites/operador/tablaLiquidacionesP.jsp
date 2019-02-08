@@ -37,8 +37,8 @@
 					<div class="modal fade" id="detalle<%= l.getConsecutivo() %>">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<div class="modal-header">
-									<h3 class="modal-header-title text-left <%= u.getColor() %>"><span class="icon-info_outline"></span> INFORMACIÓN</h3>
+								<div class="modal-header  <%= u.getColor() %>">
+									<h3 class="modal-header-title text-left"><span class="icon-info_outline"></span> INFORMACIÓN</h3>
 								</div>
 								<div class="modal-body text-left">
 									<div class="row">
@@ -77,14 +77,26 @@
 									</div>
 									<hr>
 									<div class="table-responsive">
-										<table class="table table-bordered">
+										<table class="table table-hover sombra table-modal">
 											<thead>
 												<tr>
-													<th>Servicio</th>
-													<th>Precio</th>
+													<th colspan="2">
+														<div class="media">
+															<div class="media-left">
+																<span class="media-object icon-local_car_wash fs-em-2"></span>
+															</div>
+															<div class="media-body">
+																<h4 class="media-heading">Servicios</h4>
+															</div>
+														</div>
+													</th>
 												</tr>
 											</thead>
 											<tbody>
+												<tr class="bg-ddd">
+													<th>Servicio</th>
+													<th class="text-right">Precio</th>
+												</tr>
 												<% for(Detalle d: lista_dlls){ %>
 												<tr>
 													<td><%= d.getNombre() %></td>
@@ -117,10 +129,10 @@
 													<span class="media-object icon-attach_money fs-em-2"></span>
 												</div>
 												<div class="media-body">
-													<h4 class="media-heading">Total: $<i><%= l.getTotal() %></i></h4>
+													<h4 class="media-heading">Total: <var class="pull-right">$<%= l.getTotal() %></var></h4>
 													<ul>
-														<li><i><b>Subtotal: $</b><%= l.getSubtotal() %></i></li>
-														<li><i><b>Descuento: $</b><%= l.getDescuento() %></i></li>
+														<li><b><i>Subtotal:</i> </b><i class="pull-right">$<%= l.getSubtotal() %></i></li>
+														<li><b><i>Descuento:</i> </b><i class="pull-right">$<%= l.getDescuento() %></i></li>
 													</ul>	
 												</div>
 											</div>
@@ -132,7 +144,7 @@
 										class="boton boton-chico pull-left"
 										data-dismiss="modal">Cerrar</button>
 									<button type="button"
-										class="boton boton-chico bg-cian btn_terminar"
+										class="boton boton-chico <%= u.getColor() %> btn_terminar"
 	 									id="<%= l.getConsecutivo() %>">Terminar</button>
 								</div>
 							</div>

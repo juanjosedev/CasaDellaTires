@@ -8,7 +8,7 @@
 		response.sendRedirect("http://localhost:8080/CasaDellaTires/");
 	}else{
 		Usuario u = (Usuario) username;
-		if(!u.getTipo().equals("Operador")){
+		if(!u.getTipo().equals("Admin")){
 			response.sendRedirect("../../index.jsp");
 		}	
 %>
