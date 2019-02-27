@@ -29,7 +29,6 @@
 	</div>
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">
-				
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#agregarLiquidacion" data-toggle="modal"
@@ -91,11 +90,23 @@
 											<div class="table-responsive">
 							                    <table class="table table-hover table-modal">
 							                        <thead>
-								                        <tr class="bg-ddd">
-								                            <th>Servicio</th>
-								                            <th class="text-right">Precio</th>
-								                        </tr>
-							                        </thead>
+														<tr>
+															<th colspan="2">
+																<div class="media">
+																	<div class="media-left">
+																		<span class="media-object icon-local_car_wash fs-em-2"></span>
+																	</div>
+																	<div class="media-body">
+																		<h4 class="media-heading">Servicios</h4>
+																	</div>
+																</div>
+															</th>
+														</tr>
+														<tr class="bg-ddd">
+															<th>Servicio</th>
+															<th class="text-right">Precio</th>
+														</tr>
+													</thead>
 							                        <tbody id="tabla_serviciosi">
 							                        </tbody>
 							                    </table>

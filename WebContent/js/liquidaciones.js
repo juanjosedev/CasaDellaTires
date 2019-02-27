@@ -70,6 +70,7 @@ $(document).ready(function() {
 		var data = "placa_exist="+placa;
 		
 		$.post("../../crudliquidacion", data, function(res, est, jqXHR){
+			document.getElementById("tabla_serviciosi").innerHTML = "";
 			var respuesta = res == "true";
 			if(respuesta) {
 				getAlertStay(art_placa_existe);
@@ -127,7 +128,7 @@ $(document).ready(function() {
 	
 	function getFecha() {
 		var objDate = new Date();
-		return objDate.getDate()+"-"+objDate.getMonth()+"-"+objDate.getFullYear();
+		return objDate.getDate()+"-"+(objDate.getMonth()+1)+"-"+objDate.getFullYear();
 	}
 	
 	function setFecha() {
@@ -170,6 +171,7 @@ $(document).ready(function() {
 			btn_volver.hide();
 			btn_confirmar.hide();
 			sbt_crear_lqd.show();
+			document.getElementById("tabla_serviciosi").innerHTML = "";
 		});
 	}
 	

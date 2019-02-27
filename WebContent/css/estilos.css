@@ -1,6 +1,6 @@
 body{
     background-color: #f5f5f5;
-    font-family: Roboto;
+    font-family: 'Roboto' !important;
     font-weight: 300;
     font-size: small;
     letter-spacing: 0.3px;

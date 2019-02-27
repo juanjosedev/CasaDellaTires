@@ -57,7 +57,7 @@
 					<tr>
 						<td><%= v.getBeautyPlaca() %></td>
 						<td><%= v.getTipo().getNombre() %></td>
-						<td><%= v.getMarca() %></td>
+						<td><%= v.getMarca()%></td>
 						<td><%= v.getModelo() %></td>
 						<td class="text-center"><a href="Vehiculos.jsp?profile=<%= v.getFirstPlaca()+v.getSecondPlaca() %>"><span class="icon-remove_red_eye"></span></a></td>
 					</tr>			
@@ -126,7 +126,7 @@
 									<span class="media-object icon-local_offer fs-em-2"></span>
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"><%= v.getMarca() == null ? v.getMarca() : " - " %></h4>
+									<h4 class="media-heading"><%= !v.getMarca().equals("") ? v.getMarca() : " - " %></h4>
 									<var class="media-heading-small">Marca</var>
 								</div>
 							</div>
@@ -139,7 +139,7 @@
 									<span class="media-object icon-local_offer fs-em-2"></span>
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"><%= v.getModelo() == null ? v.getModelo() : " - " %></h4>
+									<h4 class="media-heading"><%= !v.getModelo().equals("") ? v.getModelo() : " - " %></h4>
 									<var class="media-heading-small">Modelo</var>
 								</div>
 							</div>

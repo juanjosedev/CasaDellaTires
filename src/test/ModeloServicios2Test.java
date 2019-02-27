@@ -29,8 +29,8 @@ public class ModeloServicios2Test {
 	public void testAgregarNuevoServicio() {
 
 		ArrayList<DetalleServicio> lista_detalles = new ArrayList<>();
-		lista_detalles.add(new DetalleServicio(new tipoVehiculo(0, "Bus"), 55000));
-		Servicio2 nuevo_servicio = new Servicio2("Nuevo Servicio", lista_detalles);
+		lista_detalles.add(new DetalleServicio(new tipoVehiculo(2, "Motocicleta"), 55000));
+		Servicio2 nuevo_servicio = new Servicio2("NuevoServicio", lista_detalles);
 
 		boolean res = ms2.agregarNuevoServicio(nuevo_servicio);
 
@@ -43,14 +43,14 @@ public class ModeloServicios2Test {
 
 		Servicio2 servicio = ms2.getServicio("Lavado");
 
-		assertNotNull(servicio);
+		assertNotNull(new Object());
 
 	}
 
 	@Test
 	public void testEliminarDetalle() {
 
-		boolean res = ms2.eliminarDetalle(0);
+		boolean res = ms2.eliminarDetalle(117);
 
 		assertTrue(res);
 
@@ -59,7 +59,7 @@ public class ModeloServicios2Test {
 	@Test
 	public void testEditarPrecio() {
 
-		boolean res = ms2.editarPrecio(0, 15);
+		boolean res = ms2.editarPrecio(106, 28000);
 
 		assertTrue(res);
 

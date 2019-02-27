@@ -23,8 +23,8 @@
 	<script src="js/sesion.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- <link rel="stylesheet" type="text/css" href="../../fonts_icons/iconos/style.css">  -->
-	<link rel="stylesheet" type="text/css" href="fonts_icons/iconos2/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="fonts_icons/iconos2/style.css"><!-- 
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
 	<link rel="stylesheet" type="text/css" href="css/estilos.css">
 	<title>Casa Della Tires</title>
 </head>

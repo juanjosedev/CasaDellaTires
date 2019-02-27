@@ -26,7 +26,7 @@ public class ModeloUsuarioTest {
 	@Test
 	public void testGetUsuario() {
 		
-		Usuario usuario = mu.getUsuario(new Usuario("usuario", "clave"));
+		Usuario usuario = mu.getUsuario(new Usuario("juanjosedev", "12345678"));
 		
 		assertNotNull(usuario);
 		

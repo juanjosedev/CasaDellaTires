@@ -32,7 +32,7 @@ public class ModeloClientesTest {
 	@Test
 	public void testGetCliente() {
 
-		Cliente cliente = mc.getCliente(0);
+		Cliente cliente = mc.getCliente(1311);
 
 		assertNotNull(cliente);
 
@@ -41,7 +41,7 @@ public class ModeloClientesTest {
 	@Test
 	public void testAgregarNuevoCliente() {
 		
-		Cliente nuevo_cliente = new Cliente("nombre", "primer_apellido", "segundo_apellido", "telefono", "direccion");
+		Cliente nuevo_cliente = new Cliente(9999, "nombre", "primer_apellido", "segundo_apellido", "telefono", "direccion");
 		
 		boolean res = mc.agregarNuevoCliente(nuevo_cliente);
 		
@@ -52,7 +52,7 @@ public class ModeloClientesTest {
 	@Test
 	public void testEditarCliente() {
 		
-		Cliente cliente = new Cliente("nombre", "primer_apellido", "segundo_apellido", "telefono", "direccion");
+		Cliente cliente = new Cliente(1312, "Roberto Alonso", "Castillo", "Álvarez", "1651865", "Madrid");
 		
 		boolean res = mc.editarCliente(cliente);
 		
@@ -63,7 +63,7 @@ public class ModeloClientesTest {
 	@Test
 	public void testGetBusqueda() {
 		
-		ArrayList<Cliente> lista_clientes = mc.getBusqueda("criterio");
+		ArrayList<Cliente> lista_clientes = mc.getBusqueda("va");
 		
 		assertTrue(lista_clientes.size() > 0);
 		

@@ -18,7 +18,7 @@
 			<input type="text" class="form-control" placeholder="Buscar vehículo..." id="input_vehiculo_cc" name="input_vehiculo_cc">
 			<span class="input-group-btn">
 				<button class="boton <%= u.getColor() %>" type="button" id="buscar_vehiculo">
-					<span class="icon-search"></span>
+<!-- 					<span class="icon-search"></span> -->
 				</button>
 			</span>
 		</div>
@@ -126,7 +126,7 @@
 									<span class="media-object icon-local_offer fs-em-2"></span>
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"><%= v.getMarca() == null ? v.getMarca() : " - " %></h4>
+									<h4 class="media-heading"><%= !v.getMarca().equals("") ? v.getMarca() : " - " %></h4>
 									<var class="media-heading-small">Marca</var>
 								</div>
 							</div>
@@ -139,7 +139,7 @@
 									<span class="media-object icon-local_offer fs-em-2"></span>
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"><%= v.getModelo() == null ? v.getModelo() : " - " %></h4>
+									<h4 class="media-heading"><%= !v.getModelo().equals("") ? v.getModelo() : " - " %></h4>
 									<var class="media-heading-small">Modelo</var>
 								</div>
 							</div>

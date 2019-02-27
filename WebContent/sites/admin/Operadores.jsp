@@ -30,7 +30,7 @@
 	<jsp:include page="../../templates/menu.jsp"></jsp:include>
 	<div class="col-md-10">	
 		<div class="row">
-			<div class="col-md-5">
+			<!-- <div class="col-md-5">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Buscar cliente..." id="input_buscar_cc" name="input_buscar_cc">
 					<span class="input-group-btn">
@@ -39,21 +39,20 @@
 						</button>
 					</span>
 				</div>
-			</div>
-			<div class="col-md-7">
+			</div> -->
+			<div class="col-md-12">
 				<a href="#agregarOperador" data-toggle="modal"
 					class="boton <%= u.getColor() %> boton-chico pull-right sombra">Nuevo operador</a>
 				<div class="modal fade" id="agregarOperador">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h2 class="modal-header-title">REGISTRAR</h2>
+								<h3 class="modal-header-title"><span class="icon-assignment"></span> Registrar Operador</h3>
 							</div>
 							<form action="post" method="crearcliente"
 								id="frm_nuevo_cliente" name="frm_nuevo_cliente">
 								<div class="modal-body text-left">
-									<h3>Datos del operador</h3>
-									<i>Los campos con asterisco (*) son obligatorios</i>
+								<div class="alert bg-ambar" id="alert_campos_obligatorios" role="alert"><span class="icon-warning"></span> Los campos con asterisco (*) son obligatorios</div>
 									<div class="form-group">
 										<input name="usuario" type="text" id="inp_usuario" class="form-control"
 											placeholder="Nombre de usuario*">

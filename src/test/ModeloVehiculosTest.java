@@ -29,7 +29,7 @@ public class ModeloVehiculosTest {
 	@Test
 	public void testGetVehiculo() {
 		
-		Vehiculo vehiculo = mv.getVehiculo("placa");
+		Vehiculo vehiculo = mv.getVehiculo("QWE789");
 		
 		assertNotNull(vehiculo);
 		
@@ -38,7 +38,7 @@ public class ModeloVehiculosTest {
 	@Test
 	public void testGetBusqueda() {
 	
-		ArrayList<Vehiculo> lista_vehiculo = mv.getBusqueda("criterio");
+		ArrayList<Vehiculo> lista_vehiculo = mv.getBusqueda("chevrolet");
 		
 		assertTrue(lista_vehiculo.size() > 0);
 		
@@ -47,7 +47,7 @@ public class ModeloVehiculosTest {
 	@Test
 	public void testAgregarNuevoVehiculo() {
 		
-		Vehiculo nuevo_vehiculo = new Vehiculo(new tipoVehiculo(0, "Bus"), "marca", "modelo");
+		Vehiculo nuevo_vehiculo = new Vehiculo("POO900", new tipoVehiculo(3, "Bus"), "marca", "modelo");
 		boolean res = mv.agregarNuevoVehiculo(nuevo_vehiculo);
 		
 		assertTrue(res);

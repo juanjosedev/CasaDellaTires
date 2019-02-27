@@ -10,7 +10,7 @@ public class Conexion {
 	private String password = "";
 	private String hostname = "127.0.0.1";
 	private String port = "3306";
-	private String database = "casadellatires";
+	private String database = "casadellatires_test";
 	private String classname = "com.mysql.jdbc.Driver";
 	private String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database;
 	private Connection con;

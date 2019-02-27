@@ -272,16 +272,26 @@ public class modeloServicios extends Conexion {
 		Vehiculo v = mv.getVehiculo(placa);
 		ArrayList<Servicio> lista = getServicios(v.getTipo().getId());
 
-		String tabla = "<hr><h4><span class=\"table-title <%= u.getColor() %>\"></span>Servicios: <small>" + v.getTipo().getNombre()
-				+ "</small></h4><div class=\"table-responsive\">\r\n"
-				+ "														<table class=\"table table-hover table-modal\">\r\n"
-				+ "															<thead>\r\n"
-				+ "																<tr class=\"bg-ddd\">\r\n"
-				+ "																	<th>Servicio</th>\r\n"
-				+ "																	<th class=\"text-right\">Precio</th>\r\n"
-				+ "																</tr>\r\n"
-				+ "															</thead>\r\n"
-				+ "															<tbody>";
+		String tabla = "<hr><div class=\"table-responsive\">\r\n" + 
+				"										<table class=\"table table-hover sombra table-modal\">\r\n" + 
+				"											<thead>\r\n" + 
+				"												<tr>\r\n" + 
+				"													<th colspan=\"2\">\r\n" + 
+				"														<div class=\"media\">\r\n" + 
+				"															<div class=\"media-left\">\r\n" + 
+				"																<span class=\"media-object icon-local_car_wash fs-em-2\"></span>\r\n" + 
+				"															</div>\r\n" + 
+				"															<div class=\"media-body\">\r\n" + 
+				"																<h4 class=\"media-heading\">Servicios</h4>\r\n" + 
+				"															</div>\r\n" + 
+				"														</div>\r\n" + 
+				"													</th>\r\n" + 
+				"												</tr>\r\n" + 
+				"											</thead>\r\n" + 
+				"											<tbody>"+"<tr class=\"bg-ddd\">\r\n" + 
+						"													<th>Servicio</th>\r\n" + 
+						"													<th class=\"text-right\">Precio</th>\r\n" + 
+						"												</tr>";
 		
 		String input_form = "";
 		
@@ -303,8 +313,8 @@ public class modeloServicios extends Conexion {
 		
 		mv.cerrarConexion();
 
-		return tabla + "</tbody>\r\n" + "														</table>\r\n"
-				+ "													</div>"
+		return tabla + "</tbody></table>" + "														</table>\r\n"
+				+ "</div>"
 				+ "<div class=\"cuentas\">\r\n" + 
 				"                    <div class=\"panel panel-default\">\r\n" + 
 				"                        <div class=\"panel-body\">\r\n" + 
