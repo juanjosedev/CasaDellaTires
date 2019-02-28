@@ -15,10 +15,25 @@ import modelo.modeloLiquidaciones;
 public class ModeloLiquidacionesTest {
 
 	modeloLiquidaciones ml;
+	Cliente cliente;
+	Vehiculo vehiculo;
+	ArrayList<Detalle> lista_detalles;
+	Calendar entrada;
+	int subtotal;
+	int descuento;
+	int total;
 	
 	@Before
 	public void setUpBefore() {
 		ml = new modeloLiquidaciones();
+		cliente = new Cliente(1311, "nombre", "primer_apellido", "segundo_apellido", "telefono", "direccion");
+		vehiculo = new Vehiculo("QWE789", null, "marca", "modelo");
+		lista_detalles = new ArrayList<>();
+		lista_detalles.add(new Detalle(6, "Lavado", 28));
+		entrada = Calendar.getInstance();
+		subtotal = 28;
+		descuento = 0;
+		total = 28;
 	}
 	
 	@After
@@ -29,33 +44,69 @@ public class ModeloLiquidacionesTest {
 	@Test
 	public void testAgregarNuevaLiquidacion() {
 		
-		Cliente cliente = new Cliente(1311, "nombre", "primer_apellido", "segundo_apellido", "telefono", "direccion");
-		Vehiculo vehiculo = new Vehiculo("QWE789", null, "marca", "modelo");
-		ArrayList<Detalle> lista_detalles = new ArrayList<>();
-		lista_detalles.add(new Detalle(101, "Lavado", 22000));
-		Calendar entrada = Calendar.getInstance();
-		entrada.set(2019, 1, 5, 14, 50);
-		Calendar salida = Calendar.getInstance();
-		salida.set(2019, 1, 5, 16, 45);
-		int subtotal = 22000;
-		int descuento = 0;
-		int total = 22000;
+		Liquidacion nueva_liquidacion = new Liquidacion(6, cliente, vehiculo, lista_detalles, entrada, entrada, subtotal, descuento, total);
 		
-		Liquidacion nueva_liquidacion = new Liquidacion(5, cliente, vehiculo, lista_detalles, entrada, salida, subtotal, descuento, total);
+		assertTrue(ml.agregarNuevaLiquidacion(nueva_liquidacion));
 		
-		boolean res = ml.agregarNuevaLiquidacion(nueva_liquidacion);
+	}
+	
+	@Test
+	public void testGetDetalles() {
 		
-		assertTrue(res);
+		assertTrue(ml.getDetalles(1).size() != 0);
+		
+	}
+	
+	@Test
+	public void testGetAllLiquidaciones() {
+		
+		assertTrue(ml.getAllLiquidaciones(1).size() != 0);
 		
 	}
 
 	@Test
-	public void testTerminarLiquidacion() {
-	
-		boolean res = ml.terminarLiquidacion(2);
-	
-		assertTrue(res);
-	
+	public void testGetLiquidacionesPendientes() {
+		assertTrue(ml.getLiquidacionesPendientes().size() != 0);
 	}
+	
+	@Test
+	public void testGetLiquidacionesCompletas() {
+		assertTrue(ml.getLiquidacionesCompletas(1).size() != 0);
+	}
+	
+	@Test
+	public void testGetLiquidacionesByCliente() {
+		assertTrue(ml.getLiquidacionesByCliente(cliente.getCedula()).size() != 0);
+	}
+
+	@Test
+	public void testGetLiquidacionesByVehiculo() {
+		assertTrue(ml.getLiquidacionesByCliente(vehiculo.getPlaca()).size() != 0);
+	}
+	
+	@Test
+	public void testGetSubTotal() {
+		assertTrue(ml.getSubTotal(lista_detalles) == 28);
+	}
+	
+	@Test
+	public void testGetDescuento() {
+		assertTrue(ml.getDescuento(lista_detalles) == 0);
+	}
+	
+	@Test
+	public void testGetTotal() {
+		assertTrue(ml.getTotal(lista_detalles) == 28);
+	}
+	
+	@Test
+	public void testTerminarLiquidacion() {
+		assertTrue(ml.terminarLiquidacion(5));
+	}
+	
+//	@Test
+//	public void testMetodo() {
+//		assertTrue(true);
+//	}
 
 }

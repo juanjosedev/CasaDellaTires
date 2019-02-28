@@ -186,39 +186,6 @@ public class modeloVehiculos extends Conexion{
 		
 	}
 	
-	public boolean modificarVehiculo(Vehiculo v) {
-		
-		boolean sw = false;
-		PreparedStatement objSta = null;
-		
-		try {
-			
-			String sql = "UPDATE vehiculos SET id_tipo_vehiculo = ?, marca = ?, modelo = ? WHERE placa = ?";
-			objSta = getConnection().prepareStatement(sql);
-			objSta.setLong(1, v.getTipo().getId());
-			objSta.setString(2, v.getMarca());
-			objSta.setString(3, v.getModelo());
-			objSta.setString(4, v.getPlaca());
-			
-			if (objSta.executeUpdate() == 1) sw = true;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {/**
-			try {
-				if (getConnection() != null)
-					getConnection().close();
-				if (objSta != null)
-					objSta.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}*/
-		}
-			
-		
-		return sw;
-	}
-	
 	public int getContarVehiculos() {
 		
 		int i = 0;

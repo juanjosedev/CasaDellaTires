@@ -55,24 +55,6 @@ public class servletVehiculos extends HttpServlet {
 
 			response.getWriter().print(sw);
 
-		} else if (request.getParameter("placa1_mdf") != null) {
-
-			String placa = request.getParameter("placa1_mdf").toUpperCase() + request.getParameter("placa2");
-			String tipo = request.getParameter("tipo");
-			String marca = request.getParameter("marca");
-			String modelo = request.getParameter("modelo");
-
-			controladorVehiculos ctv = new controladorVehiculos();
-			tipoVehiculo tv = new tipoVehiculo(Long.parseLong(tipo), "");
-			boolean sw = ctv.modificarVehiculo(new Vehiculo(placa, tv, marca, modelo));
-
-//			if(sw) {
-//				aud = new Auditoria(u.getUsuario(), modulo, "Editar");
-//			}
-			
-			ctv.cerrarConexiones();
-
-			response.getWriter().print(sw);
 		}
 
 		ma.cerrarConexion();

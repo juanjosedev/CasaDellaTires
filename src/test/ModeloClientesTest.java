@@ -17,56 +17,46 @@ public class ModeloClientesTest {
 
 	@Before
 	public void setUpBefore() {
-
 		mc = new modeloClientes();
-
 	}
 
 	@After
 	public void tearDownAfter() {
-
 		mc.cerrarConexion();
-
 	}
 
 	@Test
 	public void testGetCliente() {
-
 		Cliente cliente = mc.getCliente(1311);
-
 		assertNotNull(cliente);
-
+	}
+	
+	@Test
+	public void testGetAllClientes(){
+		assertTrue(mc.getAllClientes(1).size() != 0);
 	}
 
 	@Test
 	public void testAgregarNuevoCliente() {
-		
-		Cliente nuevo_cliente = new Cliente(9999, "nombre", "primer_apellido", "segundo_apellido", "telefono", "direccion");
-		
-		boolean res = mc.agregarNuevoCliente(nuevo_cliente);
-		
-		assertTrue(res);
-		
+		Cliente nuevo_cliente = new Cliente(1012, "Mariano", "Delgado", "", "5146245", "Córdoba");		
+		assertTrue(mc.agregarNuevoCliente(nuevo_cliente));
 	}
 
 	@Test
 	public void testEditarCliente() {
-		
-		Cliente cliente = new Cliente(1312, "Roberto Alonso", "Castillo", "Álvarez", "1651865", "Madrid");
-		
-		boolean res = mc.editarCliente(cliente);
-		
-		assertTrue(res);
-		
+		Cliente cliente = new Cliente(1311, "Lucía", "Álvarez", "", "333333", "Madrid");
+		assertTrue(mc.editarCliente(cliente));
 	}
 
 	@Test
+	public void testGetContarClientes() {
+		assertTrue(mc.getContarClientes() != 0);
+	}
+	
+	@Test
 	public void testGetBusqueda() {
-		
 		ArrayList<Cliente> lista_clientes = mc.getBusqueda("va");
-		
-		assertTrue(lista_clientes.size() > 0);
-		
+		assertTrue(lista_clientes.size() != 0);
 	}
 
 }

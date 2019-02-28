@@ -25,10 +25,6 @@ public class controladorVehiculos {
 		return mv.getBusqueda(query);
 	}
 	
-	public boolean modificarVehiculo(Vehiculo v) {
-		return mv.modificarVehiculo(v);
-	} 
-	
 	public ArrayList<Vehiculo> getAllVehiculos(int page) {
 		return mv.getAllVehiculos(page);
 	}

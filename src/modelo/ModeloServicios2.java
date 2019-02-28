@@ -29,7 +29,7 @@ public class ModeloServicios2 extends Conexion{
 			
 			for(DetalleServicio dllsvc : lista) {
 				
-				agregarServicios(dllsvc, servicio.getNombre());
+				flag = agregarServicios(dllsvc, servicio.getNombre());
 				
 			}
 			

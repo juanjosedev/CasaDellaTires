@@ -172,10 +172,10 @@ public class modeloLiquidaciones extends Conexion {
 
 		try {
 			if (page == -1) {
-				String sql = "SELECT * FROM liquidaciones ORDER BY hora_inicio ASC";
+				String sql = "SELECT * FROM liquidaciones WHERE hora_final IS NOT NULL ORDER BY hora_inicio ASC";
 				objSta = getConnection().prepareStatement(sql);
 			} else {
-				String sql = "SELECT * FROM liquidaciones ORDER BY hora_inicio ASC LIMIT ?, ?";
+				String sql = "SELECT * FROM liquidaciones WHERE hora_final IS NOT NULL ORDER BY hora_inicio ASC LIMIT ?, ?";
 				objSta = getConnection().prepareStatement(sql);
 				objSta.setInt(1, (page * 10) - 10);
 				objSta.setInt(2, 10);

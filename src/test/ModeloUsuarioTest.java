@@ -35,7 +35,7 @@ public class ModeloUsuarioTest {
 	@Test
 	public void testUsuarioYaExiste() {
 		
-		boolean res = mu.usuarioYaExiste("usuario");
+		boolean res = mu.usuarioYaExiste("admin");
 		
 		assertTrue(res);
 		
@@ -44,7 +44,7 @@ public class ModeloUsuarioTest {
 	@Test
 	public void testRegistrarOperador() {
 		
-		Usuario nuevo_usuario = new Usuario("usuario", "clave", "nombre", "primer_apellido", "segundo_apellido", "telefono", "direccion");
+		Usuario nuevo_usuario = new Usuario("cristiango", "12345678", "Cristian", "Gómez", "Flórez", "4354783", "Belén");
 		
 		boolean res = mu.registrarOperador(nuevo_usuario);
 		
@@ -55,7 +55,7 @@ public class ModeloUsuarioTest {
 	@Test
 	public void testAutenticarUsuario() {
 	
-		Usuario usuario_autenticar = new Usuario("usuario", "clave");
+		Usuario usuario_autenticar = new Usuario("admin", "admin123");
 		boolean res = mu.autenticarUsuario(usuario_autenticar);
 	
 		assertTrue(res);
